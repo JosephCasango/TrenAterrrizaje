@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tipos de Trenes de Aterrizaje - UTT</title>
+    <style>
+        /* --- ESTILOS GENERALES Y FUENTES --- */
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto:wght@300;400;700&display=swap');
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f2f5; /* Fondo más suave */
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            line-height: 1.6;
+        }
+
+        .header-bar {
+
+            width: 100%;
+            background-color: #BAA95B; /* Color de fondo que combina con Rojo Vino */
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+           
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            position: fixed;
+            top: 10;
+            z-index: 1000;
+        }
+
+        .header-bar h1 {
+            color: #8B0000; /* Color Rojo Vino para el título */
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .utt-logo {
+
+            height: 50px; /* Tamaño del logo */
+            margin-right: 40px;
+        }
+
+        .container {
+            max-width: 1100px;
+            width: 100%;
+            padding: 100px 20px 40px; /* Espacio para la barra fija */
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        /* --- ANIMACIÓN DEL TREN DE ATERRIZAJE --- */
+        .animation-section {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .animation-section h2 {
+            color: #1a237e;
+            font-family: 'Montserrat', sans-serif;
+            border-bottom: none;
+            margin-top: 0;
+            padding-bottom: 0;
+            font-size: 28px;
+            font-weight: 600;
+        }
+
+        .animation-container {
+            width: 400px;
+            height: 300px;
+            background: linear-gradient(to bottom, #bbdefb, #e3f2fd); /* Gradiente para el fuselaje */
+            margin: 30px auto;
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            border: 1px solid #90caf9;
+        }
+
+        /* Compartimiento del tren (visual) */
+        .gear-bay {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 140px;
+            height: 80px; /* Profundidad del compartimiento */
+            background-color: #424242; /* Interior oscuro */
+            border-radius: 0 0 10px 10px;
+            z-index: 1;
+        }
+
+        /* Puertas del tren */
+        .gear-bay-door {
+            position: absolute;
+            bottom: -2px; /* Ligeramente solapado */
+            width: 70px;
+            height: 60px;
+            background-color: #a7d9f7; /* Color similar al fuselaje */
+            border: 1px solid #7cbcdb;
+            box-sizing: border-box;
+            transition: transform 0.6s ease-in-out, z-index 0.6s step-end;
+            z-index: 10;
+        }
+
+        .gear-bay-door.left {
+            left: 50%;
+            transform: translateX(-100%) skewY(10deg);
+            transform-origin: top right;
+            border-right: none;
+            border-radius: 0 0 0 10px;
+        }
+        .gear-bay-door.right {
+            left: 50%;
+            transform: skewY(-10deg);
+            transform-origin: top left;
+            border-left: none;
+            border-radius: 0 0 10px 0;
+        }
+
+        /* Contenedor del tren para agrupar las partes y aplicar la animación principal */
+        .landing-gear-assembly {
+            position: absolute;
+            bottom: -5px; /* Ligeramente por debajo del "fuselaje" */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px; /* Ancho base del tren */
+            height: 200px; /* Altura total del tren extendido */
+            transition: transform 1s ease-in-out; /* Transición principal de la retracción */
+            transform-origin: center bottom;
+            z-index: 5;
+        }
+
+        .main-strut {
+            width: 25px;
+            height: 140px;
+            background-color: #757575;
+            position: absolute;
+            bottom: 60px; /* Separado del "fuselaje" */
+            left: 50%;
+            transform: translateX(-50%) rotate(0deg);
+            transform-origin: top center;
+            border-radius: 5px;
+            border: 1px solid #424242;
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.3);
+            transition: transform 0.8s ease-in-out;
+            z-index: 6;
+        }
+
+        .support-arm {
+            width: 60px;
+            height: 10px;
+            background-color: #8d6e63; /* Simula un brazo de soporte */
+            position: absolute;
+            bottom: 120px;
+            left: 50%;
+            transform: translateX(-50%) rotate(0deg);
+            transform-origin: left center;
+            border-radius: 2px;
+            border: 1px solid #5d4037;
+            transition: transform 0.8s ease-in-out;
+            z-index: 7;
+        }
+
+        .wheel-assembly {
+            position: absolute;
+            bottom: 0px;
+            left: 50%;
+            transform: translateX(-50%) rotate(0deg);
+            transform-origin: center top;
+            transition: transform 0.8s ease-in-out;
+            z-index: 8;
+        }
+
+        .wheel-strut {
+            width: 15px;
+            height: 60px;
+            background-color: #616161;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 3px;
+            border: 1px solid #333;
+        }
+
+        .wheel {
+            width: 80px;
+            height: 80px;
+            background-color: #212121;
+            border-radius: 50%;
+            position: absolute;
+            bottom: -80px; /* Posición para que la rueda esté bajo la pata */
+            left: 50%;
+            transform: translateX(-50%);
+            border: 5px solid #424242;
+            box-sizing: border-box;
+            z-index: 9;
+            /* Aquí añadimos las "rayas" de la rueda */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .wheel::before, .wheel::after {
+            content: '';
+            position: absolute;
+            background-color: #424242;
+            border-radius: 2px;
+        }
+        .wheel::before {
+            width: 5px;
+            height: 70%;
+            transform: rotate(45deg);
+        }
+        .wheel::after {
+            width: 5px;
+            height: 70%;
+            transform: rotate(-45deg);
+        }
+        
+        /* --- ESTADO OCULTO DEL TREN DE ATERRIZAJE --- */
+        /* Retracción de las puertas */
+        .gear-bay-door.left.hidden {
+            transform: translateX(-150%) skewY(10deg) rotateZ(45deg); /* Se abre y se mueve */
+            z-index: 4; /* Baja el z-index para que el tren pase por delante */
+        }
+        .gear-bay-door.right.hidden {
+            transform: translateX(50%) skewY(-10deg) rotateZ(-45deg); /* Se abre y se mueve */
+            z-index: 4;
+        }
+
+        /* Movimiento de retracción del tren */
+        .landing-gear-assembly.hidden .main-strut {
+            transform: translateX(-50%) rotate(-90deg) translateY(-80px) translateX(20px);
+        }
+
+        .landing-gear-assembly.hidden .support-arm {
+            transform: translateX(-50%) rotate(-70deg) translateY(-40px);
+        }
+
+        .landing-gear-assembly.hidden .wheel-assembly {
+            transform: translateX(-50%) rotate(-90deg) translateY(-100px) translateX(20px);
+        }
+
+        .landing-gear-assembly.hidden .wheel {
+             transform: translateX(-50%) translateY(0px); /* La rueda sube junto con su pata */
+             /* Se oculta dentro del fuselaje, así que no necesitamos una transformación compleja aquí */
+        }
+
+        .landing-gear-assembly.hidden {
+            transform: translateX(-50%) translateY(100px); /* El conjunto sube al fuselaje */
+        }
+
+        .control-button {
+            display: block;
+            margin: 30px auto 0;
+            padding: 12px 25px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #fff;
+            background-color: #3f51b5;
+            border: none;
+            border-radius: 50px; /* Botón más redondeado */
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .control-button:hover {
+            background-color: #1a237e;
+            transform: translateY(-2px);
+        }
+        .control-button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        /* --- ESTILOS DEL CONTENIDO INFORMATIVO --- */
+        .info-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .info-card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            padding: 25px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+        .info-card h2 {
+            color: #283593;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 22px;
+            font-weight: 600;
+            margin-top: 0;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 10px;
+        }
+
+        .info-card ul {
+            list-style: none;
+            padding-left: 0;
+            margin-bottom: 20px;
+        }
+
+        .info-card li {
+            margin-bottom: 8px;
+            font-size: 15px;
+        }
+        
+        .info-card li::before {
+            content: "•";
+            color: #3f51b5;
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+
+        .info-card li strong {
+            color: #1a237e;
+        }
+
+        /* Estilo para las imágenes dentro de las tarjetas */
+        .info-card img {
+            width: 100%;
+            border-radius: 8px;
+            margin-top: 15px;
+            height: 180px;
+            object-fit: cover;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            cursor: zoom-in;
+        }
+
+        /* --- GALERÍA Y AMPLIACIÓN DE IMAGENES --- */
+        .gallery-container {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .gallery-container h2 {
+            color: #1a237e;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 30px;
+            border-bottom: none;
+        }
+
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .gallery-item {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+            cursor: zoom-in;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .gallery-item p {
+            padding: 15px;
+            margin: 0;
+            font-size: 14px;
+            color: #555;
+            font-weight: 600;
+            background-color: #f9f9f9;
+            border-top: 1px solid #eee;
+        }
+
+        /* Overlay para ampliación de imagen */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .overlay img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease;
+        }
+
+        .overlay.active img {
+            transform: scale(1);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            width: 100%;
+            background-color: #BAA95B;
+            color: #ffffff;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 50px;
+            font-size: 14px;
+            box-shadow: 0 -2px 8px rgba(0,0,0,0.2);
+        }
+
+        footer p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-bar">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/b/bb/Logo-UTT-Tijuana.png" alt="Logo UTT" class="utt-logo">
+        <h1>Trenes de Aterrizaje</h1>
+    </div>
+
+    <div class="container">
+        <div class="animation-section">
+            <center><h2>Tren de Aterrizaje</h2></center>
+            <div class="animation-container">
+                <div class="gear-bay-door left" id="gearDoorLeft"></div>
+                <div class="gear-bay-door right" id="gearDoorRight"></div>
+                <div class="gear-bay"></div> 
+                <div class="landing-gear-assembly" id="landingGearAssembly">
+                    <div class="main-strut"></div>
+                    <div class="support-arm"></div>
+                    <div class="wheel-assembly">
+                        <div class="wheel-strut"></div>
+                        <div class="wheel"></div>
+                    </div>
+                </div>
+            </div>
+            <button class="control-button" id="toggleButton">Ocultar / Mostrar Tren</button>
+        </div>
+
+        <div class="info-section">
+            <div class="info-card">
+                <h2>Tren de aterrizaje convencional (tipo “cola de dragón” o taildragger)</h2>
+                <ul>
+                    <li><strong>Componentes principales:</strong>
+                        <ul>
+                            <li>Ruedas principales: dos ruedas grandes delante, bajo las alas o fuselaje.</li>
+                            <li>Rueda de cola (o patín de cola): pequeña, ubicada en la parte trasera.</li>
+                            <li>Amortiguadores: absorben la energía en el impacto.</li>
+                            <li>Frenos de rueda: en las ruedas principales.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Funcionamiento:</strong>
+                        <ul>
+                            <li>Durante el despegue y aterrizaje, el avión se apoya sobre las dos ruedas delanteras y la cola.</li>
+                            <li>La rueda de cola proporciona dirección en tierra (con giro o patín fijo).</li>
+                            <li>Es un diseño más ligero y sencillo, pero más inestable en el rodaje.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Ejemplos de aviones que lo usan:</strong>
+                        <ul>
+                            <li>Curtiss P-40 Warhawk</li>
+                            <li>Piper Cub J-3</li>
+                            <li>Douglas DC-3 (versión clásica)</li>
+                        </ul>
+                    </li>
+                </ul>
+                <img src="https://www.aeroflap.com.br/wp-content/uploads/2015/07/77.jpg" data-large-src="https://www.aeroflap.com.br/wp-content/uploads/2015/07/77.jpg">
+            </div>
+
+            <div class="info-card">
+                <h2>Tren de aterrizaje triciclo</h2>
+                <ul>
+                    <li><strong>Componentes principales:</strong>
+                        <ul>
+                            <li>Dos ruedas principales: ubicadas detrás del centro de gravedad.</li>
+                            <li>Rueda de nariz (nose wheel): delantera, direccional.</li>
+                            <li>Amortiguadores oleoneumáticos (absorción de impactos con aceite y aire).</li>
+                            <li>Sistema de retracción (en aviones grandes, se guarda dentro del fuselaje o alas).</li>
+                        </ul>
+                    </li>
+                    <li><strong>Funcionamiento:</strong>
+                        <ul>
+                            <li>La rueda de nariz permite un rodaje más estable y dirección precisa en tierra.</li>
+                            <li>Durante el aterrizaje, las ruedas principales tocan primero y la nariz desciende después.</li>
+                            <li>Es el tren más común hoy en día, usado en aviación civil y militar.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Ejemplos de aviones que lo usan:</strong>
+                        <ul>
+                            <li>Boeing 737, Airbus A320 (aviación comercial).</li>
+                            <li>Cessna 172 (aviación ligera).</li>
+                            <li>A-10 Thunderbolt II (militar).</li>
+                        </ul>
+                    </li>
+                </ul>
+                <img src="https://st3.depositphotos.com/7370596/18446/i/450/depositphotos_184469746-stock-photo-nose-landing-gear-big-wide.jpg" data-large-src="https://st3.depositphotos.com/7370596/18446/i/450/depositphotos_184469746-stock-photo-nose-landing-gear-big-wide.jpg">
+            </div>
+
+            <div class="info-card">
+                <h2>Tren de aterrizaje tipo bicicleta (tándem)</h2>
+                <ul>
+                    <li><strong>Componentes principales:</strong>
+                        <ul>
+                            <li>Dos juegos principales de ruedas: uno delantero y otro trasero, alineados en el eje del fuselaje.</li>
+                            <li>Ruedas auxiliares (outriggers): pequeñas, bajo las alas, para mantener el equilibrio lateral.</li>
+                            <li>Amortiguadores oleoneumáticos.</li>
+                            <li>Sistema de retracción dentro del fuselaje.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Funcionamiento:</strong>
+                        <ul>
+                            <li>El avión se apoya en las ruedas en línea central, como una bicicleta.</li>
+                            <li>Las ruedas auxiliares evitan que las alas golpeen el suelo.</li>
+                            <li>Se utiliza en aviones con alas muy delgadas o fuselajes especiales.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Ejemplos de aviones que lo usan:</strong>
+                        <ul>
+                            <li>U-2 Dragon Lady (avión espía).</li>
+                            <li>B-52 Stratofortress (bombardero).</li>
+                            <li>Yakovlev Yak-28 (soviético).</li>
+                        </ul>
+                    </li>
+                </ul>
+                <img src="https://i.pinimg.com/736x/c1/a0/b2/c1a0b2937d245397c963f0ff2c502316.jpg" alt="Tren de aterrizaje tipo bicicleta" data-large-src="https://i.pinimg.com/736x/c1/a0/b2/c1a0b2937d245397c963f0ff2c502316.jpg">
+            </div>
+        </div>
+
+        <div class="gallery-container">
+            <h2>Galería Aeronáutica</h2>
+            <div class="image-grid">
+         
+      
+                <div class="gallery-item">
+                    <img src="https://miuniversidadculiacan.com/wp-content/uploads/2023/02/aeroespacial.jpeg" alt="Aeropuerto vista aérea">
+                    <p>Manufactura Aeronautica.</p>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://static.wixstatic.com/media/a7dce5_71e08eefdb7a473b81c179a56a971352~mv2.jpg/v1/fill/w_980,h_653,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/a7dce5_71e08eefdb7a473b81c179a56a971352~mv2.jpg" alt="Mantenimiento de tren">
+                    <p>Mantenimiento especializado de trenes.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="overlay" id="imageOverlay">
+        <img src="" alt="Imagen ampliada" id="overlayImage">
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Universidad Tecnológica de Tijuana. Todos los derechos reservados.</p>
+        <p>Diseñado para propósitos educativos CASANGO.</p>
+    </footer>
+
+    <script>
+        // --- CÓDIGO JAVASCRIPT ---
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggleButton = document.getElementById('toggleButton');
+            const landingGearAssembly = document.getElementById('landingGearAssembly');
+            const gearDoorLeft = document.getElementById('gearDoorLeft');
+            const gearDoorRight = document.getElementById('gearDoorRight');
+
+            // Función para alternar la visibilidad y animación del tren
+            toggleButton.addEventListener('click', function() {
+                if (landingGearAssembly.classList.contains('hidden')) {
+                    // Si está oculto, vamos a mostrarlo:
+                    // 1. Abrimos las puertas
+                    gearDoorLeft.classList.remove('hidden');
+                    gearDoorRight.classList.remove('hidden');
+                    // 2. Después de que las puertas estén abiertas (o casi), desplegamos el tren
+                    setTimeout(() => {
+                        landingGearAssembly.classList.remove('hidden');
+                    }, 300); // Pequeño retardo para que la puerta se abra un poco antes
+                } else {
+                    // Si está visible, vamos a ocultarlo:
+                    // 1. Retraemos el tren
+                    landingGearAssembly.classList.add('hidden');
+                    // 2. Después de que el tren se haya retraído, cerramos las puertas
+                    setTimeout(() => {
+                        gearDoorLeft.classList.add('hidden');
+                        gearDoorRight.classList.add('hidden');
+                    }, 800); // Retardo para que el tren se haya guardado antes de cerrar
+                }
+            });
+
+            // --- Funcionalidad de ampliación de imágenes ---
+            const overlay = document.getElementById('imageOverlay');
+            const overlayImage = document.getElementById('overlayImage');
+
+            document.querySelectorAll('.info-card img, .gallery-item img').forEach(img => {
+                img.addEventListener('click', function() {
+                    const imgSrc = this.getAttribute('data-large-src') || this.src;
+                    overlayImage.src = imgSrc;
+                    overlay.classList.add('active');
+                });
+            });
+
+            overlay.addEventListener('click', function() {
+                this.classList.remove('active');
+                overlayImage.src = ''; // Limpiar la imagen para ahorrar memoria
+            });
+        });
+    </script>
+
+</body>
+</html>
