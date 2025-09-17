@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tipos de Trenes de Aterrizaje - UTT</title>
+    <title>Trenes de Aterrizaje y Equipo - UTT</title>
     <style>
         /* --- ESTILOS GENERALES Y FUENTES --- */
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto:wght@300;400;700&display=swap');
-
+        
         body {
             font-family: 'Roboto', sans-serif;
             margin: 0;
@@ -26,19 +26,11 @@
             padding: 20px 40px;
             display: flex;
             justify-content: space-between;
-            align-items: center; /* Centra el contenido verticalmente */
+            align-items: center;
             box-shadow: 0 2px 8px rgba(0,0,0,0.2);
             position: fixed;
             top: 0;
             z-index: 1000;
-        }
-
-        .header-bar h1 {
-            color: #1a237e;
-            font-family: 'Montserrat', sans-serif;
-            margin: 0;
-            font-size: 24px;
-            font-weight: 700;
         }
 
         .utt-logo {
@@ -56,6 +48,11 @@
             display: flex;
             flex-direction: column;
             gap: 30px;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .container.hidden {
+            display: none;
         }
 
         /* --- ANIMACIÓN DEL TREN DE ATERRIZAJE --- */
@@ -79,8 +76,8 @@
         }
 
         .animation-container {
-            width: 90%; /* Ancho responsivo */
-            max-width: 400px; /* Ancho máximo para pantallas grandes */
+            width: 90%;
+            max-width: 400px;
             height: 300px;
             background: linear-gradient(to bottom, #bbdefb, #e3f2fd);
             margin: 30px auto;
@@ -93,8 +90,7 @@
             justify-content: center;
             border: 1px solid #90caf9;
         }
-
-        /* Compartimiento del tren (visual) */
+        
         .gear-bay {
             position: absolute;
             bottom: 0;
@@ -107,7 +103,6 @@
             z-index: 1;
         }
 
-        /* Puertas del tren */
         .gear-bay-door {
             position: absolute;
             bottom: -2px;
@@ -135,7 +130,6 @@
             border-radius: 0 0 10px 0;
         }
 
-        /* Contenedor del tren para agrupar las partes y aplicar la animación principal */
         .landing-gear-assembly {
             position: absolute;
             bottom: -5px;
@@ -258,7 +252,7 @@
         }
 
         .landing-gear-assembly.hidden .wheel {
-                transform: translateX(-50%) translateY(0px);
+            transform: translateX(-50%) translateY(0px);
         }
 
         .landing-gear-assembly.hidden {
@@ -347,7 +341,6 @@
             color: #1a237e;
         }
 
-        /* Estilo para las imágenes dentro de las tarjetas */
         .info-card img {
             width: 100%;
             border-radius: 8px;
@@ -445,6 +438,159 @@
             transform: scale(1);
         }
 
+        /* --- ESTILOS DE LOS BOTONES DE NAVEGACIÓN --- */
+        .nav-button-container {
+            display: flex;
+            justify-content: center;
+            margin: 20px;
+        }
+
+        .nav-button-3d {
+            -webkit-appearance: none;
+            appearance: none;
+            position: relative;
+            border-width: 0;
+            padding: 0 8px;
+            min-width: 4em;
+            min-height: 4em;
+            box-sizing: border-box;
+            background: transparent;
+            font: inherit;
+            cursor: pointer;
+            margin: 10px;
+            border-radius: 20px;
+        }
+
+        .nav-button-top {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 2;
+            padding: 8px 16px;
+            transform: translateY(0);
+            color: #fff;
+            text-shadow: 0 -1px rgba(0, 0, 0, 0.25);
+            border-radius: 20px;
+            transition: transform 0.3s, border-radius 0.3s, background 10s;
+        }
+
+        .nav-button-3d:active .nav-button-top {
+            border-radius: 10px 10px 8px 8px / 8px;
+            transform: translateY(2px);
+        }
+
+        .nav-button-bottom {
+            position: absolute;
+            z-index: 1;
+            bottom: 4px;
+            left: 4px;
+            border-radius: 20px;
+            padding-top: 6px;
+            width: calc(100% - 8px);
+            height: calc(100% - 10px);
+            box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.5);
+            transition: border-radius 0.2s, padding-top 0.2s;
+        }
+
+        .nav-button-base {
+            position: absolute;
+            z-index: 0;
+            top: 4px;
+            left: 0;
+            border-radius: 20px;
+            width: 100%;
+            height: calc(100% - 4px);
+            background-color: rgba(0, 0, 0, 0.15);
+            box-shadow: 0 1px 1px 0 rgba(255, 255, 255, 0.75),
+                inset 0 2px 2px rgba(0, 0, 0, 0.25);
+            transition: border-radius 0.2s, padding-top 0.2s;
+        }
+
+        .nav-button-3d:active .nav-button-bottom {
+            border-radius: 10px 10px 8px 8px / 8px;
+            padding-top: 0;
+        }
+
+        .nav-button-3d:active .nav-button-base {
+            border-radius: 10px 10px 8px 8px / 8px;
+        }
+        
+        .nav-button-top-right {
+            background-image: linear-gradient(145deg, #008744, #00C767);
+        }
+        .nav-button-3d:active .nav-button-top-right {
+            background-image: linear-gradient(145deg, #00C767, #008744);
+        }
+        .nav-button-bottom-right {
+            background-image: linear-gradient(145deg, #008744, #00C767);
+        }
+        
+        .nav-button-top-left {
+            background-image: linear-gradient(145deg, #f76262, #ff8a8a);
+        }
+        .nav-button-3d:active .nav-button-top-left {
+            background-image: linear-gradient(145deg, #ff8a8a, #f76262);
+        }
+        .nav-button-bottom-left {
+            background-image: linear-gradient(145deg, #f76262, #ff8a8a);
+        }
+
+        /* --- ESTILOS DEL CUADRO DE PERSONAS --- */
+        .person-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 45px;
+            text-align: center;
+            margin-top: 80px;
+        }
+
+        .person-card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-bottom: 20px;
+        }
+
+        .person-card img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+
+        .person-card h3 {
+            font-family: 'Montserrat', sans-serif;
+            color: #1a237e;
+            margin: 15px 0 5px;
+        }
+
+        .person-card p {
+            font-size: 14px;
+            color: #555;
+            margin: 0;
+            padding: 0 15px;
+        }
+
+        .person-card .contact-btn {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: #3f51b5;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .person-card .contact-btn:hover {
+            background-color: #1a237e;
+        }
+
         /* --- FOOTER --- */
         footer {
             width: 100%;
@@ -468,7 +614,7 @@
         <img src="https://upload.wikimedia.org/wikipedia/commons/b/bb/Logo-UTT-Tijuana.png" alt="Logo UTT" class="utt-logo">
     </div>
 
-    <div class="container">
+    <div class="container" id="page1">
         <div class="animation-section">
             <center><h2>Tren de Aterrizaje</h2></center>
             <div class="animation-container">
@@ -572,7 +718,7 @@
                         </ul>
                     </li>
                 </ul>
-                <img src="https://i.pinimg.com/736x/c1/a0/b2/c1a0b2937d245397c963f0ff2c502316.jpg" alt="Tren de aterrizaje tipo bicicleta" data-large-src="https://i.pinimg.com/736x/c1/a0/b2/c1a0b2937d245397c963f0ff2c502316.jpg">
+                <img src="https://i.pinimg.com/736x/c1/a0/b2/c1a0b2937d245397c963f0ff2c502316.jpg" alt="Tren de aterrizaje tipo bicicleta" data-large-src="https://i.pinimg.com/736x/c1/a0b2937d245397c963f0ff2c502316.jpg">
             </div>
         </div>
 
@@ -589,6 +735,60 @@
                 </div>
             </div>
         </div>
+
+        <div class="nav-button-container">
+            <button class="nav-button-3d" id="goToPage2">
+                <div class="nav-button-top nav-button-top-right">
+                    <span class="material-icons">Siguiente ❯</span>
+                </div>
+                <div class="nav-button-bottom nav-button-bottom-right"></div>
+                <div class="nav-button-base"></div>
+            </button>
+        </div>
+    </div>
+
+    <div class="container hidden" id="page2">
+        <center><h2>SE BUSCAN</h2></center>
+        <div class="person-section">
+            <div class="person-card">
+                <img src="https://i.pinimg.com/736x/ab/fb/9e/abfb9ec8dfcf2d6816601ec6519ff215.jpg" alt="Jane Doe">
+                <h3>Casango Jose</h3>
+                <p>Manufactura Aeronautica</p>
+                <p>Estudiante UTT.</p>
+                <a href="https://www.instagram.com/albertcota_667/?utm_source=ig_web_button_share_sheet" class="contact-btn">Contact</a>
+            </div>
+            <div class="person-card">
+                <img src="https://i.pinimg.com/736x/2c/27/e7/2c27e7ed9fb7b79704b087736b13268f.jpg" alt="Mike Ross">
+                <h3>Ponce Jose</h3>
+                <p>Manufactura Aeronautica</p>
+                <p>Estudiante UTT.</p>
+                <a href="https://www.instagram.com/23jponce?utm_source=ig_web_button_share_sheet&igsh=MWFxeWE3a3F5aXExNA==" class="contact-btn">Contact</a>
+            </div>
+            <div class="person-card">
+                <img src="https://i.pinimg.com/736x/de/e4/3d/dee43d3ae69b3ad60ad33e47ab72cc54.jpg" alt="John Doe">
+                <h3>Cobian Diego</h3>
+                <p>Manufactura Aeronautica</p>
+                <p>Estudiante UTT.</p>
+                <a href="https://www.instagram.com/cdiego_01?utm_source=ig_web_button_share_sheet&igsh=MWwyNTliNmQ2N2gxOQ==" class="contact-btn">Contact</a>
+            </div>
+             <div class="person-card">
+                <img src="https://i.pinimg.com/736x/36/63/57/36635751ca6a4ec5a3a3e0986db52d1c.jpg" alt="Sara Smith">
+                <h3>Martinez Jazibe</h3>
+                <p>Manufactura Aeronautica</p>
+                <p>Estudiante UTT.</p>
+                <a href="https://www.instagram.com/utt_aero_2b?utm_source=ig_web_button_share_sheet&igsh=MXZ3b3hpMmlraG0waw==" class="contact-btn">Contact</a>
+            </div>
+        </div>
+
+        <div class="nav-button-container">
+            <button class="nav-button-3d" id="goToPage1">
+                <div class="nav-button-top nav-button-top-left">
+                    <span class="material-icons">❮ Anterior</span>
+                </div>
+                <div class="nav-button-bottom nav-button-bottom-left"></div>
+                <div class="nav-button-base"></div>
+            </button>
+        </div>
     </div>
 
     <div class="overlay" id="imageOverlay">
@@ -602,6 +802,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Lógica para la animación del tren de aterrizaje
             const toggleButton = document.getElementById('toggleButton');
             const landingGearAssembly = document.getElementById('landingGearAssembly');
             const gearDoorLeft = document.getElementById('gearDoorLeft');
@@ -609,14 +810,12 @@
 
             toggleButton.addEventListener('click', function() {
                 if (landingGearAssembly.classList.contains('hidden')) {
-                    // Si está oculto, lo muestra
                     gearDoorLeft.classList.remove('hidden');
                     gearDoorRight.classList.remove('hidden');
                     setTimeout(() => {
                         landingGearAssembly.classList.remove('hidden');
                     }, 300);
                 } else {
-                    // Si está visible, lo oculta
                     landingGearAssembly.classList.add('hidden');
                     setTimeout(() => {
                         gearDoorLeft.classList.add('hidden');
@@ -625,6 +824,7 @@
                 }
             });
 
+            // Lógica para el overlay de las imágenes
             const overlay = document.getElementById('imageOverlay');
             const overlayImage = document.getElementById('overlayImage');
 
@@ -639,6 +839,24 @@
             overlay.addEventListener('click', function() {
                 this.classList.remove('active');
                 overlayImage.src = '';
+            });
+
+            // Lógica para el cambio de "pestaña"
+            const page1 = document.getElementById('page1');
+            const page2 = document.getElementById('page2');
+            const goToPage2Btn = document.getElementById('goToPage2');
+            const goToPage1Btn = document.getElementById('goToPage1');
+
+            goToPage2Btn.addEventListener('click', function() {
+                page1.classList.add('hidden');
+                page2.classList.remove('hidden');
+                window.scrollTo(0, 0);
+            });
+
+            goToPage1Btn.addEventListener('click', function() {
+                page2.classList.add('hidden');
+                page1.classList.remove('hidden');
+                window.scrollTo(0, 0);
             });
         });
     </script>
