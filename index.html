@@ -3,862 +3,255 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trenes de Aterrizaje y Equipo - UTT</title>
+    <title>Trenes de Aterrizaje Retráctiles</title>
     <style>
-        /* --- ESTILOS GENERALES Y FUENTES --- */
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto:wght@300;400;700&display=swap');
-        
+        /* --- Estilos Generales (CSS) --- */
         body {
-            font-family: 'Roboto', sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
             margin: 0;
             padding: 0;
-            background-color: #f0f2f5;
+            background-color: #ffffff; /* Fondo blanco como se solicitó */
             color: #333;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            line-height: 1.6;
-        }
-
-        .header-bar {
-            width: 100%;
-            background-color: #000000;
-            padding: 20px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-            position: fixed;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .utt-logo {
-            max-height: 50px;
-            width: auto;
-            margin: 0 auto;
-            display: block;
         }
 
         .container {
-            max-width: 1100px;
-            width: 100%;
-            padding: 100px 20px 40px;
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-            transition: opacity 0.5s ease-in-out;
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 0 20px;
         }
 
-        .container.hidden {
-            display: none;
-        }
-
-        /* --- ANIMACIÓN DEL TREN DE ATERRIZAJE --- */
-        .animation-section {
-            background-color: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            padding: 30px;
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .animation-section h2 {
-            color: #1a237e;
-            font-family: 'Montserrat', sans-serif;
-            border-bottom: none;
-            margin-top: 0;
-            padding-bottom: 0;
-            font-size: 28px;
-            font-weight: 600;
-        }
-
-        .animation-container {
-            width: 90%;
-            max-width: 400px;
-            height: 300px;
-            background: linear-gradient(to bottom, #bbdefb, #e3f2fd);
-            margin: 30px auto;
-            position: relative;
-            overflow: hidden;
-            border-radius: 15px;
-            box-shadow: inset 0 0 15px rgba(0,0,0,0.2);
-            display: flex;
-            align-items: flex-end;
-            justify-content: center;
-            border: 1px solid #90caf9;
-        }
-        
-        .gear-bay {
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 140px;
-            height: 80px;
-            background-color: #424242;
-            border-radius: 0 0 10px 10px;
-            z-index: 1;
-        }
-
-        .gear-bay-door {
-            position: absolute;
-            bottom: -2px;
-            width: 70px;
-            height: 60px;
-            background-color: #a7d9f7;
-            border: 1px solid #7cbcdb;
-            box-sizing: border-box;
-            transition: transform 0.6s ease-in-out, z-index 0.6s step-end;
-            z-index: 10;
-        }
-
-        .gear-bay-door.left {
-            left: 50%;
-            transform: translateX(-100%) skewY(10deg);
-            transform-origin: top right;
-            border-right: none;
-            border-radius: 0 0 0 10px;
-        }
-        .gear-bay-door.right {
-            left: 50%;
-            transform: skewY(-10deg);
-            transform-origin: top left;
-            border-left: none;
-            border-radius: 0 0 10px 0;
-        }
-
-        .landing-gear-assembly {
-            position: absolute;
-            bottom: -5px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 120px;
-            height: 200px;
-            transition: transform 1s ease-in-out;
-            transform-origin: center bottom;
-            z-index: 5;
-        }
-
-        .main-strut {
-            width: 25px;
-            height: 140px;
-            background-color: #757575;
-            position: absolute;
-            bottom: 60px;
-            left: 50%;
-            transform: translateX(-50%) rotate(0deg);
-            transform-origin: top center;
-            border-radius: 5px;
-            border: 1px solid #424242;
-            box-shadow: inset 0 0 5px rgba(0,0,0,0.3);
-            transition: transform 0.8s ease-in-out;
-            z-index: 6;
-        }
-
-        .support-arm {
-            width: 60px;
-            height: 10px;
-            background-color: #8d6e63;
-            position: absolute;
-            bottom: 120px;
-            left: 50%;
-            transform: translateX(-50%) rotate(0deg);
-            transform-origin: left center;
-            border-radius: 2px;
-            border: 1px solid #5d4037;
-            transition: transform 0.8s ease-in-out;
-            z-index: 7;
-        }
-
-        .wheel-assembly {
-            position: absolute;
-            bottom: 0px;
-            left: 50%;
-            transform: translateX(-50%) rotate(0deg);
-            transform-origin: center top;
-            transition: transform 0.8s ease-in-out;
-            z-index: 8;
-        }
-
-        .wheel-strut {
-            width: 15px;
-            height: 60px;
-            background-color: #616161;
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            border-radius: 3px;
-            border: 1px solid #333;
-        }
-
-        .wheel {
-            width: 80px;
-            height: 80px;
-            background-color: #212121;
-            border-radius: 50%;
-            position: absolute;
-            bottom: -80px;
-            left: 50%;
-            transform: translateX(-50%);
-            border: 5px solid #424242;
-            box-sizing: border-box;
-            z-index: 9;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .wheel::before, .wheel::after {
-            content: '';
-            position: absolute;
-            background-color: #424242;
-            border-radius: 2px;
-        }
-        .wheel::before {
-            width: 5px;
-            height: 70%;
-            transform: rotate(45deg);
-        }
-        .wheel::after {
-            width: 5px;
-            height: 70%;
-            transform: rotate(-45deg);
-        }
-            
-        /* --- ESTADO OCULTO DEL TREN DE ATERRIZAJE --- */
-        .gear-bay-door.left.hidden {
-            transform: translateX(-150%) skewY(10deg) rotateZ(45deg);
-            z-index: 4;
-        }
-        .gear-bay-door.right.hidden {
-            transform: translateX(50%) skewY(-10deg) rotateZ(-45deg);
-            z-index: 4;
-        }
-
-        .landing-gear-assembly.hidden .main-strut {
-            transform: translateX(-50%) rotate(-90deg) translateY(-80px) translateX(20px);
-        }
-
-        .landing-gear-assembly.hidden .support-arm {
-            transform: translateX(-50%) rotate(-70deg) translateY(-40px);
-        }
-
-        .landing-gear-assembly.hidden .wheel-assembly {
-            transform: translateX(-50%) rotate(-90deg) translateY(-100px) translateX(20px);
-        }
-
-        .landing-gear-assembly.hidden .wheel {
-            transform: translateX(-50%) translateY(0px);
-        }
-
-        .landing-gear-assembly.hidden {
-            transform: translateX(-50%) translateY(100px);
-        }
-
-        .control-button {
-            display: block;
-            margin: 30px auto 0;
-            padding: 12px 25px;
-            font-size: 16px;
-            font-weight: bold;
-            color: #fff;
-            background-color: #3f51b5;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.2s;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        }
-
-        .control-button:hover {
-            background-color: #1a237e;
-            transform: translateY(-2px);
-        }
-        .control-button:active {
-            transform: translateY(0);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
-            
-        /* --- ESTILOS DEL CONTENIDO INFORMATIVO --- */
-        .info-section {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-        }
-
-        .info-card {
-            background-color: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            padding: 25px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .info-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-        }
-
-        .info-card h2 {
-            color: #283593;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 22px;
-            font-weight: 600;
-            margin-top: 0;
-            margin-bottom: 15px;
+        h1, h2, h3 {
+            color: #003366; /* Un color azul oscuro para los títulos */
             border-bottom: 2px solid #e0e0e0;
             padding-bottom: 10px;
         }
 
-        .info-card ul {
-            list-style: none;
-            padding-left: 0;
-            margin-bottom: 20px;
-        }
-
-        .info-card li {
-            margin-bottom: 8px;
-            font-size: 15px;
-        }
-            
-        .info-card li::before {
-            content: "•";
-            color: #3f51b5;
-            font-weight: bold;
-            display: inline-block;
-            width: 1em;
-            margin-left: -1em;
-        }
-
-        .info-card li strong {
-            color: #1a237e;
-        }
-
-        .info-card img {
-            width: 100%;
-            border-radius: 8px;
-            margin-top: 15px;
-            height: 180px;
-            object-fit: cover;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            cursor: zoom-in;
-        }
-
-        /* --- GALERÍA Y AMPLIACIÓN DE IMAGENES --- */
-        .gallery-container {
+        h1 {
             text-align: center;
+            font-size: 2.5em;
+        }
+
+        h2 {
+            font-size: 2em;
             margin-top: 40px;
         }
-
-        .gallery-container h2 {
-            color: #1a237e;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 28px;
-            font-weight: 600;
-            margin-bottom: 30px;
+        
+        h3 {
+            font-size: 1.5em;
+            color: #0055a4;
             border-bottom: none;
         }
 
-        .image-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-bottom: 40px;
+        p, ul {
+            font-size: 1.1em;
+            text-align: justify;
         }
 
-        .gallery-item {
-            background-color: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            overflow: hidden;
-            cursor: zoom-in;
+        ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+        
+        li {
+            margin-bottom: 10px;
+        }
+
+        /* --- Estilos para las Imágenes Interactivas --- */
+        .landing-gear-img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            cursor: pointer; /* Cambia el cursor para indicar que es clickeable */
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .gallery-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-        }
-
-        .gallery-item img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
             display: block;
+            margin: 20px auto;
         }
 
-        .gallery-item p {
-            padding: 15px;
-            margin: 0;
-            font-size: 14px;
-            color: #555;
-            font-weight: 600;
-            background-color: #f9f9f9;
-            border-top: 1px solid #eee;
+        .landing-gear-img:hover {
+            transform: scale(1.03); /* Efecto de zoom suave al pasar el ratón */
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
         }
 
-        /* Overlay para ampliación de imagen */
-        .overlay {
+        /* --- Estilos para la Ventana Modal (Imagen Ampliada) --- */
+        .modal {
+            display: none; /* Oculto por defecto */
             position: fixed;
-            top: 0;
+            z-index: 1000;
             left: 0;
+            top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            display: flex;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.85); /* Fondo oscuro semitransparente */
             justify-content: center;
             align-items: center;
-            z-index: 2000;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease;
         }
 
-        .overlay.active {
-            opacity: 1;
-            visibility: visible;
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 85%;
+            max-height: 85%;
+            animation: zoomIn 0.4s ease;
         }
 
-        .overlay img {
-            max-width: 90%;
-            max-height: 90%;
-            border-radius: 8px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-            transition: transform 0.3s ease;
+        /* Animación para la imagen */
+        @keyframes zoomIn {
+            from {transform: scale(0.5);}
+            to {transform: scale(1);}
         }
 
-        .overlay.active img {
-            transform: scale(1);
-        }
-
-        /* --- ESTILOS DE LOS BOTONES DE NAVEGACIÓN --- */
-        .nav-button-container {
-            display: flex;
-            justify-content: center;
-            margin: 20px;
-        }
-
-        .nav-button-3d {
-            -webkit-appearance: none;
-            appearance: none;
-            position: relative;
-            border-width: 0;
-            padding: 0 8px;
-            min-width: 4em;
-            min-height: 4em;
-            box-sizing: border-box;
-            background: transparent;
-            font: inherit;
-            cursor: pointer;
-            margin: 10px;
-            border-radius: 20px;
-        }
-
-        .nav-button-top {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            z-index: 2;
-            padding: 8px 16px;
-            transform: translateY(0);
-            color: #fff;
-            text-shadow: 0 -1px rgba(0, 0, 0, 0.25);
-            border-radius: 20px;
-            transition: transform 0.3s, border-radius 0.3s, background 10s;
-        }
-
-        .nav-button-3d:active .nav-button-top {
-            border-radius: 10px 10px 8px 8px / 8px;
-            transform: translateY(2px);
-        }
-
-        .nav-button-bottom {
+        /* Botón para cerrar la imagen */
+        .close {
             position: absolute;
-            z-index: 1;
-            bottom: 4px;
-            left: 4px;
-            border-radius: 20px;
-            padding-top: 6px;
-            width: calc(100% - 8px);
-            height: calc(100% - 10px);
-            box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.5);
-            transition: border-radius 0.2s, padding-top 0.2s;
-        }
-
-        .nav-button-base {
-            position: absolute;
-            z-index: 0;
-            top: 4px;
-            left: 0;
-            border-radius: 20px;
-            width: 100%;
-            height: calc(100% - 4px);
-            background-color: rgba(0, 0, 0, 0.15);
-            box-shadow: 0 1px 1px 0 rgba(255, 255, 255, 0.75),
-                inset 0 2px 2px rgba(0, 0, 0, 0.25);
-            transition: border-radius 0.2s, padding-top 0.2s;
-        }
-
-        .nav-button-3d:active .nav-button-bottom {
-            border-radius: 10px 10px 8px 8px / 8px;
-            padding-top: 0;
-        }
-
-        .nav-button-3d:active .nav-button-base {
-            border-radius: 10px 10px 8px 8px / 8px;
-        }
-        
-        .nav-button-top-right {
-            background-image: linear-gradient(145deg, #008744, #00C767);
-        }
-        .nav-button-3d:active .nav-button-top-right {
-            background-image: linear-gradient(145deg, #00C767, #008744);
-        }
-        .nav-button-bottom-right {
-            background-image: linear-gradient(145deg, #008744, #00C767);
-        }
-        
-        .nav-button-top-left {
-            background-image: linear-gradient(145deg, #f76262, #ff8a8a);
-        }
-        .nav-button-3d:active .nav-button-top-left {
-            background-image: linear-gradient(145deg, #ff8a8a, #f76262);
-        }
-        .nav-button-bottom-left {
-            background-image: linear-gradient(145deg, #f76262, #ff8a8a);
-        }
-
-        /* --- ESTILOS DEL CUADRO DE PERSONAS --- */
-        .person-section {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 45px;
-            text-align: center;
-            margin-top: 80px;
-        }
-
-        .person-card {
-            background-color: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding-bottom: 20px;
-        }
-
-        .person-card img {
-            width: 100%;
-            height: 400px;
-            object-fit: cover;
-        }
-
-        .person-card h3 {
-            font-family: 'Montserrat', sans-serif;
-            color: #1a237e;
-            margin: 15px 0 5px;
-        }
-
-        .person-card p {
-            font-size: 14px;
-            color: #555;
-            margin: 0;
-            padding: 0 15px;
-        }
-
-        .person-card .contact-btn {
-            display: inline-block;
-            margin-top: 15px;
-            padding: 10px 20px;
-            background-color: #3f51b5;
+            top: 20px;
+            right: 35px;
             color: #fff;
-            text-decoration: none;
-            border-radius: 5px;
+            font-size: 40px;
             font-weight: bold;
-            transition: background-color 0.3s;
+            transition: 0.3s;
+            cursor: pointer;
         }
 
-        .person-card .contact-btn:hover {
-            background-color: #1a237e;
-        }
-
-        /* --- FOOTER --- */
-        footer {
-            width: 100%;
-            background-color: #000000;
-            color: #ffffff;
-            text-align: center;
-            padding: 20px 0;
-            margin-top: 50px;
-            font-size: 14px;
-            box-shadow: 0 -2px 8px rgba(0,0,0,0.2);
-        }
-
-        footer p {
-            margin: 0;
+        .close:hover,
+        .close:focus {
+            color: #bbb;
+            text-decoration: none;
         }
     </style>
 </head>
 <body>
 
-    <div class="header-bar">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/b/bb/Logo-UTT-Tijuana.png" alt="Logo UTT" class="utt-logo">
+    <div class="container">
+        <h1>Tipos de Trenes de Aterrizaje Retráctiles</h1>
+        <p>
+            El tren de aterrizaje es uno de los componentes más críticos de una aeronave, responsable de soportar todo su peso durante el rodaje, despegue y, especialmente, el aterrizaje. Los sistemas retráctiles permiten que el tren se pliegue y guarde dentro del fuselaje o las alas durante el vuelo. Esto reduce drásticamente la resistencia aerodinámica, permitiendo que el avión vuele a mayores velocidades y consuma menos combustible. A continuación, se detallan los sistemas de tres aeronaves icónicas.
+        </p>
+
+        <section id="b747">
+            <h2>Boeing 747 "Queen of the Skies"</h2>
+            <p>
+                El Boeing 747, conocido como la "Reina de los Cielos", es famoso por su tamaño y su distintiva joroba. Su tren de aterrizaje es una proeza de la ingeniería, diseñado para soportar un peso máximo al despegue de casi 400 toneladas.
+            </p>
+            
+            <img src="https://www.datocms-assets.com/53444/1706196786-prototype-boeing-747-landing-gear.jpg?auto=format&fit=max&w=1024" alt="Tren de aterrizaje de un Boeing 747" class="landing-gear-img">
+
+            <h3>Conceptos y Funcionamiento</h3>
+            <p>
+                El 747 utiliza una configuración de tipo **triciclo con bogies múltiples**. Consta de un total de 18 ruedas:
+            </p>
+            <ul>
+                <li><strong>Tren de Nariz (2 ruedas):</strong> Ubicado en la parte delantera, es dirigible para maniobrar en tierra.</li>
+                <li><strong>Trenes Principales (16 ruedas):</strong> Se dividen en cuatro conjuntos de cuatro ruedas cada uno (bogies). Dos están montados en las alas y los otros dos en el fuselaje. Esta distribución masiva de ruedas reparte el peso sobre una gran superficie, permitiéndole operar en pistas estándar.</li>
+                <li><strong>Sistema de Retracción:</strong> Funciona hidráulicamente. Los trenes principales del fuselaje se retraen hacia adelante, mientras que los de las alas se pliegan hacia adentro. El tren de nariz se retrae hacia adelante.</li>
+                <li><strong>Amortiguación:</strong> Utiliza amortiguadores óleo-neumáticos (struts) que absorben la energía del impacto al aterrizar mediante la compresión de aceite y nitrógeno.</li>
+            </ul>
+
+            <h3>Materiales Principales</h3>
+            <ul>
+                <li><strong>Acero de ultra-alta resistencia (ej. 300M):</strong> Utilizado en los cilindros, pistones y componentes estructurales principales que deben soportar las cargas más extremas.</li>
+                <li><strong>Aleaciones de titanio (ej. Ti-6Al-4V):</strong> Empleado en piezas críticas que requieren una alta relación resistencia-peso y excelente resistencia a la corrosión, como los ejes de los bogies.</li>
+                <li><strong>Aleaciones de aluminio (Serie 7000):</strong> Se usa en componentes menos críticos estructuralmente, como soportes y partes de la estructura de retracción, para ahorrar peso.</li>
+            </ul>
+        </section>
+        
+        <hr>
+
+        <section id="a380">
+            <h2>Airbus A380</h2>
+            <p>
+                El Airbus A380 es el avión de pasajeros más grande del mundo. Su tren de aterrizaje fue diseñado no solo para soportar su inmenso peso (hasta 575 toneladas), sino también para ser compatible con la infraestructura aeroportuaria existente.
+            </p>
+            
+            <img src="https://www.shutterstock.com/image-photo/a380-landing-gear-close-600nw-1087877453.jpg" alt="Tren de aterrizaje de un Airbus A380" class="landing-gear-img">
+            
+            <h3>Conceptos y Funcionamiento</h3>
+            <p>
+                El A380 tiene un total de 22 ruedas, distribuidas en una configuración triciclo compleja para gestionar su enorme masa:
+            </p>
+            <ul>
+                <li><strong>Tren de Nariz (2 ruedas):</strong> Similar al de otros aviones comerciales, es dirigible.</li>
+                <li><strong>Trenes Principales (20 ruedas):</strong> Divididos en cuatro conjuntos. Dos bogies de seis ruedas cada uno están montados bajo el fuselaje, y dos bogies de cuatro ruedas cada uno están montados bajo las alas. Esta configuración distribuye el peso de manera tan eficiente que su impacto en el pavimento es comparable al de un Boeing 747.</li>
+                <li><strong>Sistema de Dirección Auxiliar:</strong> Para mejorar la maniobrabilidad en tierra, los bogies traseros del tren montado en el fuselaje también son dirigibles, lo que permite al A380 realizar giros en calles de rodaje estándar.</li>
+                <li><strong>Sistema de Retracción:</strong> Es un sistema hidráulico complejo. Los trenes de las alas se retraen lateralmente, mientras que los del fuselaje se retraen hacia adelante en compartimentos enormes.</li>
+            </ul>
+            
+            <h3>Materiales Principales</h3>
+            <ul>
+                <li><strong>Aleaciones de titanio:</strong> Utilizadas extensivamente en vigas de bogie y componentes estructurales por su resistencia y ligereza.</li>
+                <li><strong>Acero de alta resistencia:</strong> Esencial en cilindros de amortiguadores y ejes donde la robustez es la máxima prioridad.</li>
+                <li><strong>Compuestos y aleaciones de aluminio-litio:</strong> Se emplean en puertas y carenados del tren para minimizar el peso sin comprometer la resistencia aerodinámica.</li>
+            </ul>
+        </section>
+
+        <hr>
+
+        <section id="f22">
+            <h2>Lockheed Martin F-22 Raptor</h2>
+            <p>
+                El F-22 Raptor es un caza de quinta generación diseñado para la superioridad aérea. Su tren de aterrizaje no solo debe ser extremadamente robusto para soportar aterrizajes a alta velocidad y en pistas cortas, sino también debe retraerse rápidamente y encajar en un espacio muy reducido para mantener las características de sigilo (stealth) del avión.
+            </p>
+            
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtvzsN_mV94O624mZO9_JefMZzFPTq8V0jcRg1yULTNznMvYyuONz2p8toyaY2W9tdO8g&usqp=CAU" alt="Tren de aterrizaje de un F-22 Raptor" class="landing-gear-img">
+            
+            <h3>Conceptos y Funcionamiento</h3>
+            <p>
+                El F-22 utiliza una configuración de triciclo estándar pero con un diseño optimizado para el sigilo y el rendimiento:
+            </p>
+            <ul>
+                <li><strong>Diseño de Sigilo (Stealth):</strong> Las puertas del tren de aterrizaje tienen bordes en forma de diente de sierra para dispersar las ondas de radar. Se cierran tan pronto como el tren se despliega para minimizar la firma de radar del avión.</li>
+                <li><strong>Retracción Rápida:</strong> El sistema hidráulico está diseñado para retraer y desplegar el tren en segundos, algo crucial durante el combate para no comprometer la aerodinámica ni el sigilo.</li>
+                <li><strong>Robustez Extrema:</strong> Está diseñado para soportar aterrizajes con una alta tasa de descenso, permitiendo operar desde pistas dañadas o de emergencia. El amortiguador es capaz de absorber una cantidad de energía masiva.</li>
+                <li><strong>Mecanismo de Retracción:</strong> El tren principal se retrae hacia los lados, alojándose en bahías dentro del fuselaje, mientras que el tren de nariz se retrae hacia adelante.</li>
+            </ul>
+            
+            <h3>Materiales Principales</h3>
+            <ul>
+                <li><strong>Titanio forjado (especialmente Ti-6Al-4V):</strong> Es el material predominante en la estructura principal del tren debido a su increíble resistencia a la fatiga y a los impactos, crucial para un caza de alto rendimiento.</li>
+                <li><strong>Acero Aermet 100:</strong> Una aleación de acero de ultra-alta resistencia utilizada en los ejes y pasadores que deben soportar las mayores tensiones.</li>
+                <li><strong>Compuestos de fibra de carbono:</strong> Utilizados en las puertas del tren de aterrizaje para mantener la rigidez y la forma requerida para el sigilo, con un peso mínimo.</li>
+            </ul>
+        </section>
     </div>
 
-    <div class="container" id="page1">
-        <div class="animation-section">
-            <center><h2>Tren de Aterrizaje</h2></center>
-            <div class="animation-container">
-                <div class="gear-bay-door left" id="gearDoorLeft"></div>
-                <div class="gear-bay-door right" id="gearDoorRight"></div>
-                <div class="gear-bay"></div> 
-                <div class="landing-gear-assembly" id="landingGearAssembly">
-                    <div class="main-strut"></div>
-                    <div class="support-arm"></div>
-                    <div class="wheel-assembly">
-                        <div class="wheel-strut"></div>
-                        <div class="wheel"></div>
-                    </div>
-                </div>
-            </div>
-            <button class="control-button" id="toggleButton">Ocultar / Mostrar Tren</button>
-        </div>
-
-        <div class="info-section">
-            <div class="info-card">
-                <h2>Tren de aterrizaje convencional (tipo “cola de dragón” o taildragger)</h2>
-                <ul>
-                    <li><strong>Componentes principales:</strong>
-                        <ul>
-                            <li>Ruedas principales: dos ruedas grandes delante, bajo las alas o fuselaje.</li>
-                            <li>Rueda de cola (o patín de cola): pequeña, ubicada en la parte trasera.</li>
-                            <li>Amortiguadores: absorben la energía en el impacto.</li>
-                            <li>Frenos de rueda: en las ruedas principales.</li>
-                        </ul>
-                    </li>
-                    <li><strong>Funcionamiento:</strong>
-                        <ul>
-                            <li>Durante el despegue y aterrizaje, el avión se apoya sobre las dos ruedas delanteras y la cola.</li>
-                            <li>La rueda de cola proporciona dirección en tierra (con giro o patín fijo).</li>
-                            <li>Es un diseño más ligero y sencillo, pero más inestable en el rodaje.</li>
-                        </ul>
-                    </li>
-                    <li><strong>Ejemplos de aviones que lo usan:</strong>
-                        <ul>
-                            <li>Curtiss P-40 Warhawk</li>
-                            <li>Piper Cub J-3</li>
-                            <li>Douglas DC-3 (versión clásica)</li>
-                        </ul>
-                    </li>
-                </ul>
-                <img src="https://www.aeroflap.com.br/wp-content/uploads/2015/07/77.jpg" data-large-src="https://www.aeroflap.com.br/wp-content/uploads/2015/07/77.jpg">
-            </div>
-
-            <div class="info-card">
-                <h2>Tren de aterrizaje triciclo</h2>
-                <ul>
-                    <li><strong>Componentes principales:</strong>
-                        <ul>
-                            <li>Dos ruedas principales: ubicadas detrás del centro de gravedad.</li>
-                            <li>Rueda de nariz (nose wheel): delantera, direccional.</li>
-                            <li>Amortiguadores oleoneumáticos (absorción de impactos con aceite y aire).</li>
-                            <li>Sistema de retracción (en aviones grandes, se guarda dentro del fuselaje o alas).</li>
-                        </ul>
-                    </li>
-                    <li><strong>Funcionamiento:</strong>
-                        <ul>
-                            <li>La rueda de nariz permite un rodaje más estable y dirección precisa en tierra.</li>
-                            <li>Durante el aterrizaje, las ruedas principales tocan primero y la nariz desciende después.</li>
-                            <li>Es el tren más común hoy en día, usado en aviación civil y militar.</li>
-                        </ul>
-                    </li>
-                    <li><strong>Ejemplos de aviones que lo usan:</strong>
-                        <ul>
-                            <li>Boeing 737, Airbus A320 (aviación comercial).</li>
-                            <li>Cessna 172 (aviación ligera).</li>
-                            <li>A-10 Thunderbolt II (militar).</li>
-                        </ul>
-                    </li>
-                </ul>
-                <img src="https://st3.depositphotos.com/7370596/18446/i/450/depositphotos_184469746-stock-photo-nose-landing-gear-big-wide.jpg" data-large-src="https://st3.depositphotos.com/7370596/18446/i/450/depositphotos_184469746-stock-photo-nose-landing-gear-big-wide.jpg">
-            </div>
-
-            <div class="info-card">
-                <h2>Tren de aterrizaje tipo bicicleta (tándem)</h2>
-                <ul>
-                    <li><strong>Componentes principales:</strong>
-                        <ul>
-                            <li>Dos juegos principales de ruedas: uno delantero y otro trasero, alineados en el eje del fuselaje.</li>
-                            <li>Ruedas auxiliares (outriggers): pequeñas, bajo las alas, para mantener el equilibrio lateral.</li>
-                            <li>Amortiguadores oleoneumáticos.</li>
-                            <li>Sistema de retracción dentro del fuselaje.</li>
-                        </ul>
-                    </li>
-                    <li><strong>Funcionamiento:</strong>
-                        <ul>
-                            <li>El avión se apoya en las ruedas en línea central, como una bicicleta.</li>
-                            <li>Las ruedas auxiliares evitan que las alas golpeen el suelo.</li>
-                            <li>Se utiliza en aviones con alas muy delgadas o fuselajes especiales.</li>
-                        </ul>
-                    </li>
-                    <li><strong>Ejemplos de aviones que lo usan:</strong>
-                        <ul>
-                            <li>U-2 Dragon Lady (avión espía).</li>
-                            <li>B-52 Stratofortress (bombardero).</li>
-                            <li>Yakovlev Yak-28 (soviético).</li>
-                        </ul>
-                    </li>
-                </ul>
-                <img src="https://i.pinimg.com/736x/c1/a0/b2/c1a0b2937d245397c963f0ff2c502316.jpg" alt="Tren de aterrizaje tipo bicicleta" data-large-src="https://i.pinimg.com/736x/c1/a0b2937d245397c963f0ff2c502316.jpg">
-            </div>
-        </div>
-
-        <div class="gallery-container">
-            <h2>Galería Aeronáutica</h2>
-            <div class="image-grid">
-                <div class="gallery-item">
-                    <img src="https://miuniversidadculiacan.com/wp-content/uploads/2023/02/aeroespacial.jpeg" alt="Aeropuerto vista aérea">
-                    <p>Manufactura Aeronautica.</p>
-                </div>
-                <div class="gallery-item">
-                    <img src="https://static.wixstatic.com/media/a7dce5_71e08eefdb7a473b81c179a56a971352~mv2.jpg/v1/fill/w_980,h_653,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/a7dce5_71e08eefdb7a473b81c179a56a971352~mv2.jpg" alt="Mantenimiento de tren">
-                    <p>Mantenimiento especializado de trenes.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="nav-button-container">
-            <button class="nav-button-3d" id="goToPage2">
-                <div class="nav-button-top nav-button-top-right">
-                    <span class="material-icons">Siguiente ❯</span>
-                </div>
-                <div class="nav-button-bottom nav-button-bottom-right"></div>
-                <div class="nav-button-base"></div>
-            </button>
-        </div>
+    <div id="myModal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="img01">
     </div>
-
-    <div class="container hidden" id="page2">
-        <center><h2>SE BUSCAN</h2></center>
-        <div class="person-section">
-            <div class="person-card">
-                <img src="https://i.pinimg.com/736x/ab/fb/9e/abfb9ec8dfcf2d6816601ec6519ff215.jpg" alt="Jane Doe">
-                <h3>Casango Jose</h3>
-                <p>Manufactura Aeronautica</p>
-                <p>Estudiante UTT.</p>
-                <a href="https://www.instagram.com/albertcota_667/?utm_source=ig_web_button_share_sheet" class="contact-btn">Contact</a>
-            </div>
-            <div class="person-card">
-                <img src="https://i.pinimg.com/736x/2c/27/e7/2c27e7ed9fb7b79704b087736b13268f.jpg" alt="Mike Ross">
-                <h3>Ponce Jose</h3>
-                <p>Manufactura Aeronautica</p>
-                <p>Estudiante UTT.</p>
-                <a href="https://www.instagram.com/23jponce?utm_source=ig_web_button_share_sheet&igsh=MWFxeWE3a3F5aXExNA==" class="contact-btn">Contact</a>
-            </div>
-            <div class="person-card">
-                <img src="https://i.pinimg.com/736x/de/e4/3d/dee43d3ae69b3ad60ad33e47ab72cc54.jpg" alt="John Doe">
-                <h3>Cobian Diego</h3>
-                <p>Manufactura Aeronautica</p>
-                <p>Estudiante UTT.</p>
-                <a href="https://www.instagram.com/cdiego_01?utm_source=ig_web_button_share_sheet&igsh=MWwyNTliNmQ2N2gxOQ==" class="contact-btn">Contact</a>
-            </div>
-             <div class="person-card">
-                <img src="https://i.pinimg.com/736x/36/63/57/36635751ca6a4ec5a3a3e0986db52d1c.jpg" alt="Sara Smith">
-                <h3>Martinez Jazibe</h3>
-                <p>Manufactura Aeronautica</p>
-                <p>Estudiante UTT.</p>
-                <a href="https://www.instagram.com/utt_aero_2b?utm_source=ig_web_button_share_sheet&igsh=MXZ3b3hpMmlraG0waw==" class="contact-btn">Contact</a>
-            </div>
-        </div>
-
-        <div class="nav-button-container">
-            <button class="nav-button-3d" id="goToPage1">
-                <div class="nav-button-top nav-button-top-left">
-                    <span class="material-icons">❮ Anterior</span>
-                </div>
-                <div class="nav-button-bottom nav-button-bottom-left"></div>
-                <div class="nav-button-base"></div>
-            </button>
-        </div>
-    </div>
-
-    <div class="overlay" id="imageOverlay">
-        <img src="" alt="Imagen ampliada" id="overlayImage">
-    </div>
-
-    <footer>
-        <p>&copy; 2025 Universidad Tecnológica de Tijuana. Todos los derechos reservados.</p>
-        <p>Diseñado para propósitos educativos CASANGO.</p>
-    </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Lógica para la animación del tren de aterrizaje
-            const toggleButton = document.getElementById('toggleButton');
-            const landingGearAssembly = document.getElementById('landingGearAssembly');
-            const gearDoorLeft = document.getElementById('gearDoorLeft');
-            const gearDoorRight = document.getElementById('gearDoorRight');
+        // Obtener la ventana modal
+        var modal = document.getElementById("myModal");
 
-            toggleButton.addEventListener('click', function() {
-                if (landingGearAssembly.classList.contains('hidden')) {
-                    gearDoorLeft.classList.remove('hidden');
-                    gearDoorRight.classList.remove('hidden');
-                    setTimeout(() => {
-                        landingGearAssembly.classList.remove('hidden');
-                    }, 300);
-                } else {
-                    landingGearAssembly.classList.add('hidden');
-                    setTimeout(() => {
-                        gearDoorLeft.classList.add('hidden');
-                        gearDoorRight.classList.add('hidden');
-                    }, 800);
-                }
-            });
+        // Obtener todas las imágenes con la clase 'landing-gear-img'
+        var imgs = document.getElementsByClassName("landing-gear-img");
+        var modalImg = document.getElementById("img01");
 
-            // Lógica para el overlay de las imágenes
-            const overlay = document.getElementById('imageOverlay');
-            const overlayImage = document.getElementById('overlayImage');
+        // Recorrer todas las imágenes y añadir el evento de click
+        for (var i = 0; i < imgs.length; i++) {
+            imgs[i].onclick = function(){
+                modal.style.display = "flex"; // Usamos flex para centrar la imagen
+                modalImg.src = this.src;
+                modalImg.alt = this.alt;
+            }
+        }
 
-            document.querySelectorAll('.info-card img, .gallery-item img').forEach(img => {
-                img.addEventListener('click', function() {
-                    const imgSrc = this.getAttribute('data-large-src') || this.src;
-                    overlayImage.src = imgSrc;
-                    overlay.classList.add('active');
-                });
-            });
+        // Obtener el elemento <span> que cierra la modal
+        var span = document.getElementsByClassName("close")[0];
 
-            overlay.addEventListener('click', function() {
-                this.classList.remove('active');
-                overlayImage.src = '';
-            });
+        // Cuando el usuario hace clic en <span> (x), cerrar la modal
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
 
-            // Lógica para el cambio de "pestaña"
-            const page1 = document.getElementById('page1');
-            const page2 = document.getElementById('page2');
-            const goToPage2Btn = document.getElementById('goToPage2');
-            const goToPage1Btn = document.getElementById('goToPage1');
-
-            goToPage2Btn.addEventListener('click', function() {
-                page1.classList.add('hidden');
-                page2.classList.remove('hidden');
-                window.scrollTo(0, 0);
-            });
-
-            goToPage1Btn.addEventListener('click', function() {
-                page2.classList.add('hidden');
-                page1.classList.remove('hidden');
-                window.scrollTo(0, 0);
-            });
-        });
+        // También cerrar la modal si se hace clic fuera de la imagen
+        modal.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
     </script>
 
 </body>
