@@ -280,9 +280,113 @@
 .btnAS:active .iconAS {
   transform: scale(0.85);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+body {
+  font-family: "Lato", sans-serif;
+}
+
+.sidenavIA {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.sidenavIA a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenavIA a:hover {
+  color: #f1f1f1;
+}
+
+.sidenavIA .closebtnIA {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+
+
+* {box-sizing: border-box}
+
+body, html {
+  height: 100%;
+  margin: 0;
+  font-family: Arial;
+}
+
+
+
+.tabcontent {
+  color: white;
+  display: none;
+  padding: 100px 20px;
+  height: 100%;
+}
+
+#Home {background-color: white;}
+#News {background-color: white;}
+#Contact {background-color: white;}
+#About {background-color: white;}
     </style>
 </head>
 <body>
+
+
+
+
+<div id="mySidenav" class="sidenavIA">
+  <a href="javascript:void(0)" class="closebtnIA" onclick="closeNav()">&times;</a>
+  
+  <button class="tablink" onclick="openPage('Home', this,)" id="defaultOpen"><a href="#">HOME</a></button>
+  
+  <button class="tablink" onclick="openPage('News', this,)"><a href="#">Services</a></button>
+  
+  <button class="tablink" onclick="openPage('Contact', this,)"><a href="#">Clients</a></button>
+
+</div>
+
+
+
+
+
+
+
+
+
 
     <header class="top-header">
         <div class="logo">VANGLAR</div>
@@ -295,12 +399,16 @@
             <rect y="60" width="80" height="15" fill="#f0f0f0" rx="10"></rect>
         </svg>
     </span>
-    <span class="textAS">MENU</span>
+    <span class="textAS" onclick="openNav()">MENU</span>
 </button>
     </header>
     <div class="teal-stripe"></div>
 
 
+
+
+
+<div id="Home" class="tabcontent"> 
 <div class="container">
     <br>
   <div class="alert alert-danger alert-dismissible fade show">
@@ -375,5 +483,50 @@
     <div class="teal-stripe"></div>
     <div style="background-color: black; height: 80px;"></div>
 
+</div>
+
+
+
+
+
+<div id="News" class="tabcontent">
+  <h3>News</h3>
+  <p>Some news this fine day!</p> 
+</div>
+
+
+
+
+
+
+
+
+
+<script>
+function openNav() {
+  document.getElementById("mySidenav").style.width = "250px";
+}
+
+function closeNav() {
+  document.getElementById("mySidenav").style.width = "0";
+}
+
+
+function openPage(pageName,elmnt,color) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablink");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].style.backgroundColor = "";
+  }
+  document.getElementById(pageName).style.display = "block";
+  elmnt.style.backgroundColor = color;
+}
+
+document.getElementById("defaultOpen").click();
+</script>
 </body>
 </html>
