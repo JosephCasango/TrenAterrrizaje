@@ -5,32 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vanglar - Simuladores UTT</title>
     <style>
-        /* --- ESTILOS BASE Y RESET --- */
-        * { box-sizing: border-box; }
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             background-color: #ffffff;
-            overflow-x: hidden;
         }
 
-        img { max-width: 100%; height: auto; display: block; }
-
-        /* --- 1. ENCABEZADO (RESPONSIVO) --- */
+        /* --- 1. ENCABEZADO (VANGLAR) --- */
         .top-header {
             background-color: #000000;
-            padding: 20px 5%;
+            padding: 20px 50px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
         }
         .logo {
             color: #ffffff;
             font-family: 'Times New Roman', Times, serif;
-            font-size: clamp(1.8rem, 5vw, 2.8rem);
+            font-size: 2.8rem;
             letter-spacing: 2px;
         }
         .teal-stripe {
@@ -39,7 +32,7 @@
             width: 100%;
         }
 
-        /* --- 2. SECCIÓN DE PORTADAS --- */
+        /* --- 2. SECCIÓN DE PORTADAS (HERO) --- */
         .hero-container {
             background-color: #ffffff;
             padding-top: 50px;
@@ -50,17 +43,13 @@
         .covers-wrapper {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 40px;
             z-index: 2;
-            margin-bottom: -100px;
-            flex-wrap: wrap;
-            padding: 0 20px;
+            margin-bottom: -100px; /* Traslape con el bloque negro */
         }
         .cover-box {
-            width: 380px;
-            max-width: 100%;
-            aspect-ratio: 380 / 550;
-            background-color: #ccc;
+            width: 350px;
+            height: 500px;
             box-shadow: 0 10px 20px rgba(0,0,0,0.3);
         }
         .cover-box img { width: 100%; height: 100%; object-fit: cover; }
@@ -69,49 +58,45 @@
             background-color: #000000;
             color: #ffffff;
             width: 100%;
-            padding: 150px 5% 60px 5%;
+            padding: 150px 0 60px 0;
             text-align: center;
-            z-index: 1;
         }
         .description-text {
             max-width: 900px;
             margin: 0 auto;
-            font-size: 1.1rem;
-            line-height: 1.6;
             text-align: justify;
+            padding: 0 20px;
         }
 
-        /* --- 3. SECCIÓN DIVIDIDA (IMAGEN PEQUEÑA Y RESPONSIVA) --- */
+        /* --- 3. SECCIÓN DIVIDIDA (IMAGEN PEQUEÑA) --- */
         .split-section {
             display: flex;
             width: 100%;
             background-color: #ffffff;
             align-items: center;
-            padding: 80px 5%;
-            flex-direction: row;
+            padding: 50px 0;
         }
         .image-half {
             flex: 1;
             display: flex;
             justify-content: center;
-            padding: 20px;
         }
         .image-half img {
-            max-width: 35%; /* TAMAÑO REDUCIDO */
+            max-width: 50%; /* AHORA MÁS PEQUEÑA COMO PEDISTE */
             height: auto;
         }
         .text-half {
             flex: 1;
             background-color: #000000;
-            color: #00a896;
-            padding: 60px 40px;
+            color: #00a896; /* Cyan */
+            padding: 40px;
             min-height: 450px;
             display: flex;
             align-items: center;
         }
         .text-half h2 {
-            font-size: clamp(1.5rem, 4vw, 2.2rem);
-            line-height: 1.2;
+            font-size: 2.2rem;
+            line-height: 1.1;
             margin: 0;
             font-weight: normal;
         }
@@ -123,95 +108,57 @@
         .vuela-proposito-bar {
             background-color: #000000;
             color: white;
-            padding: 20px 5%;
-            font-size: clamp(1.5rem, 5vw, 2.5rem);
+            padding: 20px 50px;
+            font-size: 2.5rem;
             font-family: serif;
-            margin-bottom: 80px;
+            margin-bottom: 100px;
         }
 
         .tool-item {
-            max-width: 1100px;
-            margin: 0 auto 100px auto;
-            padding: 0 5%;
+            max-width: 1000px;
+            margin: 0 auto 120px auto;
             display: flex;
             flex-direction: column;
+            align-items: flex-start;
         }
 
         .airplane-top {
-            width: 100%;
-            max-width: 600px;
-            margin-bottom: -30px;
-            margin-left: 20px;
+            width: 600px; /* Espacio para la imagen del avión */
+            margin-bottom: -40px; /* Hace que el avión toque o entre un poco en la barra */
+            margin-left: 50px;
             z-index: 2;
         }
-        
+        .airplane-top img { width: 100%; height: auto; }
+
         .info-bar-bottom {
             background-color: #000000;
             color: white;
             width: 100%;
-            padding: 30px 40px;
+            padding: 40px 50px;
             display: flex;
-            justify-content: space-between;
+            justify-content: space-between; /* Texto a un lado, botón al otro */
             align-items: center;
             z-index: 1;
-            gap: 20px;
         }
 
         .tool-title {
-            font-size: clamp(1.5rem, 6vw, 3rem);
+            font-size: 3rem;
             font-family: serif;
             font-weight: bold;
         }
 
-        /* --- BOTONES AMARILLOS --- */
         .btn-yellow {
             background-color: #fce043;
             color: #000000;
             border: none;
-            padding: 12px 35px;
-            font-size: 1.1rem;
+            padding: 15px 45px;
+            font-size: 1.2rem;
             font-weight: bold;
-            border-radius: 12px;
+            border-radius: 15px;
             cursor: pointer;
             text-decoration: none;
-            white-space: nowrap;
-            transition: transform 0.2s;
         }
-        .btn-yellow:hover { transform: scale(1.05); }
 
-        /* --- MEDIA QUERIES (ADAPTACIÓN A MÓVILES) --- */
-        @media (max-width: 768px) {
-            .split-section {
-                flex-direction: column;
-                padding: 40px 0;
-            }
-            .image-half img {
-                max-width: 60%; /* Un poco más grande en móvil para que se vea */
-                margin-bottom: 30px;
-            }
-            .text-half {
-                width: 100%;
-                min-height: auto;
-                padding: 40px 20px;
-                text-align: center;
-                justify-content: center;
-            }
-            .info-bar-bottom {
-                flex-direction: column;
-                text-align: center;
-                padding: 30px 20px;
-            }
-            .airplane-top {
-                margin-left: 0;
-                align-self: center;
-            }
-            .covers-wrapper {
-                margin-bottom: -50px;
-            }
-            .black-info-block {
-                padding-top: 80px;
-            }
-        }
     </style>
 </head>
 <body>
@@ -224,24 +171,19 @@
 
     <section class="hero-container">
         <div class="covers-wrapper">
-            <div class="cover-box">
-                <img src="https://store-images.s-microsoft.com/image/apps.51609.14406935353956462.3e5ea973-8477-49b6-97a0-33b4d669d86c.56a5977b-8285-4894-8266-7f400f59dcbd" alt="MSFS 2024">
-            </div>
-            <div class="cover-box">
-                <img src="https://store-images.s-microsoft.com/image/apps.5176.14225646405929875.ed2b05a2-f9fd-4a33-b808-807366c017bf.ec671c43-7121-4f72-b10a-85e5c4b83540" alt="MSFS Deluxe">
-            </div>
+            <div class="cover-box"><img src="portada_msfs_2024.jpg" alt="MSFS 2024"></div>
+            <div class="cover-box"><img src="portada_deluxe.jpg" alt="Deluxe"></div>
         </div>
-
         <div class="black-info-block">
             <div class="description-text">
-                <p><strong>Microsoft Flight Simulator 2024</strong> se define como un ecosistema de simulación de alta fidelidad que trasciende el entretenimiento para consolidarse como una herramienta pedagógica de vanguardia. Esta iteración utiliza un "Gemelo Digital" de la Tierra, integrando datos geoespaciales masivos y física de fluidos avanzada para recrear entornos operativos con una precisión técnica sin precedentes.</p>
+                <p><strong>Microsoft Flight Simulator 2024</strong> se define como un ecosistema de simulación de alta fidelidad que trasciende el entretenimiento para consolidarse como una herramienta pedagógica de vanguardia.</p>
             </div>
         </div>
     </section>
 
     <section class="split-section">
         <div class="image-half">
-            <img src="https://i.pinimg.com/736x/d6/2a/6e/d62a6e11a324baaf29588ddecbab6c44.jpg" alt="Simuladores">
+            <img src="tu_imagen_simuladores.jpg" alt="Simuladores">
         </div>
         <div class="text-half">
             <h2>
@@ -255,17 +197,19 @@
 
         <div class="tool-item">
             <div class="airplane-top">
-                <img src="https://i.pinimg.com/1200x/9d/d5/b5/9dd5b5591adea3c977ca25cf551d0eb6.jpg" alt="Avión">
+                <img src="tu_avion_1.png" alt="Avión">
             </div>
             <div class="info-bar-bottom">
                 <div class="tool-title">FLIGHT RADAR</div>
-                <button class="btn-yellow">BOTÓN</button>
-            </div>
+                
+        <a href="https://es.pinterest.com/pin/247627679506979746/" target="_blank">
+<button class="btn-yellow">BOTÓN</button> </a> 
+</div>
         </div>
 
         <div class="tool-item">
             <div class="airplane-top">
-                <img src="https://i.pinimg.com/1200x/8c/f4/54/8cf45416eb9985e54f4cc544511f8c93.jpg" alt="Avión">
+                <img src="tu_avion_2.png" alt="Avión">
             </div>
             <div class="info-bar-bottom">
                 <div class="tool-title">PLAN DE VUELOS</div>
@@ -275,7 +219,7 @@
 
         <div class="tool-item">
             <div class="airplane-top">
-                <img src="https://i.pinimg.com/1200x/9f/84/30/9f843000ad9e0c914490f66cba639cda.jpg" alt="Avión">
+                <img src="tu_avion_3.png" alt="Avión">
             </div>
             <div class="info-bar-bottom">
                 <div class="tool-title">UTT</div>
