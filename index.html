@@ -3,6 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ 
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+
     <title>Vanglar - Simuladores UTT</title>
     <style>
         /* --- ESTILOS BASE Y RESET --- */
@@ -212,15 +219,96 @@
                 padding-top: 80px;
             }
         }
+
+
+
+
+
+
+
+
+
+
+
+ /* BTON MENU ALADO DE VANGLAR */ 
+.btnAS {
+  width: 150px;
+  height: 50px;
+  border-radius: 5px;
+  border: none;
+  transition: all 0.5s ease-in-out;
+  font-size: 20px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  background: #00A683;
+  color: #000000;
+}
+
+.btnAS:hover {
+  box-shadow: 0 0 20px 0px #FFFFFF;
+}
+
+.btnAS .iconAS {
+  position: absolute;
+  height: 40px;
+  width: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.5s;
+}
+
+.btnAS .textAS {
+  transform: translateX(55px);
+}
+
+.btnAS:hover .iconAS {
+  width: 175px;
+}
+
+.btnAS:hover .textAS {
+  transition: all 0.5s;
+  opacity: 0;
+}
+
+.btnAS:focus {
+  outline: none;
+}
+
+.btnAS:active .iconAS {
+  transform: scale(0.85);
+}
     </style>
 </head>
 <body>
 
     <header class="top-header">
         <div class="logo">VANGLAR</div>
-        <button class="btn-yellow">BOTÓN</button>
+        <!-- From Uiverse.io by gagan-gv --> 
+<button class="btnAS">
+    <span class="iconAS">
+        <svg viewBox="0 0 175 80" width="40" height="40">
+            <rect width="80" height="15" fill="#f0f0f0" rx="10"></rect>
+            <rect y="30" width="80" height="15" fill="#f0f0f0" rx="10"></rect>
+            <rect y="60" width="80" height="15" fill="#f0f0f0" rx="10"></rect>
+        </svg>
+    </span>
+    <span class="textAS">MENU</span>
+</button>
     </header>
     <div class="teal-stripe"></div>
+
+
+<div class="container">
+    <br>
+  <div class="alert alert-danger alert-dismissible fade show">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong>Nota!</strong> Pagina web en desarrollo.
+  </div>
+</div>
+
 
     <section class="hero-container">
         <div class="covers-wrapper">
