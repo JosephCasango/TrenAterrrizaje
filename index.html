@@ -3,256 +3,275 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trenes de Aterrizaje Retráctiles</title>
+    <title>Vanglar - Simuladores UTT</title>
     <style>
-        /* --- Estilos Generales (CSS) --- */
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            line-height: 1.6;
+            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #ffffff; /* Fondo blanco como se solicitó */
-            color: #333;
+            background-color: #ffffff;
         }
 
-        .container {
-            max-width: 900px;
-            margin: 20px auto;
-            padding: 0 20px;
+        /* --- ENCABEZADO SUPERIOR --- */
+        .top-header {
+            background-color: #000000;
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-
-        h1, h2, h3 {
-            color: #003366; /* Un color azul oscuro para los títulos */
-            border-bottom: 2px solid #e0e0e0;
-            padding-bottom: 10px;
+        .logo {
+            color: #ffffff;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 2.8rem;
+            letter-spacing: 2px;
         }
-
-        h1 {
-            text-align: center;
-            font-size: 2.5em;
-        }
-
-        h2 {
-            font-size: 2em;
-            margin-top: 40px;
-        }
-        
-        h3 {
-            font-size: 1.5em;
-            color: #0055a4;
-            border-bottom: none;
-        }
-
-        p, ul {
-            font-size: 1.1em;
-            text-align: justify;
-        }
-
-        ul {
-            list-style-type: disc;
-            padding-left: 20px;
-        }
-        
-        li {
-            margin-bottom: 10px;
-        }
-
-        /* --- Estilos para las Imágenes Interactivas --- */
-        .landing-gear-img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            cursor: pointer; /* Cambia el cursor para indicar que es clickeable */
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            display: block;
-            margin: 20px auto;
-        }
-
-        .landing-gear-img:hover {
-            transform: scale(1.03); /* Efecto de zoom suave al pasar el ratón */
-            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-        }
-
-        /* --- Estilos para la Ventana Modal (Imagen Ampliada) --- */
-        .modal {
-            display: none; /* Oculto por defecto */
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
+        .teal-stripe {
+            background-color: #00a896; /* Turquesa */
+            height: 25px;
             width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0,0,0,0.85); /* Fondo oscuro semitransparente */
-            justify-content: center;
+        }
+
+        /* --- SECCIÓN PRINCIPAL (ESTILO SEGUNDA IMAGEN) --- */
+        .hero-container {
+            position: relative;
+            background-color: #ffffff;
+            padding-top: 50px;
+            display: flex;
+            flex-direction: column;
             align-items: center;
         }
 
-        .modal-content {
-            margin: auto;
-            display: block;
-            max-width: 85%;
-            max-height: 85%;
-            animation: zoomIn 0.4s ease;
+        /* Contenedor de portadas que flotan sobre el fondo negro */
+        .covers-wrapper {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            z-index: 2;
+            margin-bottom: -100px; /* Hace que las imágenes entren en el bloque negro */
         }
 
-        /* Animación para la imagen */
-        @keyframes zoomIn {
-            from {transform: scale(0.5);}
-            to {transform: scale(1);}
+        .cover-box {
+            width: 380px;
+            height: 550px;
+            background-color: #ccc; /* Espacio para tus imágenes */
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        /* Botón para cerrar la imagen */
-        .close {
-            position: absolute;
-            top: 20px;
-            right: 35px;
-            color: #fff;
-            font-size: 40px;
+        .cover-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Bloque Negro con Texto Blanco */
+        .black-info-block {
+            background-color: #000000;
+            color: #ffffff;
+            width: 100%;
+            padding: 150px 0 60px 0; /* Padding superior alto para compensar el traslape */
+            text-align: center;
+            z-index: 1;
+        }
+
+        .description-text {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 40px;
+            font-size: 1.2rem;
+            line-height: 1.6;
+            text-align: justify;
+        }
+
+        /* --- SECCIÓN BOTONES AMARILLOS --- */
+        .btn-yellow {
+            background-color: #fce043;
+            color: #000000;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1rem;
             font-weight: bold;
-            transition: 0.3s;
+            border-radius: 15px;
             cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: transform 0.2s;
+        }
+        .btn-yellow:hover {
+            transform: scale(1.05);
         }
 
-        .close:hover,
-        .close:focus {
-            color: #bbb;
+        /* --- SECCIÓN DIVIDIDA (Imagen y Texto) --- */
+        /* --- 3. SECCIÓN DIVIDIDA (IMAGEN PEQUEÑA) --- */
+        .split-section {
+            display: flex;
+            width: 100%;
+            background-color: #ffffff;
+            align-items: center;
+            padding: 50px 0;
+        }
+        .image-half {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+        .image-half img {
+            max-width: 50%; /* AHORA MÁS PEQUEÑA COMO PEDISTE */
+            height: auto;
+        }
+        .text-half {
+            flex: 1;
+            background-color: #000000;
+            color: #00a896; /* Cyan */
+            padding: 40px;
+            min-height: 450px;
+            display: flex;
+            align-items: center;
+        }
+        .text-half h2 {
+            font-size: 2.2rem;
+            line-height: 1.1;
+            margin: 0;
+            font-weight: normal;
+        }
+
+        /* --- 4. SECCIÓN DE HERRAMIENTAS (AVIÓN ARRIBA, TEXTO/BOTÓN ABAJO) --- */
+        .tools-section {
+            padding-bottom: 80px;
+        }
+        .vuela-proposito-bar {
+            background-color: #000000;
+            color: white;
+            padding: 20px 50px;
+            font-size: 2.5rem;
+            font-family: serif;
+            margin-bottom: 100px;
+        }
+
+        .tool-item {
+            max-width: 1000px;
+            margin: 0 auto 120px auto;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .airplane-top {
+            width: 600px; /* Espacio para la imagen del avión */
+            margin-bottom: -40px; /* Hace que el avión toque o entre un poco en la barra */
+            margin-left: 50px;
+            z-index: 2;
+        }
+        .airplane-top img { width: 100%; height: auto; }
+
+        .info-bar-bottom {
+            background-color: #000000;
+            color: white;
+            width: 100%;
+            padding: 40px 50px;
+            display: flex;
+            justify-content: space-between; /* Texto a un lado, botón al otro */
+            align-items: center;
+            z-index: 1;
+        }
+
+        .tool-title {
+            font-size: 3rem;
+            font-family: serif;
+            font-weight: bold;
+        }
+
+        .btn-yellow {
+            background-color: #fce043;
+            color: #000000;
+            border: none;
+            padding: 15px 45px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 15px;
+            cursor: pointer;
             text-decoration: none;
         }
+
+
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h1>Tipos de Trenes de Aterrizaje Retráctiles</h1>
-        <p>
-            El tren de aterrizaje es uno de los componentes más críticos de una aeronave, responsable de soportar todo su peso durante el rodaje, despegue y, especialmente, el aterrizaje. Los sistemas retráctiles permiten que el tren se pliegue y guarde dentro del fuselaje o las alas durante el vuelo. Esto reduce drásticamente la resistencia aerodinámica, permitiendo que el avión vuele a mayores velocidades y consuma menos combustible. A continuación, se detallan los sistemas de tres aeronaves icónicas.
-        </p>
+    <header class="top-header">
+        <div class="logo">VANGLAR</div>
+        <button class="btn-yellow">BOTÓN</button>
+    </header>
+    <div class="teal-stripe"></div>
 
-        <section id="b747">
-            <h2>Boeing 747 "Queen of the Skies"</h2>
-            <p>
-                El Boeing 747, conocido como la "Reina de los Cielos", es famoso por su tamaño y su distintiva joroba. Su tren de aterrizaje es una proeza de la ingeniería, diseñado para soportar un peso máximo al despegue de casi 400 toneladas.
-            </p>
-            
-            <img src="https://www.datocms-assets.com/53444/1706196786-prototype-boeing-747-landing-gear.jpg?auto=format&fit=max&w=1024" alt="Tren de aterrizaje de un Boeing 747" class="landing-gear-img">
+    <section class="hero-container">
+        <div class="covers-wrapper">
+            <div class="cover-box">
+                <img src="https://store-images.s-microsoft.com/image/apps.51609.14406935353956462.3e5ea973-8477-49b6-97a0-33b4d669d86c.56a5977b-8285-4894-8266-7f400f59dcbd" alt="Microsoft Flight Simulator 2024">
+            </div>
+            <div class="cover-box">
+                <img src="https://store-images.s-microsoft.com/image/apps.5176.14225646405929875.ed2b05a2-f9fd-4a33-b808-807366c017bf.ec671c43-7121-4f72-b10a-85e5c4b83540" alt="Microsoft Flight Simulator Deluxe">
+            </div>
+        </div>
 
-            <h3>Conceptos y Funcionamiento</h3>
-            <p>
-                El 747 utiliza una configuración de tipo **triciclo con bogies múltiples**. Consta de un total de 18 ruedas:
-            </p>
-            <ul>
-                <li><strong>Tren de Nariz (2 ruedas):</strong> Ubicado en la parte delantera, es dirigible para maniobrar en tierra.</li>
-                <li><strong>Trenes Principales (16 ruedas):</strong> Se dividen en cuatro conjuntos de cuatro ruedas cada uno (bogies). Dos están montados en las alas y los otros dos en el fuselaje. Esta distribución masiva de ruedas reparte el peso sobre una gran superficie, permitiéndole operar en pistas estándar.</li>
-                <li><strong>Sistema de Retracción:</strong> Funciona hidráulicamente. Los trenes principales del fuselaje se retraen hacia adelante, mientras que los de las alas se pliegan hacia adentro. El tren de nariz se retrae hacia adelante.</li>
-                <li><strong>Amortiguación:</strong> Utiliza amortiguadores óleo-neumáticos (struts) que absorben la energía del impacto al aterrizar mediante la compresión de aceite y nitrógeno.</li>
-            </ul>
+        <div class="black-info-block">
+            <div class="description-text">
+                <p><strong>Microsoft Flight Simulator 2024</strong> se define como un ecosistema de simulación de alta fidelidad que trasciende el entretenimiento para consolidarse como una herramienta pedagógica de vanguardia. Esta iteración utiliza un "Gemelo Digital" de la Tierra, integrando datos geoespaciales masivos y física de fluidos avanzada para recrear entornos operativos con una precisión técnica sin precedentes.</p>
+            </div>
+        </div>
+    </section>
 
-            <h3>Materiales Principales</h3>
-            <ul>
-                <li><strong>Acero de ultra-alta resistencia (ej. 300M):</strong> Utilizado en los cilindros, pistones y componentes estructurales principales que deben soportar las cargas más extremas.</li>
-                <li><strong>Aleaciones de titanio (ej. Ti-6Al-4V):</strong> Empleado en piezas críticas que requieren una alta relación resistencia-peso y excelente resistencia a la corrosión, como los ejes de los bogies.</li>
-                <li><strong>Aleaciones de aluminio (Serie 7000):</strong> Se usa en componentes menos críticos estructuralmente, como soportes y partes de la estructura de retracción, para ahorrar peso.</li>
-            </ul>
-        </section>
-        
-        <hr>
+    <br>
+    <br>
+    <section class="split-section">
+        <div class="image-half">
+            <img src="https://i.pinimg.com/736x/d6/2a/6e/d62a6e11a324baaf29588ddecbab6c44.jpg" alt="Simuladores">
+        </div>
+        <div class="text-half">
+            <h2>
+                SIMULADORES<br>DE<br>VUELO<br>A LA<br>VANGUARDIA<br>DE LA<br>TECNOLOGÍA<br>EDUCATIVA<br>Y EL<br>DESARROLLO<br>INSTITUCIONAL
+            </h2>
+        </div>
+    </section>
 
-        <section id="a380">
-            <h2>Airbus A380</h2>
-            <p>
-                El Airbus A380 es el avión de pasajeros más grande del mundo. Su tren de aterrizaje fue diseñado no solo para soportar su inmenso peso (hasta 575 toneladas), sino también para ser compatible con la infraestructura aeroportuaria existente.
-            </p>
-            
-            <img src="https://www.shutterstock.com/image-photo/a380-landing-gear-close-600nw-1087877453.jpg" alt="Tren de aterrizaje de un Airbus A380" class="landing-gear-img">
-            
-            <h3>Conceptos y Funcionamiento</h3>
-            <p>
-                El A380 tiene un total de 22 ruedas, distribuidas en una configuración triciclo compleja para gestionar su enorme masa:
-            </p>
-            <ul>
-                <li><strong>Tren de Nariz (2 ruedas):</strong> Similar al de otros aviones comerciales, es dirigible.</li>
-                <li><strong>Trenes Principales (20 ruedas):</strong> Divididos en cuatro conjuntos. Dos bogies de seis ruedas cada uno están montados bajo el fuselaje, y dos bogies de cuatro ruedas cada uno están montados bajo las alas. Esta configuración distribuye el peso de manera tan eficiente que su impacto en el pavimento es comparable al de un Boeing 747.</li>
-                <li><strong>Sistema de Dirección Auxiliar:</strong> Para mejorar la maniobrabilidad en tierra, los bogies traseros del tren montado en el fuselaje también son dirigibles, lo que permite al A380 realizar giros en calles de rodaje estándar.</li>
-                <li><strong>Sistema de Retracción:</strong> Es un sistema hidráulico complejo. Los trenes de las alas se retraen lateralmente, mientras que los del fuselaje se retraen hacia adelante en compartimentos enormes.</li>
-            </ul>
-            
-            <h3>Materiales Principales</h3>
-            <ul>
-                <li><strong>Aleaciones de titanio:</strong> Utilizadas extensivamente en vigas de bogie y componentes estructurales por su resistencia y ligereza.</li>
-                <li><strong>Acero de alta resistencia:</strong> Esencial en cilindros de amortiguadores y ejes donde la robustez es la máxima prioridad.</li>
-                <li><strong>Compuestos y aleaciones de aluminio-litio:</strong> Se emplean en puertas y carenados del tren para minimizar el peso sin comprometer la resistencia aerodinámica.</li>
-            </ul>
-        </section>
+    <section class="tools-section">
+        <div class="vuela-proposito-bar">VUELA CON PROPÓSITO</div>
 
-        <hr>
+        <div class="tool-item">
+            <div class="airplane-top">
+                <img src="https://png.pngtree.com/png-vector/20240922/ourlarge/pngtree-airplane-with-transparent-background-png-image_13887380.png" alt="Avión">
+            </div>
+            <div class="info-bar-bottom">
+                <div class="tool-title">FLIGHT RADAR</div>
+                <button class="btn-yellow">BOTÓN</button> </div>
+        </div>
 
-        <section id="f22">
-            <h2>Lockheed Martin F-22 Raptor</h2>
-            <p>
-                El F-22 Raptor es un caza de quinta generación diseñado para la superioridad aérea. Su tren de aterrizaje no solo debe ser extremadamente robusto para soportar aterrizajes a alta velocidad y en pistas cortas, sino también debe retraerse rápidamente y encajar en un espacio muy reducido para mantener las características de sigilo (stealth) del avión.
-            </p>
-            
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtvzsN_mV94O624mZO9_JefMZzFPTq8V0jcRg1yULTNznMvYyuONz2p8toyaY2W9tdO8g&usqp=CAU" alt="Tren de aterrizaje de un F-22 Raptor" class="landing-gear-img">
-            
-            <h3>Conceptos y Funcionamiento</h3>
-            <p>
-                El F-22 utiliza una configuración de triciclo estándar pero con un diseño optimizado para el sigilo y el rendimiento:
-            </p>
-            <ul>
-                <li><strong>Diseño de Sigilo (Stealth):</strong> Las puertas del tren de aterrizaje tienen bordes en forma de diente de sierra para dispersar las ondas de radar. Se cierran tan pronto como el tren se despliega para minimizar la firma de radar del avión.</li>
-                <li><strong>Retracción Rápida:</strong> El sistema hidráulico está diseñado para retraer y desplegar el tren en segundos, algo crucial durante el combate para no comprometer la aerodinámica ni el sigilo.</li>
-                <li><strong>Robustez Extrema:</strong> Está diseñado para soportar aterrizajes con una alta tasa de descenso, permitiendo operar desde pistas dañadas o de emergencia. El amortiguador es capaz de absorber una cantidad de energía masiva.</li>
-                <li><strong>Mecanismo de Retracción:</strong> El tren principal se retrae hacia los lados, alojándose en bahías dentro del fuselaje, mientras que el tren de nariz se retrae hacia adelante.</li>
-            </ul>
-            
-            <h3>Materiales Principales</h3>
-            <ul>
-                <li><strong>Titanio forjado (especialmente Ti-6Al-4V):</strong> Es el material predominante en la estructura principal del tren debido a su increíble resistencia a la fatiga y a los impactos, crucial para un caza de alto rendimiento.</li>
-                <li><strong>Acero Aermet 100:</strong> Una aleación de acero de ultra-alta resistencia utilizada en los ejes y pasadores que deben soportar las mayores tensiones.</li>
-                <li><strong>Compuestos de fibra de carbono:</strong> Utilizados en las puertas del tren de aterrizaje para mantener la rigidez y la forma requerida para el sigilo, con un peso mínimo.</li>
-            </ul>
-        </section>
-    </div>
+        <div class="tool-item">
+            <div class="airplane-top">
+                <img src="https://i.pinimg.com/1200x/b6/c7/d9/b6c7d9e626664629b5b54ac5e640bf2a.jpg" alt="Avión">
+            </div>
+            <div class="info-bar-bottom">
+                <div class="tool-title">PLAN DE VUELOS</div>
+                <button class="btn-yellow">BOTÓN</button>
+            </div>
+        </div>
 
-    <div id="myModal" class="modal">
-        <span class="close">&times;</span>
-        <img class="modal-content" id="img01">
-    </div>
+        <div class="tool-item">
+            <div class="airplane-top">
+                <img src="tu_avion_3.png" alt="Avión">
+            </div>
+            <div class="info-bar-bottom">
+                <div class="tool-title">UTT</div>
+                <button class="btn-yellow">BOTÓN</button>
+            </div>
+        </div>
+    </section>
 
-    <script>
-        // Obtener la ventana modal
-        var modal = document.getElementById("myModal");
-
-        // Obtener todas las imágenes con la clase 'landing-gear-img'
-        var imgs = document.getElementsByClassName("landing-gear-img");
-        var modalImg = document.getElementById("img01");
-
-        // Recorrer todas las imágenes y añadir el evento de click
-        for (var i = 0; i < imgs.length; i++) {
-            imgs[i].onclick = function(){
-                modal.style.display = "flex"; // Usamos flex para centrar la imagen
-                modalImg.src = this.src;
-                modalImg.alt = this.alt;
-            }
-        }
-
-        // Obtener el elemento <span> que cierra la modal
-        var span = document.getElementsByClassName("close")[0];
-
-        // Cuando el usuario hace clic en <span> (x), cerrar la modal
-        span.onclick = function() {
-            modal.style.display = "none";
-        }
-
-        // También cerrar la modal si se hace clic fuera de la imagen
-        modal.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-    </script>
+    <div class="teal-stripe"></div>
+    <div style="background-color: black; height: 80px;"></div>
 
 </body>
 </html>
