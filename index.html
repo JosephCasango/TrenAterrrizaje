@@ -558,6 +558,61 @@ body, html {
     .carousel-indicators li {
       background-color: #00A89D;
     }
+
+
+
+
+
+
+
+
+
+    /* Limpieza de estilos por defecto */
+.btn-simulador {
+  margin: 0;
+  height: auto;
+  background: transparent;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+}
+
+/* Estilización del contenedor principal */
+.btn-simulador {
+  --ancho-borde: 6px;
+  --color-contorno: rgba(255, 255, 255, 0.6);
+  --color-activacion: #37FF8B; /* El verde neón */
+  --tamano-fuente: 2em;
+  
+  letter-spacing: 3px;
+  text-decoration: none;
+  font-size: var(--tamano-fuente);
+  font-family: "Arial", sans-serif;
+  position: relative;
+  text-transform: uppercase;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--color-contorno);
+}
+
+/* Capa superior que aparece al pasar el mouse */
+.texto-efecto {
+  position: absolute;
+  box-sizing: border-box;
+  content: attr(data-text);
+  color: var(--color-activacion);
+  width: 0%;
+  inset: 0;
+  border-right: var(--ancho-borde) solid var(--color-activacion);
+  overflow: hidden;
+  transition: 0.5s;
+  -webkit-text-stroke: 1px var(--color-activacion);
+}
+
+/* Activación del efecto de llenado */
+.btn-simulador:hover .texto-efecto {
+  width: 100%;
+  filter: drop-shadow(0 0 23px var(--color-activacion));
+}
     </style>
 </head>
 <body>
@@ -567,12 +622,31 @@ body, html {
 
 <div id="mySidenav" class="sidenavIA">
   <a href="javascript:void(0)" class="closebtnIA" onclick="closeNav()">&times;</a>
+
+
+
+  <button class="btn-simulador" class="tablink" onclick="openPage('Home', this,)" id="defaultOpen" data-text="SIMULADOR">
+    <span class="texto-base">&nbsp;INICIO&nbsp;</span>
+    <span aria-hidden="true" class="texto-efecto">&nbsp;INICIO&nbsp;</span>
+</button>
   
-  <button class="tablink" onclick="openPage('Home', this,)" id="defaultOpen"><a href="#">INICIO</a></button>
+  <BR>
+  <BR>
+
+  <button class="btn-simulador" class="tablink" onclick="openPage('News', this,)" data-text="SIMULADOR">
+    <span class="texto-base">&nbsp;Carreras&nbsp;</span>
+    <span aria-hidden="true" class="texto-efecto">&nbsp;Carreras&nbsp;</span>
+</button>
+
+<BR>
+  <BR>
+
+    <button class="btn-simulador" class="tablink" onclick="openPage('Contact', this,)" data-text="SIMULADOR">
+    <span class="texto-base">&nbsp;Creditos&nbsp;</span>
+    <span aria-hidden="true" class="texto-efecto">&nbsp;Creditos&nbsp;</span>
+</button>
   
-  <button class="tablink" onclick="openPage('News', this,)"><a href="#">Carreras</a></button>
-  
-  <button class="tablink" onclick="openPage('Contact', this,)"><a href="#">Creditos</a></button>
+ 
 
 </div>
 
@@ -783,6 +857,9 @@ body, html {
 
 </div>
 </div>
+
+
+
 
 
 <div id="Contact" class="tabcontent">
