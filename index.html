@@ -339,6 +339,250 @@
         .imagen-maximizada { margin: auto; display: block; width: 90%; max-width: 800px; border-radius: 8px; }
         .texto-descripcion { margin: auto; display: block; width: 80%; text-align: center; color: #fff; padding: 20px 0; font-size: 18px; }
         .cerrar-visor { position: absolute; top: 15px; right: 35px; color: #f1f1f1; font-size: 60px; font-weight: bold; cursor: pointer; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /* Contenedor Maestro: Reemplaza al 'body' para no afectar tu web principal */
+        .zqxm_master_container {
+            background-color: #131314;
+            color: #e3e3e3;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 40px 15px; /* Espaciado arriba/abajo y a los lados */
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            box-sizing: border-box;
+            border-radius: 16px; /* Bordes redondeados por si lo metes en una tarjeta */
+        }
+
+        .zqxm_wrap {
+            width: 100%;
+            max-width: 700px;
+            padding: 24px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Contenedor de Imagen */
+        .zqxm_img_box {
+            width: 100%;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            overflow: hidden;
+            display: none; 
+            background-color: #202124;
+            text-align: center;
+        }
+
+        .zqxm_img_box img {
+            max-width: 100%;
+            height: auto;
+            max-height: 250px;
+            object-fit: cover;
+            display: block;
+            margin: 0 auto;
+        }
+
+        /* Pregunta */
+        .zqxm_q_hdr {
+            display: flex;
+            gap: 15px;
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin-bottom: 24px;
+            line-height: 1.4;
+        }
+
+        /* Opciones */
+        .zqxm_opt_grp {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .zqxm_opt_node {
+            background-color: #1e1f20;
+            border: 1px solid #444746;
+            border-radius: 12px;
+            padding: 16px 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .zqxm_opt_node:hover:not(.zqxm_locked) {
+            background-color: #282a2c;
+        }
+
+        .zqxm_opt_core {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .zqxm_opt_char {
+            font-weight: 500;
+            color: #c4c7c5;
+        }
+
+        /* Estados de respuesta */
+        .zqxm_opt_node.zqxm_valid {
+            border-color: #81c995;
+            background-color: rgba(129, 201, 149, 0.05);
+        }
+
+        .zqxm_opt_node.zqxm_invalid {
+            border-color: #f28b82;
+            background-color: rgba(242, 139, 130, 0.05);
+        }
+
+        .zqxm_opt_node.zqxm_locked {
+            cursor: default;
+        }
+
+        /* Explicación (Feedback) */
+        .zqxm_expl_box {
+            display: none;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .zqxm_opt_node.zqxm_valid .zqxm_expl_box {
+            display: block;
+            color: #e3e3e3;
+        }
+        
+        .zqxm_opt_node.zqxm_invalid .zqxm_expl_box {
+            display: block;
+            color: #e3e3e3;
+        }
+
+        .zqxm_expl_hdr {
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+
+        .zqxm_opt_node.zqxm_valid .zqxm_expl_hdr { color: #81c995; }
+        .zqxm_opt_node.zqxm_invalid .zqxm_expl_hdr { color: #f28b82; }
+
+        /* Pista */
+        .zqxm_help_area {
+            margin-bottom: 40px;
+        }
+
+        .zqxm_help_trig {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            user-select: none;
+            color: #e3e3e3;
+        }
+
+        .zqxm_help_pane {
+            display: none;
+            background-color: #1e1f20;
+            padding: 16px;
+            border-radius: 12px;
+            margin-top: 12px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .zqxm_help_pane.zqxm_revealed {
+            display: flex;
+        }
+
+        /* Botones de Navegación */
+        .zqxm_ctrls {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 15px;
+            margin-top: auto;
+        }
+
+        .zqxm_btn_base {
+            border: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .zqxm_btn_rtn {
+            background: none;
+            color: #a8c7fa;
+            padding: 10px;
+        }
+
+        .zqxm_btn_rtn:hover {
+            color: #d3e3fd;
+        }
+
+        .zqxm_btn_adv {
+            background-color: #a8c7fa;
+            color: #041e49;
+            padding: 12px 24px;
+            border-radius: 24px; 
+        }
+
+        .zqxm_btn_adv:hover {
+            background-color: #d3e3fd;
+        }
+        
+        .zqxm_btn_adv:disabled {
+            background-color: #444746;
+            color: #1e1f20;
+            cursor: not-allowed;
+        }
+
+        /* Pantalla de Resultados */
+        .zqxm_out_wrap {
+            display: none;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .zqxm_out_val {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #81c995;
+            margin: 20px 0;
+        }
+
+        .zqxm_wrap svg { width: 20px; height: 20px; fill: currentColor; }
+
     </style>
 </head>
 <body>
@@ -357,8 +601,13 @@
   </button>
 
   <button class="btn-simulador" onclick="openPage('Contact', this)">
-    <span class="texto-base"> ACTIVIDADES </span>
-    <span aria-hidden="true" class="texto-efecto" data-text="CREDITOS"> ACTIVIDADES </span>
+    <span class="texto-base"> Educacion </span>
+    <span aria-hidden="true" class="texto-efecto" data-text="CREDITOS"> Educacion </span>
+  </button>
+
+ <button class="btn-simulador" onclick="openPage('Juego', this)">
+    <span class="texto-base"> Juego </span>
+    <span aria-hidden="true" class="texto-efecto" data-text="CREDITOS"> Juego </span>
   </button>
 </div>
 
@@ -562,7 +811,7 @@
 
 <div class="marco-global">
 
-<h2 class="titulo-seccion">ACTIVIDADES DE DESEMPEÑO</h2>
+<h2 class="titulo-seccion">Innovación Educativa</h2>
 <hr>
 
 <div class="contenedor-selectores" id="panelFiltros">
@@ -707,6 +956,50 @@
 </div>
 
 
+<div id="Juego" class="tabcontent">
+   <div class="zqxm_master_container">
+        
+        <div class="zqxm_wrap" id="zqxm_main_ui">
+            
+            <div class="zqxm_img_box" id="zqxm_img_box">
+                <img id="zqxm_img_tag" src="" alt="Imagen ilustrativa">
+            </div>
+
+            <div class="zqxm_q_hdr">
+                <span id="zqxm_q_idx">1.</span>
+                <span id="zqxm_q_str">Cargando pregunta...</span>
+            </div>
+
+            <div class="zqxm_opt_grp" id="zqxm_opt_grp">
+                </div>
+
+            <div class="zqxm_help_area">
+                <div class="zqxm_help_trig" onclick="toggleHint_zqxm()">
+                    Mostrar pista
+                    <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+                </div>
+                <div class="zqxm_help_pane" id="zqxm_help_pane">
+                    <svg viewBox="0 0 24 24"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6A4.997 4.997 0 0 1 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1z"/></svg>
+                    <span id="zqxm_help_str">Texto de la pista aquí.</span>
+                </div>
+            </div>
+
+            <div class="zqxm_ctrls">
+                <button class="zqxm_btn_base zqxm_btn_rtn" id="zqxm_btn_rtn" onclick="prevQuestion_zqxm()" style="display: none;">Atrás</button>
+                <button class="zqxm_btn_base zqxm_btn_adv" id="zqxm_btn_adv" onclick="nextQuestion_zqxm()" disabled>Siguiente</button>
+            </div>
+        </div>
+
+        <div class="zqxm_wrap zqxm_out_wrap" id="zqxm_out_ui">
+            <h2>¡Cuestionario Finalizado!</h2>
+            <p>Has completado todas las preguntas. Aquí está tu resultado:</p>
+            <div class="zqxm_out_val" id="zqxm_out_txt">0 / 10</div>
+            <button class="zqxm_btn_base zqxm_btn_adv" onclick="location.reload()">Jugar de nuevo</button>
+        </div>
+
+    </div> 
+</div>
+
 
 
 
@@ -800,6 +1093,237 @@ for (var i = 0; i < botones.length; i++) {
     this.className += " estado-seleccionado";
   });
 }
+
+
+
+
+   // --- BASE DE DATOS DE PREGUNTAS ---
+        const questions_zqxm = [
+            {
+                question: "¿Cuál es la fuerza que se opone directamente al peso de un avión para mantenerlo en el aire?",
+                options: ["Resistencia", "Gravedad", "Sustentación", "Empuje"],
+                correctIndex: 2,
+                explanation: "La sustentación es la fuerza aerodinámica generada por las alas que empuja el avión hacia arriba, contrarrestando su peso.",
+                hint: "Es una fuerza generada principalmente por la forma (perfil aerodinámico) de las alas.",
+                image: "" 
+            },
+            {
+                question: "¿Qué parte del avión se utiliza para controlar el movimiento de 'alabeo' (inclinar el avión hacia los lados)?",
+                options: ["Timón De Dirección", "Elevadores", "Alerones", "Flaps"],
+                correctIndex: 2,
+                explanation: "Los alerones se mueven en direcciones opuestas para aumentar la sustentación en un ala y disminuirla en la otra, provocando el alabeo.",
+                hint: "Se encuentran en el borde de salida de las alas y se mueven de forma asimétrica.",
+                image: ""
+            },
+            {
+                question: "¿A qué se refiere el término 'guiñada' en una aeronave?",
+                options: ["Ángulo de inclinación", "Subir y bajar nariz", "Aumento de velocidad crucero", "Giro de la nariz de lado a lado"],
+                correctIndex: 3,
+                explanation: "La guiñada es el movimiento del avión alrededor de su eje vertical (girar la nariz hacia la izquierda o la derecha).",
+                hint: "Está relacionado con el movimiento horizontal de la nariz del avión, controlado por el timón de dirección.",
+                image: ""
+            },
+            {
+                question: "¿Quiénes son acreditados históricamente con realizar el primer vuelo controlado y motorizado en 1903?",
+                options: ["Los hermanos Wright", "Leonardo da Vinci", "Amelia Earhart", "Charles Lindbergh"],
+                correctIndex: 0,
+                explanation: "Orville y Wilbur Wright lograron este hito histórico el 17 de diciembre de 1903 en Kitty Hawk, Carolina del Norte, con su avión 'Wright Flyer'.",
+                hint: "Eran dos hermanos estadounidenses que antes de construir aviones tenían una tienda de bicicletas.",
+                image: ""
+            },
+            {
+                question: "¿Cuál es la función principal de los 'Flaps' en las alas de un avión?",
+                options: ["Aumentar la velocidad máxima del avión", "Incrementar la sustentación a bajas velocidades", "Servir como tanques auxiliares de combustible", "Enfriar los motores durante el vuelo"],
+                correctIndex: 1,
+                explanation: "Al desplegarse, los flaps aumentan la curvatura del ala, permitiendo volar de forma segura a velocidades menores.",
+                hint: "Se utilizan mayormente durante las fases de aproximación y aterrizaje.",
+                image: "" 
+            },
+            {
+                question: "¿Cuál es el propósito principal de la llamada 'caja negra' en un avión?",
+                options: ["Guardar el equipaje especial de la tripulación", "Registrar datos técnicos de vuelo y comunicaciones de la cabina", "Controlar electrónicamente el tren de aterrizaje", "Almacenar combustible de emergencia"],
+                correctIndex: 1,
+                explanation: "Las cajas negras graban el audio de la cabina y los datos de los sensores del avión para ayudar en las investigaciones en caso de incidentes.",
+                hint: "Ayuda a los investigadores a saber exactamente qué pasó durante un vuelo.",
+                image: ""
+            },
+            {
+                question: "¿Cómo se llama la zona del avión desde donde los pilotos controlan la aeronave?",
+                options: ["Cabina de pasajeros", "Bodega de carga", "Cabina de mando (Cockpit)", "Fuselaje principal"],
+                correctIndex: 2,
+                explanation: "La cabina de mando, o 'cockpit' en inglés, es el espacio en la parte frontal del avión equipado con todos los instrumentos y controles de vuelo.",
+                hint: "Está ubicada en la punta (nariz) del avión y tiene ventanas frontales grandes.",
+                image: ""
+            },
+            {
+                question: "De las cuatro fuerzas fundamentales del vuelo, ¿cuál es la que impulsa al avión hacia adelante?",
+                options: ["Empuje (Thrust)", "Resistencia (Drag)", "Sustentación (Lift)", "Gravedad (Weight)"],
+                correctIndex: 0,
+                explanation: "El empuje es generado por los motores (hélices o turbinas) y es la fuerza que mueve la aeronave hacia adelante a través del aire.",
+                hint: "Es la fuerza creada directamente por la potencia de los motores del avión.",
+                image: ""
+            },
+            {
+                question: "¿Para qué sirve principalmente el radar meteorológico que llevan los aviones comerciales?",
+                options: ["Para que los pasajeros tengan conexión Wi-Fi", "Para detectar tormentas y precipitaciones peligrosas en la ruta", "Para medir la cantidad exacta de combustible en los tanques", "Para comunicarse con los pasajeros por el altavoz"],
+                correctIndex: 1,
+                explanation: "El radar ubicado en la nariz del avión emite ondas para detectar zonas de lluvia intensa o turbulencia severa, permitiendo a los pilotos desviar el avión para un vuelo seguro.",
+                hint: "Funciona rebotando ondas de radio para 'ver' qué hay en el cielo más adelante.",
+                image: ""
+            },
+            {
+                question: "¿Cuál de los siguientes es actualmente el avión comercial de pasajeros más grande del mundo?",
+                options: ["Boeing 737", "Airbus A380", "Concorde", "Cessna 172"],
+                correctIndex: 1,
+                explanation: "El Airbus A380 es un avión de pasajeros gigantesco que cuenta con dos pisos (cubiertas) a lo largo de todo su fuselaje.",
+                hint: "Es fabricado por un consorcio europeo y tiene la característica de poseer dos pisos completos.",
+                image: ""
+            }
+        ];
+
+        // --- LÓGICA DEL JUEGO ---
+        let currentQ_zqxm = 0;
+        let score_zqxm = 0;
+        let answers_zqxm = new Array(questions_zqxm.length).fill(null); 
+
+        const el_qNum = document.getElementById('zqxm_q_idx');
+        const el_qText = document.getElementById('zqxm_q_str');
+        const el_optsDiv = document.getElementById('zqxm_opt_grp');
+        const el_hintPane = document.getElementById('zqxm_help_pane');
+        const el_hintText = document.getElementById('zqxm_help_str');
+        const el_btnNext = document.getElementById('zqxm_btn_adv');
+        const el_btnBack = document.getElementById('zqxm_btn_rtn');
+        const el_imgBox = document.getElementById('zqxm_img_box');
+        const el_imgTag = document.getElementById('zqxm_img_tag');
+
+        const letters_zqxm = ['A.', 'B.', 'C.', 'D.'];
+
+        function loadQuestion_zqxm() {
+            const q = questions_zqxm[currentQ_zqxm];
+            
+            el_qNum.textContent = `${currentQ_zqxm + 1}.`;
+            el_qText.textContent = q.question;
+            el_hintText.textContent = q.hint;
+            el_hintPane.classList.remove('zqxm_revealed'); 
+            
+            if (q.image !== "") {
+                el_imgTag.src = q.image;
+                el_imgBox.style.display = "block";
+            } else {
+                el_imgBox.style.display = "none";
+            }
+
+            el_optsDiv.innerHTML = '';
+            q.options.forEach((option, index) => {
+                const optDiv = document.createElement('div');
+                optDiv.className = 'zqxm_opt_node';
+                optDiv.id = `zqxm_opt_${index}`;
+                
+                optDiv.innerHTML = `
+                    <div class="zqxm_opt_core">
+                        <span class="zqxm_opt_char">${letters_zqxm[index]}</span>
+                        <span>${option}</span>
+                    </div>
+                    <div class="zqxm_expl_box">
+                        <div class="zqxm_expl_hdr">
+                            <span class="zqxm_expl_sym"></span>
+                            <span class="zqxm_expl_lbl"></span>
+                        </div>
+                        ${q.explanation}
+                    </div>
+                `;
+
+                if (answers_zqxm[currentQ_zqxm] === null) {
+                    optDiv.onclick = () => selectOption_zqxm(index);
+                }
+
+                el_optsDiv.appendChild(optDiv);
+            });
+
+            el_btnBack.style.display = currentQ_zqxm > 0 ? 'inline-block' : 'none';
+            
+            if (answers_zqxm[currentQ_zqxm] !== null) {
+                showResult_zqxm(answers_zqxm[currentQ_zqxm]);
+                el_btnNext.disabled = false;
+            } else {
+                el_btnNext.disabled = true;
+            }
+
+            if (currentQ_zqxm === questions_zqxm.length - 1) {
+                el_btnNext.textContent = 'Finalizar';
+            } else {
+                el_btnNext.textContent = 'Siguiente';
+            }
+        }
+
+        function selectOption_zqxm(selectedIndex) {
+            if (answers_zqxm[currentQ_zqxm] !== null) return;
+
+            const q = questions_zqxm[currentQ_zqxm];
+            const isCorrect = selectedIndex === q.correctIndex;
+            
+            answers_zqxm[currentQ_zqxm] = {
+                selected: selectedIndex,
+                correct: isCorrect
+            };
+
+            if (isCorrect) score_zqxm++;
+
+            showResult_zqxm(answers_zqxm[currentQ_zqxm]);
+            el_btnNext.disabled = false;
+        }
+
+        function showResult_zqxm(answerData) {
+            const options = document.querySelectorAll('.zqxm_opt_node');
+            
+            options.forEach((opt, idx) => {
+                opt.classList.add('zqxm_locked'); 
+                
+                const lblEl = opt.querySelector('.zqxm_expl_lbl');
+                const symEl = opt.querySelector('.zqxm_expl_sym');
+
+                if (idx === answerData.selected) {
+                    if (answerData.correct) {
+                        opt.classList.add('zqxm_valid');
+                        symEl.innerHTML = '✔️';
+                        lblEl.textContent = '¡Así es!';
+                    } else {
+                        opt.classList.add('zqxm_invalid');
+                        symEl.innerHTML = '❌';
+                        lblEl.textContent = 'Incorrecto.';
+                    }
+                }
+            });
+        }
+
+        function toggleHint_zqxm() {
+            el_hintPane.classList.toggle('zqxm_revealed');
+        }
+
+        function nextQuestion_zqxm() {
+            if (currentQ_zqxm < questions_zqxm.length - 1) {
+                currentQ_zqxm++;
+                loadQuestion_zqxm();
+            } else {
+                showFinal_zqxm();
+            }
+        }
+
+        function prevQuestion_zqxm() {
+            if (currentQ_zqxm > 0) {
+                currentQ_zqxm--;
+                loadQuestion_zqxm();
+            }
+        }
+
+        function showFinal_zqxm() {
+            document.getElementById('zqxm_main_ui').style.display = 'none';
+            document.getElementById('zqxm_out_ui').style.display = 'block';
+            document.getElementById('zqxm_out_txt').textContent = `${score_zqxm} / ${questions_zqxm.length}`;
+        }
+
+        // Iniciar
+        loadQuestion_zqxm();
 </script>
 </body>
 </html>
