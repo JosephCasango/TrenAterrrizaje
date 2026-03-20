@@ -613,6 +613,81 @@ body, html {
   width: 100%;
   filter: drop-shadow(0 0 23px var(--color-activacion));
 }
+
+
+
+
+/* --- NUEVOS ESTILOS PARA EL MAPA Y FOOTER (IMAGEN 9d1f18) --- */
+    
+    .f1-map-container {
+        width: 100%;
+        background-color: #ffffff;
+        margin-top: 50px;
+    }
+
+    /* Contenedor del Iframe para que sea responsivo */
+    .f2-map-wrapper {
+        position: relative;
+        width: 100%;
+        height: 450px; /* Altura para PC */
+        background-color: #eee;
+    }
+
+    .f2-map-wrapper iframe {
+        width: 100%;
+        height: 100%;
+        border: 0;
+    }
+
+    /* Barra negra con texto "Google Maps" */
+    .f3-map-label {
+        background-color: #000000;
+        color: #ffffff;
+        padding: 20px 5%;
+    }
+
+    .f3-map-label h3 {
+        font-size: 2rem;
+        font-weight: bold;
+        margin: 0;
+        font-family: Arial, sans-serif;
+    }
+
+    /* Franja teal "TODOS LOS DERECHOS RESERVADOS" */
+    .f4-rights-bar {
+        background-color: #00A89D;
+        color: #ffffff;
+        text-align: center;
+        padding: 12px 10px;
+        font-weight: bold;
+        letter-spacing: 1px;
+        font-size: 1.1rem;
+        text-transform: uppercase;
+    }
+
+    /* Bloque final negro */
+    .f5-footer-black {
+        background-color: #000000;
+        height: 150px; /* Ajusta según qué tan alto quieras el espacio final */
+        width: 100%;
+    }
+
+    /* Ajustes para Celulares y Tablets */
+    @media (max-width: 768px) {
+        .f2-map-wrapper {
+            height: 300px; /* Más pequeño en tablets */
+        }
+        .f3-map-label h3 {
+            font-size: 1.5rem;
+        }
+        .f4-rights-bar {
+            font-size: 0.9rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .f2-map-wrapper {
+            height: 250px; /* Más pequeño en celulares */
     </style>
 </head>
 <body>
@@ -746,11 +821,28 @@ body, html {
             </div>
         </div>
     </section>
-
-    <div class="teal-stripe">
-        
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3616.32670758159!2d-116.82869071963806!3d32.46008075485196!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80d93e743f2e3bd7%3A0xbf19e069ae61d678!2sUniversidad%20Tecnol%C3%B3gica%20de%20Tijuana!5e1!3m2!1ses-419!2smx!4v1773969375640!5m2!1ses-419!2smx" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+<section class="f1-map-container">
+    <div class="f2-map-wrapper">
+        <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3616.32670758159!2d-116.82869071963806!3d32.46008075485196!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80d93e743f2e3bd7%3A0xbf19e069ae61d678!2sUniversidad%20Tecnol%C3%B3gica%20de%20Tijuana!5e1!3m2!1ses-419!2smx!4v1773969375640!5m2!1ses-419!2smx"
+            allowfullscreen="" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
     </div>
+
+    <div class="f3-map-label">
+        <h3>Google Maps</h3>
+    </div>
+    <BR>
+    <BR>
+
+    <div class="f4-rights-bar">
+        TODOS LOS DERECHOS RESERVADOS
+    </div>
+
+    <div class="f5-footer-black"></div>
+</section>
     <div style="background-color: black; height: 100%;"></div>
 
 </div>
@@ -902,4 +994,5 @@ function openPage(pageName,elmnt,color) {
 document.getElementById("defaultOpen").click();
 </script>
 </body>
+</html>
 </html>
