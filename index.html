@@ -11,23 +11,18 @@
 
     <title>Vanglar - Simuladores UTT</title>
     <style>
-        /* =========================================
-           1. ESTILOS BASE Y RESET
-           ========================================= */
+  
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
         body, html {
             height: 100%;
             font-family: "Segoe UI", Arial, sans-serif;
-            background-color: #f4f4f4; /* Fondo general unificado */
-            overflow-x: hidden; /* Evita el scroll horizontal molesto */
+            background-color: #f4f4f4; 
+            overflow-x: hidden; 
         }
 
         img { max-width: 100%; height: auto; display: block; }
 
-        /* =========================================
-           2. NAVEGACIÓN LATERAL (SIDENAV)
-           ========================================= */
         .sidenavIA {
             height: 100%;
             width: 0;
@@ -63,7 +58,7 @@
             --ancho-borde: 6px;
             --color-contorno: rgba(255, 255, 255, 0.6);
             --color-activacion: #37FF8B; 
-            --tamano-fuente: 1.5em; /* Reducido para mejor ajuste */
+            --tamano-fuente: 1.5em; 
             letter-spacing: 3px;
             text-decoration: none;
             font-size: var(--tamano-fuente);
@@ -91,21 +86,19 @@
             filter: drop-shadow(0 0 23px var(--color-activacion));
         }
 
-        /* =========================================
-           3. ENCABEZADO SUPERIOR Y BOTÓN MENÚ
-           ========================================= */
+    
         .top-header {
             background-color: #000000;
-            padding: 15px 5%; /* Ajuste de padding */
+            padding: 15px 5%; 
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: nowrap; /* Mantiene logo y botón en la misma línea */
+            flex-wrap: nowrap; 
         }
         .logo {
             color: #ffffff;
             font-family: 'Times New Roman', Times, serif;
-            font-size: clamp(1.5rem, 5vw, 2.8rem); /* Se autoajusta al tamaño */
+            font-size: clamp(1.5rem, 5vw, 2.8rem); 
             letter-spacing: 2px;
         }
         .teal-stripe {
@@ -114,7 +107,7 @@
             width: 100%;
         }
 
-        /* Botón animado MENU */
+
         .btnAS {
             width: 150px;
             height: 50px;
@@ -151,20 +144,16 @@
             .btnAS .textAS { transform: translateX(45px); }
         }
 
-        /* =========================================
-           4. PESTAÑAS (TABS)
-           ========================================= */
+    
         .tabcontent {
             display: none;
             background-color: #ffffff;
             min-height: 100vh;
             padding-bottom: 50px;
         }
-        #Home { display: block; } /* Mostrar inicio por defecto */
+        #Home { display: block; }
 
-        /* =========================================
-           5. SECCIONES: INICIO
-           ========================================= */
+ 
         .hero-container {
             padding-top: 50px;
             display: flex;
@@ -264,9 +253,6 @@
             .black-info-block { padding-top: 80px; }
         }
 
-        /* =========================================
-           6. SECCIONES: CARRERAS (NEWS)
-           ========================================= */
         header.seccion-header {
             background-color: #000000; text-align: center; padding: 2rem 1rem; border-bottom: 25px solid #00A89D;
         }
@@ -297,13 +283,11 @@
         @media (max-width: 768px) { .r4-carousel-img { height: 350px; } }
         @media (max-width: 480px) { .r4-carousel-img { height: 250px; } }
 
-        /* =========================================
-           7. SECCIONES: DESEMPEÑO (CONTACT)
-           ========================================= */
+  
         .marco-global { max-width: 1100px; margin: 40px auto; padding: 0 20px;}
         .titulo-seccion { font-size: 35px; text-align: center; color: #222; margin-bottom: 20px; }
         
-        /* Botones de filtro adaptables */
+    
         .contenedor-selectores {
             display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 30px;
         }
@@ -314,7 +298,6 @@
         .selector-accion:hover { background-color: #ddd; }
         .selector-accion.estado-seleccionado { background-color: #2c3e50; color: white; }
 
-        /* Cuadrícula adaptable con GAP */
         .tablero-proyectos { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;}
         .pieza-galeria { width: 100%; display: none; } /* Oculto por defecto para el filtro */
         .pieza-galeria.activar-visibilidad { display: block; }
@@ -359,18 +342,18 @@
 
 
 
-        /* Contenedor Maestro: Reemplaza al 'body' para no afectar tu web principal */
+ 
         .zqxm_master_container {
             background-color: #131314;
             color: #e3e3e3;
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             margin: 0;
-            padding: 40px 15px; /* Espaciado arriba/abajo y a los lados */
+            padding: 40px 15px;
             display: flex;
             justify-content: center;
             width: 100%;
             box-sizing: border-box;
-            border-radius: 16px; /* Bordes redondeados por si lo metes en una tarjeta */
+            border-radius: 16px; 
         }
 
         .zqxm_wrap {
@@ -382,7 +365,7 @@
             flex-direction: column;
         }
 
-        /* Contenedor de Imagen */
+
         .zqxm_img_box {
             width: 100%;
             margin-bottom: 20px;
@@ -402,7 +385,6 @@
             margin: 0 auto;
         }
 
-        /* Pregunta */
         .zqxm_q_hdr {
             display: flex;
             gap: 15px;
@@ -412,7 +394,7 @@
             line-height: 1.4;
         }
 
-        /* Opciones */
+   
         .zqxm_opt_grp {
             display: flex;
             flex-direction: column;
@@ -445,7 +427,7 @@
             color: #c4c7c5;
         }
 
-        /* Estados de respuesta */
+    
         .zqxm_opt_node.zqxm_valid {
             border-color: #81c995;
             background-color: rgba(129, 201, 149, 0.05);
@@ -460,7 +442,7 @@
             cursor: default;
         }
 
-        /* Explicación (Feedback) */
+     
         .zqxm_expl_box {
             display: none;
             margin-top: 12px;
@@ -591,8 +573,7 @@
 
 
 
-
-        /* Modificado para no afectar el resto de la página */ 
+ 
 .btn-dirigir {
   font-family: inherit;
   font-size: 20px;
@@ -1185,7 +1166,6 @@ function borrarClase(elemento, nombre) {
   elemento.className = arr1.join(" ");
 }
 
-// --- FUNCIONAMIENTO DEL ZOOM ---
 var modal = document.getElementById("ventanaEmergente");
 var modalImg = document.getElementById("visorImagen");
 var captionText = document.getElementById("visorTexto");
@@ -1200,7 +1180,7 @@ function bajarLupa() {
   modal.style.display = "none";
 }
 
-// --- GESTIÓN DE BOTONES ACTIVOS ---
+
 var zonaBotones = document.getElementById("panelFiltros");
 var botones = zonaBotones.getElementsByClassName("selector-accion");
 for (var i = 0; i < botones.length; i++) {
@@ -1214,7 +1194,7 @@ for (var i = 0; i < botones.length; i++) {
 
 
 
-   // --- BASE DE DATOS DE PREGUNTAS ---
+
         const questions_zqxm = [
             {
                 question: "¿Cuál es la fuerza que se opone directamente al peso de un avión para mantenerlo en el aire?",
@@ -1298,7 +1278,7 @@ for (var i = 0; i < botones.length; i++) {
             }
         ];
 
-        // --- LÓGICA DEL JUEGO ---
+      
         let currentQ_zqxm = 0;
         let score_zqxm = 0;
         let answers_zqxm = new Array(questions_zqxm.length).fill(null); 
