@@ -583,10 +583,73 @@
 
         .zqxm_wrap svg { width: 20px; height: 20px; fill: currentColor; }
 
+
+
+
+
+
+
+
+
+
+        /* Modificado para no afectar el resto de la página */ 
+.btn-dirigir {
+  font-family: inherit;
+  font-size: 20px;
+  background: royalblue;
+  color: white;
+  padding: 0.7em 1em;
+  padding-left: 0.9em;
+  display: flex;
+  align-items: center;
+  border: none;
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.btn-dirigir span {
+  display: block;
+  margin-left: 0.3em;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-dirigir svg {
+  display: block;
+  transform-origin: center center;
+  transition: transform 0.3s ease-in-out;
+}
+
+.btn-dirigir:hover .dirigir-svg-inner {
+  animation: fly-dirigir 0.6s ease-in-out infinite alternate;
+}
+
+.btn-dirigir:hover svg {
+  transform: translateX(1.2em) rotate(45deg) scale(1.1);
+}
+
+.btn-dirigir:hover span {
+  transform: translateX(5em);
+}
+
+.btn-dirigir:active {
+  transform: scale(0.95);
+}
+
+@keyframes fly-dirigir {
+  from {
+    transform: translateY(0.1em);
+  }
+
+  to {
+    transform: translateY(-0.1em);
+  }
+}
+
     </style>
 </head>
 <body>
-
 <div id="mySidenav" class="sidenavIA">
   <a href="javascript:void(0)" class="closebtnIA" onclick="closeNav()">×</a>
   
@@ -601,13 +664,13 @@
   </button>
 
   <button class="btn-simulador" onclick="openPage('Contact', this)">
-    <span class="texto-base"> Educacion </span>
-    <span aria-hidden="true" class="texto-efecto" data-text="CREDITOS"> Educacion </span>
+    <span class="texto-base"> Educación </span>
+    <span aria-hidden="true" class="texto-efecto" data-text="EDUCACIÓN"> Educación </span>
   </button>
 
  <button class="btn-simulador" onclick="openPage('Juego', this)">
     <span class="texto-base"> Juego </span>
-    <span aria-hidden="true" class="texto-efecto" data-text="CREDITOS"> Juego </span>
+    <span aria-hidden="true" class="texto-efecto" data-text="JUEGO"> Juego </span>
   </button>
 </div>
 
@@ -621,7 +684,7 @@
                 <rect y="60" width="80" height="15" fill="#f0f0f0" rx="10"></rect>
             </svg>
         </span>
-        <span class="textAS">MENU</span>
+        <span class="textAS">MENÚ</span>
     </button>
 </header>
 <div class="teal-stripe"></div>
@@ -631,7 +694,7 @@
     <div class="container mt-4">
         <div class="alert alert-danger alert-dismissible fade show">
             <button type="button" class="close" data-dismiss="alert">×</button>
-            <strong>Nota!</strong> Pagina web en desarrollo.
+            <strong>¡Nota!</strong> Página web en desarrollo.
         </div>
     </div>
 
@@ -661,21 +724,57 @@
 
         <div class="tool-item">
             <div class="airplane-top">
-                <img src="https://i.pinimg.com/736x/7e/88/00/7e8800a546da81f3989ef1231e2bcdd3.jpg" alt="Avión">
+                <img src="https://i.pinimg.com/736x/43/7e/47/437e479f78709ab6f572c2c848239e38.jpg" alt="Avión">
             </div>
             <div class="info-bar-bottom">
-                <div class="tool-title">FLIGHT RADAR</div>
-                <a href="https://www.flightradar24.com/30.33,-113.61/6" target="_blank"><button class="btn-yellow">BOTÓN</button></a>
+                <div class="tool-title">PRESENTACIÓN</div>
+                <a href="https://www.canva.com/design/DAG5AMT79ko/k9KHjVlGsGTvaQMEycWa1A/edit" target="_blank"><button class="btn-dirigir">
+  <div class="dirigir-svg-outer">
+    <div class="dirigir-svg-inner">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        width="24"
+        height="24"
+      >
+        <path fill="none" d="M0 0h24v24H0z"></path>
+        <path
+          fill="currentColor"
+          d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z"
+        ></path>
+      </svg>
+    </div>
+  </div>
+  <span>Dirigir</span>
+</button></a>
             </div>
         </div>
 
         <div class="tool-item">
             <div class="airplane-top">
-                <img src="https://i.pinimg.com/736x/a9/c6/14/a9c61481e4a1e843e580528fc481e347.jpg" alt="Avión">
+                <img src="https://i.pinimg.com/736x/75/80/13/758013ac3dac0c2b39f6f6fbfca7bbbe.jpg" alt="Avión">
             </div>
             <div class="info-bar-bottom">
-                <div class="tool-title">PLAN DE VUELOS</div>
-                <a href="https://dispatch.simbrief.com/options/new" target="_blank"><button class="btn-yellow">BOTÓN</button></a>
+                <div class="tool-title">DOCUMENTACIÓN</div>
+                <a href="https://www.canva.com/design/DAHEd0zLhX0/NoUxs-6eo5AH-c8sN2igiw/edit" target="_blank"><button class="btn-dirigir">
+  <div class="dirigir-svg-outer">
+    <div class="dirigir-svg-inner">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        width="24"
+        height="24"
+      >
+        <path fill="none" d="M0 0h24v24H0z"></path>
+        <path
+          fill="currentColor"
+          d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z"
+        ></path>
+      </svg>
+    </div>
+  </div>
+  <span>Dirigir</span>
+</button></a>
             </div>
         </div>
 
@@ -685,7 +784,25 @@
             </div>
             <div class="info-bar-bottom">
                 <div class="tool-title">UTT</div>
-                <a href="https://uttijuana.edu.mx/" target="_blank"><button class="btn-yellow">BOTÓN</button></a>
+                <a href="https://uttijuana.edu.mx/" target="_blank"><button class="btn-dirigir">
+  <div class="dirigir-svg-outer">
+    <div class="dirigir-svg-inner">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        width="24"
+        height="24"
+      >
+        <path fill="none" d="M0 0h24v24H0z"></path>
+        <path
+          fill="currentColor"
+          d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z"
+        ></path>
+      </svg>
+    </div>
+  </div>
+  <span>Dirigir</span>
+</button></a>
             </div>
         </div>
     </section>
@@ -702,7 +819,7 @@
 
 <div id="News" class="tabcontent">
     <header class="seccion-header">
-        <h1>Implementaciones en las<br>Carreras</h1>
+        <h1>Implementaciones Tecnológicas En Las<br>Carreras</h1>
     </header>
 
     <main class="q8-wrap">
@@ -710,7 +827,7 @@
             <div class="p3-pic"><img src="https://uttijuana.edu.mx/wp-content/uploads/2025/02/03-AERONAUTICA-EN-MANUFACTURA-TSU-Manufactura-Aeronautica.jpg" alt="Aeronáutica"></div>
             <div class="l5-line"></div>
             <div class="t2-txt">
-                <h2>Manufactura Aeronautica</h2>
+                <h2>Manufactura Aeronáutica</h2>
                 <p>Simulación de la aerodinámica, validación de modelos de vuelo, estudio de sistemas de aeronaves y práctica de procedimientos de emergencia.</p>
             </div>
         </article>
@@ -732,8 +849,8 @@
             </div>
             <div class="l5-line"></div>
             <div class="t2-txt">
-                <h2>Operaciones Logísticas y Comerciales Exterior</h2>
-                <p>Evaluación de la infraestructura de hubs logísticos globales, cálculo de la viabilidad económica de rutas aéreas (costo de combustible, tiempo de tránsito) y gestión de riesgos geográfico.</p>
+                <h2>Operaciones Logísticas y Comercio Exterior</h2>
+                <p>Evaluación de la infraestructura de hubs logísticos globales, cálculo de la viabilidad económica de rutas aéreas (costo de combustible, tiempo de tránsito) y gestión de riesgos geográficos.</p>
             </div>
         </article>
 
@@ -939,7 +1056,7 @@
 </div>
 
 <div id="ventanaEmergente" class="pantalla-zoom">
-  <span class="cerrar-visor" onclick="bajarLupa()">&times;</span>
+  <span class="cerrar-visor" onclick="bajarLupa()">×</span>
   <img class="imagen-maximizada" id="visorImagen">
   <div id="visorTexto" class="texto-descripcion"></div>
 </div>
