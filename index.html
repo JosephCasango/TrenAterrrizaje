@@ -695,6 +695,185 @@ body, html {
             height: 100px;
         }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    * {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #f4f4f4;
+  padding: 20px;
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.marco-global {
+  max-width: 1100px;
+  margin: auto;
+}
+
+.titulo-seccion {
+  font-size: 35px;
+  text-align: center;
+  color: #222;
+  margin-bottom: 20px;
+}
+
+/* --- BOTONES DE FILTRADO (RENOMBRADOS) --- */
+.contenedor-selectores {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.selector-accion {
+  border: none;
+  outline: none;
+  padding: 12px 20px;
+  background-color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  margin: 4px;
+  transition: 0.3s;
+  font-weight: bold;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.selector-accion:hover {
+  background-color: #e0e0e0;
+}
+
+.selector-accion.estado-seleccionado {
+  background-color: #2c3e50;
+  color: white;
+}
+
+/* --- REJILLA RESPONSIVA --- */
+.tablero-proyectos {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 10px -10px;
+}
+
+/* Base: 1 columna (Celulares) */
+.pieza-galeria {
+  padding: 10px;
+  width: 100%;
+  display: none; /* Se activa mediante JS */
+}
+
+/* Tablets: 2 columnas */
+@media screen and (min-width: 600px) {
+  .pieza-galeria { width: 50%; }
+}
+
+/* Laptops/Desktop: 3 columnas */
+@media screen and (min-width: 992px) {
+  .pieza-galeria { width: 33.33%; }
+}
+
+/* --- TARJETAS DE CONTENIDO --- */
+.envoltura-info {
+  background-color: white;
+  padding: 15px;
+  border-radius: 8px;
+  height: 100%; /* Para que todos los recuadros midan lo mismo */
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+}
+
+.envoltura-info h4 {
+  margin: 15px 0 10px 0;
+  color: #333;
+}
+
+.envoltura-info p {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.4;
+}
+
+/* AJUSTE DE IMÁGENES (MISMO TAMAÑO SIEMPRE) */
+.foto-portada {
+  width: 100%;
+  height: 230px; /* Altura fija para uniformidad */
+  object-fit: cover; /* Recorta la imagen para que encaje sin estirarse */
+  border-radius: 4px;
+  cursor: pointer;
+  transition: opacity 0.3s;
+}
+
+.foto-portada:hover {
+  opacity: 0.85;
+}
+
+.activar-visibilidad {
+  display: block;
+}
+
+/* --- VENTANA MODAL (ZOOM) --- */
+.pantalla-zoom {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  padding-top: 50px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.95);
+  overflow: auto;
+}
+
+.imagen-maximizada {
+  margin: auto;
+  display: block;
+  width: 90%;
+  max-width: 800px;
+  border-radius: 8px;
+  animation: entradaZoom 0.4s;
+}
+
+.texto-descripcion {
+  margin: auto;
+  display: block;
+  width: 80%;
+  text-align: center;
+  color: #fff;
+  padding: 20px 0;
+  font-size: 18px;
+}
+
+@keyframes entradaZoom {
+  from {transform: scale(0.7); opacity: 0;}
+  to {transform: scale(1); opacity: 1;}
+}
+
+.cerrar-visor {
+  position: absolute;
+  top: 15px;
+  right: 35px;
+  color: #f1f1f1;
+  font-size: 60px;
+  font-weight: bold;
+  cursor: pointer;
+  line-height: 1;
+}
+
+@media only screen and (max-width: 700px){
+  .imagen-maximizada { width: 100%; }
+}
     </style>
 </head>
 <body>
@@ -951,7 +1130,7 @@ body, html {
         <img src="https://i.pinimg.com/736x/d6/2a/6e/d62a6e11a324baaf29588ddecbab6c44.jpg" alt="Imagen 2" class="r4-carousel-img">
       </div>
       <div class="carousel-item">
-        <img src="https://i.pinimg.com/736x/95/74/28/957428ac2586eb8015429fa415397075.jpg" alt="Imagen 3" class="r4-carousel-img">
+        <img src="https://i.pinimg.com/736x/bb/e8/6b/bbe86baf443d1a48b442bbf422927ff5.jpg" alt="Imagen 3" class="r4-carousel-img">
       </div>
             <div class="carousel-item">
         <img src="https://i.pinimg.com/736x/b5/c7/81/b5c7817d13b7e8df4b954af8664de09e.jpg" alt="Imagen 4" class="r4-carousel-img">
@@ -982,8 +1161,118 @@ body, html {
 
 
 <div id="Contact" class="tabcontent">
-  <h3>Contact</h3>
-  <p>Get in touch, or swing by for a cup of coffee.</p>
+
+
+
+
+
+
+
+<div class="marco-global">
+
+<h2 class="titulo-seccion">ACTIVIDADES DE DESEMPEÑO</h2>
+<hr>
+
+<div class="contenedor-selectores" id="panelFiltros">
+  <button class="selector-accion estado-seleccionado" onclick="aplicarFiltro('todo')"> Todo</button>
+  <button class="selector-accion" onclick="aplicarFiltro('solar')"> Carrito Solar</button>
+  <button class="selector-accion" onclick="aplicarFiltro('maquinaria')"> CNC y Fresadora</button>
+  <button class="selector-accion" onclick="aplicarFiltro('digital')"> Diseño Por Computadora</button>
+</div>
+
+<div class="tablero-proyectos">
+  
+  <div class="pieza-galeria solar">
+    <div class="envoltura-info">
+      <img src="https://i.pinimg.com/736x/c1/bb/4c/c1bb4c11bbeed49e74dd45041c58f3e7.jpg" alt="Primer contacto con la innovación" class="foto-portada" onclick="lupaImagen(this)">
+      <h4>Primer contacto con la innovación</h4>
+      <p>Estudiantes y mentores revisan el prototipo funcional en su entorno de prueba.</p>
+    </div>
+  </div>
+
+  <div class="pieza-galeria solar">
+    <div class="envoltura-info">
+      <img src="https://i.pinimg.com/736x/79/46/39/7946393622fc8fc5754a346ef5352058.jpg" alt="Ingeniería solar en detalle" class="foto-portada" onclick="lupaImagen(this)">
+      <h4>Ingeniería solar en detalle</h4>
+      <p>Un examen minucioso de los paneles solares y el sistema de energía del vehículo.</p>
+    </div>
+  </div>
+
+  <div class="pieza-galeria solar">
+    <div class="envoltura-info">
+      <img src="https://i.pinimg.com/736x/69/be/22/69be221d022a669cce55b27eef91325f.jpg" alt="Colaboración y aprendizaje en equipo" class="foto-portada" onclick="lupaImagen(this)">
+      <h4>Colaboración y aprendizaje</h4>
+      <p>El grupo se reúne en el taller para la puesta en común y la instrucción final del proyecto.</p>
+    </div>
+  </div>
+
+  <div class="pieza-galeria maquinaria">
+    <div class="envoltura-info">
+      <img src="https://i.pinimg.com/736x/b8/5a/f8/b85af8efac236763d762fbd71fad1dfe.jpg" alt="Precisión mediante Control Numérico" class="foto-portada" onclick="lupaImagen(this)">
+      <h4>Precisión mediante CNC</h4>
+      <p>Programación y monitoreo de maquinaria CNC para la fabricación de componentes técnicos.</p>
+    </div>
+  </div>
+
+  <div class="pieza-galeria maquinaria">
+    <div class="envoltura-info">
+      <img src="https://i.pinimg.com/736x/63/56/bc/6356bce6da000e150648ab460aa1afbd.jpg" alt="Mecanizado de alta velocidad" class="foto-portada" onclick="lupaImagen(this)">
+      <h4>Mecanizado de alta velocidad</h4>
+      <p>Ejecución de cortes precisos en bloques de metal mediante el uso de fresas de carburo.</p>
+    </div>
+  </div>
+
+  <div class="pieza-galeria maquinaria">
+    <div class="envoltura-info">
+      <img src="https://i.pinimg.com/736x/72/ad/61/72ad615d68e852302b4dd9af826f75ad.jpg" alt="Manufactura convencional" class="foto-portada" onclick="lupaImagen(this)">
+      <h4>Manufactura convencional</h4>
+      <p>Control manual y supervisión directa del proceso de fresado para el acabado de piezas.</p>
+    </div>
+  </div>
+
+  <div class="pieza-galeria digital">
+    <div class="envoltura-info">
+      <img src="https://i.pinimg.com/736x/24/cf/1f/24cf1fe54528b9cbcafb4bfa5ce7da8d.jpg" alt="Prototipado Virtual" class="foto-portada" onclick="lupaImagen(this)">
+      <h4>Prototipado Virtual</h4>
+      <p>Creación de sólidos precisos para optimizar el uso de material y resistencia mecánica.</p>
+    </div>
+  </div>
+
+  <div class="pieza-galeria digital">
+    <div class="envoltura-info">
+      <img src="https://i.pinimg.com/736x/42/f3/ab/42f3ab8915d820f07a1fba1a95fde1ac.jpg" alt="Ingeniería Mecánica" class="foto-portada" onclick="lupaImagen(this)">
+      <h4>Ingeniería Mecánica CAD</h4>
+      <p>Desarrollo de mecanismos aeronáuticos mediante herramientas de diseño por computadora.</p>
+    </div>
+  </div>
+
+  <div class="pieza-galeria digital">
+    <div class="envoltura-info">
+      <img src="https://i.pinimg.com/736x/69/b2/9f/69b29feb4f3752d6625f627d3ff1815b.jpg" alt="Planos de Manufactura" class="foto-portada" onclick="lupaImagen(this)">
+      <h4>Planos de Manufactura</h4>
+      <p>Traducción del modelo tridimensional a vistas técnicas fundamentales para calidad.</p>
+    </div>
+  </div>
+
+</div>
+
+</div>
+
+<div id="ventanaEmergente" class="pantalla-zoom">
+  <span class="cerrar-visor" onclick="bajarLupa()">&times;</span>
+  <img class="imagen-maximizada" id="visorImagen">
+  <div id="visorTexto" class="texto-descripcion"></div>
+</div>
+
+
+
+
+
+
+
+
+
+
 </div>
 
 
@@ -1016,6 +1305,70 @@ function openPage(pageName,elmnt,color) {
 }
 
 document.getElementById("defaultOpen").click();
+
+
+
+
+
+
+aplicarFiltro("todo")
+
+function aplicarFiltro(cat) {
+  var x, i;
+  x = document.getElementsByClassName("pieza-galeria");
+  if (cat == "todo") cat = "";
+  for (i = 0; i < x.length; i++) {
+    borrarClase(x[i], "activar-visibilidad");
+    if (x[i].className.indexOf(cat) > -1) agregarClase(x[i], "activar-visibilidad");
+  }
+}
+
+function agregarClase(elemento, nombre) {
+  var i, arr1, arr2;
+  arr1 = elemento.className.split(" ");
+  arr2 = nombre.split(" ");
+  for (i = 0; i < arr2.length; i++) {
+    if (arr1.indexOf(arr2[i]) == -1) {elemento.className += " " + arr2[i];}
+  }
+}
+
+function borrarClase(elemento, nombre) {
+  var i, arr1, arr2;
+  arr1 = elemento.className.split(" ");
+  arr2 = nombre.split(" ");
+  for (i = 0; i < arr2.length; i++) {
+    while (arr1.indexOf(arr2[i]) > -1) {
+      arr1.splice(arr1.indexOf(arr2[i]), 1);     
+    }
+  }
+  elemento.className = arr1.join(" ");
+}
+
+// --- FUNCIONAMIENTO DEL ZOOM ---
+var modal = document.getElementById("ventanaEmergente");
+var modalImg = document.getElementById("visorImagen");
+var captionText = document.getElementById("visorTexto");
+
+function lupaImagen(elemento){
+  modal.style.display = "block";
+  modalImg.src = elemento.src;
+  captionText.innerHTML = elemento.alt;
+}
+
+function bajarLupa() { 
+  modal.style.display = "none";
+}
+
+// --- GESTIÓN DE BOTONES ACTIVOS ---
+var zonaBotones = document.getElementById("panelFiltros");
+var botones = zonaBotones.getElementsByClassName("selector-accion");
+for (var i = 0; i < botones.length; i++) {
+  botones[i].addEventListener("click", function(){
+    var actual = document.getElementsByClassName("estado-seleccionado");
+    actual[0].className = actual[0].className.replace(" estado-seleccionado", "");
+    this.className += " estado-seleccionado";
+  });
+}
 </script>
 </body>
 </html>
