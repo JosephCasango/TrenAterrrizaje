@@ -362,6 +362,202 @@ body, html {
 #News {background-color: white;}
 #Contact {background-color: white;}
 #About {background-color: white;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Reseteo básico */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+        }
+
+        /* Barra de navegación */
+        .v9-nav {
+            background-color: #333;
+            color: white;
+            padding: 1rem;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .z4-news {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .j1-tramites {
+            display: block;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            color: #00A89D;
+            font-weight: normal;
+        }
+
+        /* Estilos del Encabezado */
+        header {
+            background-color: #000000;
+            text-align: center;
+            padding: 2rem 1rem;
+            border-bottom: 25px solid #00A89D;
+        }
+
+        header h1 {
+            color: #ffffff;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Contenedor principal de la cuadrícula */
+        .q8-wrap {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 1.5rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+        }
+
+        /* Estilos de la Tarjeta */
+        .x7-box {
+            background-color: #000000;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+
+        /* Contenedor de la imagen */
+        .p3-pic {
+            width: 100%;
+            height: 250px;
+            background-color: #dddddd;
+        }
+
+        .p3-pic img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Franja divisoria de color */
+        .l5-line {
+            background-color: #00A89D;
+            height: 25px;
+            width: 100%;
+        }
+
+        /* Contenido de texto de la tarjeta */
+        .t2-txt {
+            padding: 2rem 1.5rem;
+            color: #ffffff;
+            flex-grow: 1;
+        }
+
+        .t2-txt h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .t2-txt p {
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        * Contenedor principal */
+    .z8-wrapper {
+      max-width: 1100px;
+      margin: 20px auto;
+      background-color: #000;
+    }
+
+    /* Control de imágenes para que no deformen el diseño */
+    .r4-carousel-img {
+      width: 100%;
+      /* Altura fija para PC */
+      height: 500px; 
+      /* Esto recorta la imagen para que llene el espacio sin estirarse */
+      object-fit: cover; 
+      display: block;
+    }
+
+    /* Ajuste de altura para Tablets y Celulares */
+    @media (max-width: 768px) {
+      .r4-carousel-img {
+        height: 350px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .r4-carousel-img {
+        height: 250px;
+      }
+    }
+
+    /* Franja superior verde azulado */
+    .m9-stripe {
+      background-color: #00A89D;
+      height: 35px;
+      width: 100%;
+    }
+
+    /* Bloque de texto inferior */
+    .k2-footer-info {
+      background-color: #000000;
+      color: #ffffff;
+      padding: 40px;
+      text-align: justify;
+    }
+
+    .k2-footer-info p {
+      font-size: 1.15rem;
+      line-height: 1.6;
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    /* Personalización de indicadores del carrusel */
+    .carousel-indicators li {
+      background-color: #00A89D;
+    }
     </style>
 </head>
 <body>
@@ -372,11 +568,11 @@ body, html {
 <div id="mySidenav" class="sidenavIA">
   <a href="javascript:void(0)" class="closebtnIA" onclick="closeNav()">&times;</a>
   
-  <button class="tablink" onclick="openPage('Home', this,)" id="defaultOpen"><a href="#">HOME</a></button>
+  <button class="tablink" onclick="openPage('Home', this,)" id="defaultOpen"><a href="#">INICIO</a></button>
   
-  <button class="tablink" onclick="openPage('News', this,)"><a href="#">Services</a></button>
+  <button class="tablink" onclick="openPage('News', this,)"><a href="#">Carreras</a></button>
   
-  <button class="tablink" onclick="openPage('Contact', this,)"><a href="#">Clients</a></button>
+  <button class="tablink" onclick="openPage('Contact', this,)"><a href="#">Creditos</a></button>
 
 </div>
 
@@ -487,8 +683,105 @@ body, html {
 
 
 <div id="News" class="tabcontent">
-  <h3>News</h3>
-  <p>Some news this fine day!</p> 
+
+
+    <header>
+        <h1>Implementaciones en las<br>Carreras</h1>
+    </header>
+
+    <main class="q8-wrap">
+        
+        <article class="x7-box">
+            <div class="p3-pic">
+                <img src="https://uttijuana.edu.mx/wp-content/uploads/2025/02/03-AERONAUTICA-EN-MANUFACTURA-TSU-Manufactura-Aeronautica.jpg" alt="Estudiantes en helicóptero">
+            </div>
+            <div class="l5-line"></div>
+            <div class="t2-txt">
+                <h2>Manufactura Aeronautica</h2>
+                <p>Simulación de la aerodinámica, validación de modelos de vuelo, estudio de sistemas de aeronaves (hidráulicos, eléctricos) y práctica de procedimientos de emergencia.</p>
+            </div>
+        </article>
+
+        <article class="x7-box">
+            <div class="p3-pic">
+                <img src="https://uttijuana.edu.mx/wp-content/uploads/2026/02/ING.-ELECTROMOVILIDAD.jpg" alt="Estudiantes de Electrónica">
+            </div>
+            <div class="l5-line"></div>
+            <div class="t2-txt">
+                <h2>Electrónica</h2>
+                <p>Análisis de la instrumentación de cabina (Glass Cockpit, GPS, VOR), diagnóstico simulado de fallas en sistemas eléctricos y el funcionamiento del FMS (Flight Management System).</p>
+            </div>
+        </article>
+
+        <article class="x7-box">
+            <div class="p3-pic">
+                <img src="https://uttijuana.edu.mx/wp-content/uploads/2025/02/07-LOGISTICA-INTERNACIONAL.jpg" alt="Estudiantes de Logística">
+            </div>
+            <div class="l5-line"></div>
+            <div class="t2-txt">
+                <h2>Operaciones Logísticas y Comerciales Exterior</h2>
+                <p>Evaluación de la infraestructura de hubs logísticos globales, cálculo de la viabilidad económica de rutas aéreas (costo de combustible, tiempo de tránsito) y gestión de riesgos geográfico.</p>
+            </div>
+        </article>
+
+        <article class="x7-box">
+            <div class="p3-pic">
+                <img src="https://uttijuana.edu.mx/wp-content/uploads/2025/02/04.2-MECATRONICA-TSU-Sistemas-de-Manufactura-Flexible.jpg" alt="Estudiante operando brazo robótico">
+            </div>
+            <div class="l5-line"></div>
+            <div class="t2-txt">
+                <h2>Mecatrónica</h2>
+                <p>Análisis de la instrumentación de cabina (Glass Cockpit, GPS, VOR), diagnóstico simulado de fallas en sistemas eléctricos y el funcionamiento del FMS (Flight Management System).</p>
+            </div>
+        </article>
+
+    </main>
+
+    <br>
+
+    <div class="z8-wrapper">
+  
+  <div id="demo" class="carousel slide" data-ride="carousel">
+    
+    <ul class="carousel-indicators">
+      <li data-target="#demo" data-slide-to="0" class="active"></li>
+      <li data-target="#demo" data-slide-to="1"></li>
+      <li data-target="#demo" data-slide-to="2"></li>
+        <li data-target="#demo" data-slide-to="3"></li>
+    </ul>
+    
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="https://i.pinimg.com/736x/ca/97/66/ca9766ea1e6f45e3dfd11be72da53210.jpg" alt="Imagen 1" class="r4-carousel-img">
+      </div>
+      <div class="carousel-item">
+        <img src="https://i.pinimg.com/736x/d6/2a/6e/d62a6e11a324baaf29588ddecbab6c44.jpg" alt="Imagen 2" class="r4-carousel-img">
+      </div>
+      <div class="carousel-item">
+        <img src="https://i.pinimg.com/736x/95/74/28/957428ac2586eb8015429fa415397075.jpg" alt="Imagen 3" class="r4-carousel-img">
+      </div>
+            <div class="carousel-item">
+        <img src="https://i.pinimg.com/736x/b5/c7/81/b5c7817d13b7e8df4b954af8664de09e.jpg" alt="Imagen 4" class="r4-carousel-img">
+      </div>
+    </div>
+    
+    <a class="carousel-control-prev" href="#demo" data-slide="prev">
+      <span class="carousel-control-prev-icon"></span>
+    </a>
+    <a class="carousel-control-next" href="#demo" data-slide="next">
+      <span class="carousel-control-next-icon"></span>
+    </a>
+  </div>
+
+  <div class="m9-stripe"></div>
+
+  <div class="k2-footer-info">
+    <p>
+      El simulador de vuelo se consolida como una herramienta educativa transformadora que trasciende el software para priorizar la interacción humana, permitiendo al cuerpo docente convertir la enseñanza en un laboratorio de experimentación en tiempo real. Su impacto radica en la capacidad de recrear fenómenos aeronáuticos complejos y situaciones de emergencia con total seguridad, lo que no solo optimiza el rigor de las evaluaciones, sino que fortalece el vínculo académico mediante una instrucción personalizada y basada en datos. En conclusión, el simulador actúa como un catalizador de la cultura institucional, elevando la formación técnica a través de un entorno colaborativo que garantiza un aprendizaje práctico y profundamente integrado.
+    </p>
+  </div>
+
+</div>
 </div>
 
 
