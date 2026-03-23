@@ -628,6 +628,119 @@
   }
 }
 
+
+
+
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f4; }
+
+  /* Contenedor Principal Adaptable */
+  .galeria-maestra {
+    width: 95%;
+    max-width: 1200px;
+    position: relative;
+    margin: 40px auto;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  }
+
+  /* Items del Slider */
+  .panel-foto {
+    display: none;
+    width: 100%;
+  }
+
+  .img-fluida {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9; 
+    object-fit: cover;
+    display: block;
+  }
+
+
+  .flecha-izq, .flecha-der {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: auto;
+    padding: 20px;
+    color: white;
+    font-weight: bold;
+    font-size: 24px;
+    transition: 0.3s ease;
+    user-select: none;
+    background-color: rgba(0,0,0,0.3);
+    text-decoration: none;
+    border-radius: 50%;
+    margin: 0 15px;
+  }
+
+  .flecha-der { right: 0; }
+  .flecha-izq:hover, .flecha-der:hover { background-color: rgba(0,0,0,0.8); }
+
+  .etiqueta-texto {
+    color: #ffffff;
+    font-size: 1.1rem;
+    padding: 15px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    background: linear-gradient(transparent, rgba(0,0,0,0.7));
+  }
+
+  .indice-visual {
+    color: #f2f2f2;
+    font-size: 14px;
+    padding: 12px;
+    position: absolute;
+    top: 0;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+  }
+
+  /* Paginación (Puntos) */
+  .zona-puntos {
+    text-align: center;
+    padding: 20px;
+  }
+
+  .indicador-bolita {
+    cursor: pointer;
+    height: 12px;
+    width: 12px;
+    margin: 0 5px;
+    background-color: #ccc;
+    border-radius: 50%;
+    display: inline-block;
+    transition: all 0.3s ease;
+  }
+
+  .bolita-activa, .indicador-bolita:hover {
+    background-color: #333;
+    transform: scale(1.3);
+  }
+
+  /* Animación de Transición */
+  .efecto-suave {
+    animation: aparecer 0.8s ease-in-out;
+  }
+
+  @keyframes aparecer {
+    from { opacity: 0.5; filter: blur(2px); }
+    to { opacity: 1; filter: blur(0); }
+  }
+
+  @media screen and (max-width: 768px) {
+    .galeria-maestra { width: 100%; border-radius: 0; margin: 0; }
+    .flecha-izq, .flecha-der { padding: 12px; font-size: 18px; }
+    .etiqueta-texto { font-size: 0.9rem; }
+    .img-fluida { aspect-ratio: 4 / 3; }
+  }
+
     </style>
 </head>
 <body>
@@ -679,6 +792,39 @@
         </div>
     </div>
 
+<BR>
+
+<div class="galeria-maestra">
+
+  <div class="panel-foto efecto-suave">
+    <div class="indice-visual">1 / 3</div>
+    <img src="https://i.pinimg.com/736x/54/33/65/5433656c13684fe59bd87a1082b353bf.jpg" class="img-fluida">
+    <div class="etiqueta-texto">Conferencia</div>
+  </div>
+
+  <div class="panel-foto efecto-suave">
+    <div class="indice-visual">2 / 3</div>
+    <img src="https://i.pinimg.com/736x/5b/c0/9c/5bc09c28ffb77b87f597ad15eee7924a.jpg" class="img-fluida">
+    <div class="etiqueta-texto">Conferencia</div>
+  </div>
+
+  <div class="panel-foto efecto-suave">
+    <div class="indice-visual">3 / 3</div>
+    <img src="https://i.pinimg.com/736x/ac/ea/3a/acea3af1ca791aaa6679c56c5be6e231.jpg" class="img-fluida">
+    <div class="etiqueta-texto">Conferencia</div>
+  </div>
+
+  <a class="flecha-izq" onclick="cambiarSlide(-1)">❮</a>
+  <a class="flecha-der" onclick="cambiarSlide(1)">❯</a>
+
+</div>
+
+<div class="zona-puntos">
+  <span class="indicador-bolita" onclick="slideActual(1)"></span> 
+  <span class="indicador-bolita" onclick="slideActual(2)"></span> 
+  <span class="indicador-bolita" onclick="slideActual(3)"></span> 
+</div>
+<BR>
     <section class="hero-container">
         <div class="covers-wrapper">
             <div class="cover-box"><img src="https://store-images.s-microsoft.com/image/apps.51609.14406935353956462.3e5ea973-8477-49b6-97a0-33b4d669d86c.56a5977b-8285-4894-8266-7f400f59dcbd" alt="MSFS 2024"></div>
@@ -1425,8 +1571,48 @@ for (var i = 0; i < botones.length; i++) {
             document.getElementById('zqxm_out_txt').textContent = `${score_zqxm} / ${questions_zqxm.length}`;
         }
 
-        // Iniciar
+    
         loadQuestion_zqxm();
+
+
+
+
+
+
+
+
+
+        let contadorGlobal = 1;
+gestorDeSlides(contadorGlobal);
+
+function cambiarSlide(paso) {
+  gestorDeSlides(contadorGlobal += paso);
+}
+
+function slideActual(posicion) {
+  gestorDeSlides(contadorGlobal = posicion);
+}
+
+function gestorDeSlides(n) {
+  let vueltas;
+  let elementos = document.getElementsByClassName("panel-foto");
+  let marcadores = document.getElementsByClassName("indicador-bolita");
+  
+  if (n > elementos.length) { contadorGlobal = 1 }    
+  if (n < 1) { contadorGlobal = elementos.length }
+  
+  for (vueltas = 0; vueltas < elementos.length; vueltas++) {
+    elementos[vueltas].style.display = "none";  
+  }
+  
+  for (vueltas = 0; vueltas < marcadores.length; vueltas++) {
+    marcadores[vueltas].className = marcadores[vueltas].className.replace(" bolita-activa", "");
+  }
+  
+  elementos[contadorGlobal-1].style.display = "block";  
+  marcadores[contadorGlobal-1].className += " bolita-activa";
+}
+</script>
 </script>
 </body>
 </html>
