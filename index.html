@@ -3,22 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VANGLARE - Próximamente</title>
+    <title>VANGLARE - Dashboard</title>
     <style>
-
-        body, html {
+        html, body {
             margin: 0;
             padding: 0;
             width: 100%;
             height: 100%;
+        }
+
+        .vg-wrapper {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100vh;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #000;
+            color: white;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+    
+        #SeccionLanding {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            background-color: #000000; 
-            font-family: 'Segoe UI', sans-serif;
-            overflow: hidden;
-            color: white;
+            z-index: 100;
+            transition: opacity 0.5s ease;
         }
 
         .logo-container {
@@ -32,40 +52,247 @@
         .logo-container img {
             max-width: 100%;
             height: auto;
-   
             mix-blend-mode: screen; 
-   
             filter: brightness(1.2) contrast(1.1);
         }
 
-        .footer-text {
+        .btn-comenzar {
+            background: none;
+            border: none;
             padding-bottom: 60px;
             letter-spacing: 12px; 
             font-weight: 300;
             font-size: 1rem;
-            opacity: 0.6;
+            text-transform: uppercase;
+            cursor: pointer;
+            background: linear-gradient(to right, rgba(255,255,255,0.2) 0%, #fff 50%, rgba(255,255,255,0.2) 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 3s linear infinite, fadeIn 3s ease-in;
+        }
+            #InterfazPrincipal {
+            display: none; 
+            height: 100%;
+        }
+
+        .nav-container {
+            width: 100%;
+            overflow: hidden;
+            background-color: #1a1a1a;
+        }
+
+        .nav-item {
+            background-color: #333;
+            color: white;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            font-size: 15px;
+            width: 25%;
+            transition: 0.3s;
             text-transform: uppercase;
         }
 
-        .fade-in {
-            animation: fadeIn 3s ease-in;
+        .nav-item:hover { background-color: #555; }
+
+        .modulo-seccion {
+            display: none;
+            padding: 60px 20px;
+            height: calc(100vh - 48px);
+            overflow-y: auto;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        #SeccionInicio { background-color: BLACK; }
+ 
+
+        @keyframes shine { to { background-position: 200% center; } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+
+
+
+
+
+
+
+
+
+
+        /* GENTE DEL EPN */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000000;
+            color: #ffffff;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .vanglare-title {
+            font-size: 3.5rem;
+            font-weight: normal;
+            letter-spacing: 3px;
+            margin: 0 0 10px 0;
+           
+            background: linear-gradient(to left, #000000, #FFFFFF, #000000);
+            background-size: 200% auto;
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: olaColores 5s linear infinite;
+        }
+
+        @keyframes olaColores {
+            to {
+                background-position: 200% center;
+            }
+        }
+
+        .subtitle {
+            font-size: 1.8rem;
+            font-weight: normal;
+            margin: 0;
+            letter-spacing: 2px;
+        }
+
+        .proximamente {
+            font-size: 1.4rem;
+            font-weight: normal;
+            margin-top: 20px;
+            margin-bottom: 80px; 
+            color: #dddddd;
+        }
+
+        .secondary-text {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+
+        .simulador-btn {
+            display: inline-block;
+            padding: 12px 30px;
+            font-size: 1.4rem;
+            color: #ffffff;
+            background-color: transparent;
+            border: 1px solid #ffffff;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            letter-spacing: 2px;
+            cursor: pointer;
+        }
+
+
+        .simulador-btn:hover {
+            background-color: #ffffff;
+            color: #000000;
+        }
+
+        /* Ajustes para pantallas de celular */
+        @media (max-width: 600px) {
+            .vanglare-title { font-size: 2.5rem; }
+            .subtitle { font-size: 1.2rem; }
+            .proximamente { font-size: 1rem; margin-bottom: 50px; }
+            .secondary-text { font-size: 1rem; }
+            .simulador-btn { font-size: 1.1rem; padding: 10px 20px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="logo-container fade-in">
-        <img src="https://i.pinimg.com/736x/c6/09/4c/c6094c07ba70113e1adcc279d1c7cd2a.jpg" alt="VANGLARE">
+<div class="vg-wrapper">
+
+    <div id="SeccionLanding">
+        <div class="logo-container">
+            <img src="https://i.pinimg.com/736x/c6/09/4c/c6094c07ba70113e1adcc279d1c7cd2a.jpg" alt="VANGLARE">
+        </div>
+        <button class="btn-comenzar" onclick="entrarAlApp()">
+            COMENZAR
+        </button>
     </div>
 
-    <div class="footer-text fade-in">
-        PROXIMAMENTE
+    <div id="InterfazPrincipal">
+        <nav class="nav-container">
+            <button class="nav-item" onclick="cambiarVista('SeccionInicio', this, 'black')" id="botonDefault">Inicio</button>
+
+        </nav>
+
+        <div id="SeccionInicio" class="modulo-seccion">
+<div class="main-container">
+        <h1 class="vanglare-title">VANGLARE</h1>
+        
+        <h2 class="subtitle">SIGUE EN DESARROLLO</h2>
+        <p class="proximamente">PROXIMAMENTE</p>
+
+        <div class="bottom-section">
+            <p class="secondary-text">PAGINA WEB SECUNDARIA:</p>
+            
+            <a href="https://josephcasango.github.io/VANGLAR/" class="simulador-btn">VANGLAR SIMULADOR</a>
+        </div>
     </div>
+        </div>
+
+        <div id="SeccionNoticias" class="modulo-seccion">
+            <h3>Novedades</h3>
+            <p>Aquí aparecerán las últimas noticias.</p>
+        </div>
+
+        <div id="SeccionContacto" class="modulo-seccion">
+            <h3>Contacto</h3>
+            <p>Ponte en contacto con nosotros aquí.</p>
+        </div>
+
+        <div id="SeccionInfo" class="modulo-seccion">
+            <h3>Datos Personales</h3>
+            <p>Detalles técnicos y de sistema.</p>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function entrarAlApp() {
+        document.getElementById('SeccionLanding').style.opacity = '0';
+        setTimeout(() => {
+            document.getElementById('SeccionLanding').style.display = 'none';
+            document.getElementById('InterfazPrincipal').style.display = 'block';
+            document.getElementById('botonDefault').click();
+        }, 500);
+    }
+
+    function cambiarVista(nombreID, elemento, colorHex) {
+        var i, contenidos, botones;
+        contenidos = document.getElementsByClassName("modulo-seccion");
+        for (i = 0; i < contenidos.length; i++) {
+            contenidos[i].style.display = "none";
+        }
+        botones = document.getElementsByClassName("nav-item");
+        for (i = 0; i < botones.length; i++) {
+            botones[i].style.backgroundColor = "";
+        }
+        document.getElementById(nombreID).style.display = "block";
+        if (elemento) {
+            elemento.style.backgroundColor = colorHex;
+        }
+    }
+</script>
 
 </body>
 </html>
