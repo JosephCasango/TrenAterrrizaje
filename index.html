@@ -1,10 +1,2029 @@
 <!DOCTYPE html>
-<html>
-<body>
-<center>
-<h2>PAGINA WEB OFICIAL</h2>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VANGLARE - Dashboard</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
 
-<a href="https://vanglare.com/" target="_blank">www.vanglare.com</a> 
-</center>
+    <style>
+/* =========================================
+           ESTILOS GENERALES
+           ========================================= */
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #000;
+            overflow: hidden; /* <--- Esto elimina la barra externa y deja solo la interna */
+        }
+
+        .vanglare-wrapper {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* =========================================
+           PANTALLA DE CARGA / LANDING 
+           ========================================= */
+        #SeccionLanding {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            transition: opacity 0.5s ease;
+        }
+
+        .vanglare-logo-box {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 90%;
+            max-width: 600px;
+        }
+
+        .vanglare-logo-box img {
+            max-width: 100%;
+            height: auto;
+            mix-blend-mode: screen; 
+            filter: brightness(1.2) contrast(1.1);
+        }
+
+        .vanglare-btn-entrar {
+            background: none;
+            border: none;
+            padding-bottom: 60px;
+            letter-spacing: 12px; 
+            font-weight: 300;
+            font-size: 1rem;
+            text-transform: uppercase;
+            cursor: pointer;
+            background: linear-gradient(to right, rgba(255,255,255,0.2) 0%, #fff 50%, rgba(255,255,255,0.2) 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: vanglare-shine 3s linear infinite, vanglare-fadeIn 3s ease-in;
+        }
+
+        @keyframes vanglare-shine { to { background-position: 200% center; } }
+        @keyframes vanglare-fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* =========================================
+           INTERFAZ PRINCIPAL Y NAVEGACIÓN
+           ========================================= */
+        #InterfazPrincipal {
+            display: none; 
+            height: 100%;
+            background-color: #ffffff;
+            color: #000000;
+            display: flex; 
+            flex-direction: column;
+        }
+
+        .navbar-custom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 2%; 
+            background-color: transparent;
+            position: relative;
+            flex-shrink: 0;
+            max-width: 1500px; 
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .logo-container {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            pointer-events: none;
+        }
+
+        .logo-text {
+            font-size: 34px;
+            font-weight: 500;
+            letter-spacing: 16px;
+            color: #000000;
+            margin: 0;
+            padding-left: 16px;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        .btn-menu {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 24px;
+            width: 35px;
+            z-index: 10; 
+            margin-left: auto;
+        }
+
+        .btn-menu span {
+            display: block;
+            height: 4px;
+            width: 100%;
+            background-color: #000000;
+            border-radius: 2px;
+        }
+
+        .btn-menu:focus { outline: none; }
+
+        .vanglare-content-panel {
+            display: none;
+            flex-grow: 1; 
+            overflow-y: auto; 
+            overflow-x: hidden;
+            background-color: #ffffff; 
+            padding: 0; 
+        }
+
+        .main-content-wrapper {
+            display: flex;
+            flex-direction: column;
+            min-height: 100%;
+            width: 100%;
+        }
+
+        .contenido-centrado {
+            width: 100%;
+            max-width: 1500px; 
+            margin: 0 auto;
+            padding: 20px 2%; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* =========================================
+           MENÚ LATERAL OFFCANVAS
+           ========================================= */
+        .offcanvas-custom {
+            background-color: #000000 !important;
+            color: #ffffff;
+            width: 400px !important; 
+        }
+
+        .nav-anim-btn {
+            margin: 15px 0;
+            height: auto;
+            background: transparent;
+            padding: 0;
+            border: none;
+            cursor: pointer;
+            --border-right: 6px;
+            --text-stroke-color: rgba(255,255,255,0.6);
+            --animation-color: #37FF8B;
+            --fs-size: 1.5em; 
+            letter-spacing: 3px;
+            text-decoration: none;
+            font-size: var(--fs-size);
+            font-family: 'Segoe UI', Arial, sans-serif;
+            position: relative;
+            text-transform: uppercase;
+            color: transparent;
+            -webkit-text-stroke: 1px var(--text-stroke-color);
+        }
+
+        .nav-anim-btn .hover-text {
+            position: absolute;
+            box-sizing: border-box;
+            content: attr(data-text);
+            color: var(--animation-color);
+            width: 0%;
+            inset: 0;
+            border-right: var(--border-right) solid var(--animation-color);
+            overflow: hidden;
+            transition: 0.5s;
+            -webkit-text-stroke: 1px var(--animation-color);
+            white-space: nowrap; 
+        }
+
+        .nav-anim-btn:hover .hover-text,
+        .nav-anim-btn.animar-click .hover-text {
+            width: 100%;
+            filter: drop-shadow(0 0 23px var(--animation-color));
+        }
+
+        /* =========================================
+           CARRUSEL 
+           ========================================= */
+        .carousel-redondeado {
+            width: 100%;
+            max-width: 850px; 
+            margin: 0 auto;
+            border-radius: 15px; 
+            overflow: hidden; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: max-width 0.3s ease; 
+        }
+
+        .carousel-item img {
+            border-radius: 15px; 
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+
+        @media (min-width: 1024px) {
+            .carousel-redondeado { max-width: 1050px; }
+        }
+
+        /* =========================================
+           SECCIÓN DE TARJETAS TRAMITES
+           ========================================= */
+        .tarjetas-container {
+            background-color: #000000;
+            border-radius: 20px;
+            padding: 30px;
+            width: 100%;
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+
+        .flip-card-custom {
+            background-color: #e6e7eb;
+            border-radius: 15px;
+            overflow: hidden;
+            cursor: pointer;
+            height: 100%;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s ease;
+        }
+
+        .flip-card-custom:hover { transform: translateY(-5px); }
+
+        .vista-icono {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .vista-icono img {
+            width: 100%;
+            height: 100%;
+            max-width: none;
+            object-fit: cover;
+        }
+
+        .vista-info {
+            display: none;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .vista-info-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 15px 15px 0 0;
+        }
+
+        .vista-info-texto {
+            padding: 20px;
+            color: #000;
+        }
+
+        .vista-info-texto h3 {
+            text-align: center;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .vista-info-texto p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            text-align: justify;
+            margin: 0;
+        }
+
+        /* =========================================
+           SECCIÓN: TICKETS
+           ========================================= */
+        .secciones-lista-container {
+            width: 100%;
+            margin: 20px auto 40px auto;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .seccion-list-card {
+            border-radius: 15px;
+            background-color: #2A9669;
+            box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .slc-header {
+            background-color: #000000;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 5;
+        }
+
+        .slc-header h3 {
+            margin: 0;
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            color: #ffffff;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .slc-divider-container {
+            position: relative;
+            height: 0px; 
+            width: 100%;
+            z-index: 20;
+        }
+
+        .slc-dashed-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            border-top: 3px dashed #ffffff;
+            opacity: 0.9;
+        }
+
+        .slc-divider-container::before, .slc-divider-container::after {
+            content: '';
+            position: absolute;
+            top: -15px;
+            width: 30px;
+            height: 30px;
+            background-color: #ffffff;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        
+        .slc-divider-container::before { left: -15px; }
+        .slc-divider-container::after { right: -15px; }
+
+        .slc-body {
+            display: flex;
+            height: 250px;
+            background-color: #125E52;
+            position: relative;
+        }
+
+        .slc-body img {
+            width: 45%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .slc-content {
+            width: 55%;
+            padding: 30px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            color: #ffffff;
+            position: relative;
+        }
+
+        .barcode-ticket {
+            position: absolute;
+            bottom: 15px;
+            right: 25px;
+            height: 35px;
+            width: 110px;
+            background: linear-gradient(to right, 
+                #000 3%, transparent 3%, transparent 6%, #000 6%, #000 9%, transparent 9%, transparent 11%, 
+                #000 11%, #000 16%, transparent 16%, transparent 18%, #000 18%, #000 20%, transparent 20%, transparent 24%, 
+                #000 24%, #000 28%, transparent 28%, transparent 30%, #000 30%, #000 32%, transparent 32%, transparent 35%,
+                #000 35%, #000 40%, transparent 40%, transparent 42%, #000 42%, #000 45%, transparent 45%, transparent 48%,
+                #000 48%, #000 50%, transparent 50%, transparent 54%, #000 54%, #000 58%, transparent 58%, transparent 60%,
+                #000 60%, #000 62%, transparent 62%, transparent 66%, #000 66%, #000 69%, transparent 69%, transparent 71%,
+                #000 71%, #000 75%, transparent 75%, transparent 78%, #000 78%, #000 80%, transparent 80%, transparent 84%,
+                #000 84%, #000 88%, transparent 88%, transparent 90%, #000 90%, #000 94%, transparent 94%, transparent 96%,
+                #000 96%, #000 100%
+            );
+            opacity: 0.5;
+            mix-blend-mode: multiply;
+        }
+
+        .uiverse-btn {
+            background-color: #e6e7eb;
+            text-align: center;
+            width: 12rem;
+            border-radius: 1rem;
+            height: 3.5rem;
+            position: relative;
+            color: #000000;
+            font-size: 1.25rem;
+            font-weight: 600;
+            border: 4px solid #e6e7eb;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            user-select: none;
+            overflow: hidden;
+        }
+
+        .uiverse-btn-bg {
+            background-color: #4ade80; 
+            border-radius: 0.75rem; 
+            height: 100%;
+            width: 25%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            left: 0;
+            top: 0;
+            z-index: 10;
+            transition: width 0.4s ease-in-out;
+        }
+
+        .uiverse-btn:hover .uiverse-btn-bg { width: 100%; }
+
+        .uiverse-btn p {
+            transform: translateX(1.5rem); 
+            margin: 0;
+            position: relative;
+            z-index: 20;
+            letter-spacing: 1px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .uiverse-btn:hover p { opacity: 0; transform: translateX(3rem); }
+        .uiverse-btn svg { position: relative; z-index: 20; }
+
+        /* =========================================
+           MAPA Y FOOTER
+           ========================================= */
+        .seccion-mapa-container {
+            width: 100%; 
+            margin: 0 auto 40px auto; 
+            display: flex;
+            flex-direction: column;
+            background-color: #f8f9fa;
+        }
+
+        .mapa-iframe-wrapper { width: 100%; height: 450px; }
+        .mapa-iframe-wrapper iframe { width: 100%; height: 100%; display: block; }
+
+        .mapa-header-bar { display: flex; width: 100%; height: 60px; }
+        .mhb-green { width: 10%; min-width: 60px; background-color: #2A9669; }
+        .mhb-black { flex-grow: 1; background-color: #000000; display: flex; align-items: center; padding-left: 20px; }
+        .mhb-black h2 { color: #ffffff; margin: 0; font-size: 1.5rem; letter-spacing: 2px; font-weight: 500; }
+
+        .vanglare-footer { width: 100%; margin-top: auto; display: flex; flex-direction: column; }
+        .footer-texto-bar { background-color: #000000; text-align: center; padding: 15px 0; width: 100%; }
+        .footer-texto-bar p { color: #ffffff; margin: 0; font-size: 0.95rem; letter-spacing: 1px; text-transform: uppercase; }
+        .footer-imagen-bar img { width: 100%; height: 150px; display: block; object-fit: cover; object-position: center; }
+
+        /* =========================================
+           SECCIÓN NOVEDADES
+           ========================================= */
+        .gal-row { margin: 20px -10px; display: flex; flex-wrap: wrap; justify-content: center; }
+        .gal-col { padding: 10px; display: none; width: 100%; }
+        @media (min-width: 768px) { .gal-col { width: 33.33%; } }
+        .gal-show { display: block; }
+        .gal-btn {
+            border: 2px solid #e6e7eb; outline: none; padding: 10px 25px; background-color: white;
+            cursor: pointer; border-radius: 30px; font-weight: 600; text-transform: uppercase; font-size: 0.9rem;
+            margin: 5px; transition: all 0.3s ease;
+        }
+        .gal-btn:hover { background-color: #f1f1f1; }
+        .gal-btn.gal-active { background-color: #000000; color: white; border-color: #000000; }
+        
+        .nov-card {
+            overflow: hidden; border-radius: 0.5rem; width: 100%; max-width: 350px; background-color: #fff;
+            color: #212121; margin: 0 auto; box-shadow: 0 4px 15px rgba(0,0,0,0.08); border: 1px solid #eee;
+        }
+        .nov-image { height: 12rem; width: 100%; background-size: cover; background-position: center; background-color: #e6e7eb; }
+        .nov-content { padding: 1.5rem; text-align: center; }
+        .nov-text-1 { font-size: 0.85rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #9ca3af; margin-bottom: 0.5rem; }
+        .nov-text-2 { margin-top: 0; font-weight: 900; text-transform: uppercase; }
+        .nov-text-2 span { font-size: 1.6rem; font-weight: 900; }
+
+        /* =========================================
+           SECCIÓN FOTOS CON BUSCADOR
+           ========================================= */
+        #SeccionFotos { background-color: #f4f5f7; }
+        
+        .buscador-container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto 40px auto;
+            position: relative;
+        }
+
+        .buscador-input {
+            width: 100%;
+            padding: 15px 25px;
+            font-size: 1.1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 30px;
+            outline: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .buscador-input:focus {
+            border-color: #000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .fotos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            width: 100%;
+        }
+
+        .foto-recuadro {
+            background-color: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .foto-recuadro:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .foto-img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-bottom: 3px solid #000;
+        }
+
+        .foto-info {
+            padding: 20px;
+            text-align: left;
+        }
+
+        .foto-info h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #000;
+            text-transform: uppercase;
+        }
+
+        .foto-info p {
+            margin: 0 0 5px 0;
+            font-size: 0.95rem;
+            color: #555;
+            line-height: 1.4;
+        }
+
+        .foto-categoria {
+            display: inline-block;
+            background-color: #2A9669;
+            color: #fff;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-top: 10px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .no-resultados {
+            text-align: center;
+            width: 100%;
+            padding: 40px;
+            font-size: 1.2rem;
+            color: #777;
+            display: none;
+            grid-column: 1 / -1;
+        }
+
+        /* =========================================
+           SECCIÓN CRÉDITOS 
+           ========================================= */
+        #SeccionCreditos { background-color: #000000; }
+        
+        .cred-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .cred-column { width: calc(33.333% - 20px); min-width: 280px; }
+
+        .cred-card {
+            box-shadow: 0 4px 12px 0 rgba(255, 255, 255, 0.1); 
+            background-color: white; 
+            border-radius: 10px;
+            overflow: hidden;
+            text-align: center;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease;
+        }
+
+        .cred-card:hover { transform: translateY(-5px); }
+        .cred-card img { width: 100%; height: 250px; object-fit: cover; }
+        .cred-container { padding: 25px 20px; flex-grow: 1; }
+        .cred-container h2 { font-size: 22px; margin-bottom: 8px; color: #000; }
+        .cred-title { color: #777; font-size: 0.9rem; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; font-weight: bold; }
+        .cred-container p:not(.cred-title) { font-size: 14px; color: #444; margin-bottom: 8px; line-height: 1.6; }
+
+        /* =========================================
+           MEDIA QUERIES GLOBALES (MÓVIL)
+           ========================================= */
+        @media (max-width: 768px) {
+            .navbar-custom { padding: 15px 5%; }
+            .logo-text { font-size: 22px; letter-spacing: 12px; padding-left: 12px; }
+            .contenido-centrado { padding: 15px 5%; }
+            .tarjetas-container { padding: 20px; }
+            .flip-card-custom { min-height: 350px; }
+            .offcanvas-custom { width: 60% !important; }
+            .nav-anim-btn { --fs-size: 1.1em; }
+            .slc-header { flex-direction: column; gap: 15px; text-align: center; padding: 20px; }
+            .slc-body { flex-direction: column; height: auto; }
+            .slc-body img { width: 100%; height: 200px; }
+            .slc-content { width: 100%; padding: 20px 20px 50px 20px; }
+            .mapa-iframe-wrapper { height: 300px; }
+            .mhb-black h2 { font-size: 1.2rem; }
+            .mhb-green { width: 15%; }
+            .footer-texto-bar p { font-size: 0.8rem; }
+            .footer-imagen-bar img { height: 100px; }
+            .cred-column { width: 100%; } 
+            .fotos-grid { grid-template-columns: 1fr; }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                /* Reseteo básico para evitar márgenes por defecto */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f4f4f4; /* Fondo general de la página, opcional */
+        }
+
+        /* Contenedor principal del banner */
+        .banner-container {
+            display: flex;
+            width: 100%;
+            min-height: 500px; /* Alto normal ajustable */
+            background-color: #E5E7EB; /* Color gris azulado claro del lado izquierdo */
+            overflow: hidden;
+        }
+
+        /* Sección Izquierda (Texto) */
+        .text-section {
+            flex: 1; /* Toma el 50% del ancho */
+            padding: 5% 8%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .text-section h1 {
+            color: #6a1b1a; /* Rojo oscuro/vino */
+            font-size: 2.2rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            margin-bottom: 2rem;
+        }
+
+        .text-section p {
+            color: #6a1b1a;
+            font-size: 1.15rem;
+            line-height: 1.5;
+            margin-bottom: 3rem;
+            /* Mantuve el texto exacto con los errores de tipeo de la imagen */
+        }
+
+        /* Caja de contacto (Botón de dos colores) */
+        .contact-box {
+            width: 85%;
+            border-radius: 8px;
+            overflow: hidden; /* Para que las esquinas redondeadas apliquen a los fondos internos */
+            text-align: center;
+            font-family: sans-serif;
+        }
+
+        .contact-top {
+            background-color: #6a1b1a;
+            color: #ffffff;
+            padding: 12px 10px;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .contact-bottom {
+            background-color: #000000;
+            color: #ffffff;
+            padding: 15px 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+
+        /* Sección Derecha (Imagen) */
+        .image-section {
+            flex: 1; /* Toma el 50% del ancho */
+        }
+
+        .image-section img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Asegura que la imagen llene el espacio sin deformarse */
+            display: block;
+        }
+
+        /* Diseño Responsivo para móviles */
+        @media (max-width: 768px) {
+            .banner-container {
+                flex-direction: column;
+            }
+            .text-section, .image-section {
+                width: 100%;
+            }
+            .image-section {
+                min-height: 300px;
+            }
+            .contact-box {
+                width: 100%;
+            }
+        }
+
+
+
+            /* ====== ESTILOS GENERALES ====== */
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    padding-bottom: 50px;
+  }
+
+  /* ====== SECCIÓN 1 Y 2: IMAGEN CON PANEL DESPLEGABLE ====== */
+  .wzn-envoltura-dinamica {
+    position: relative;
+    max-width: 900px;
+    margin: 40px auto;
+    overflow: hidden;
+    border-radius: 12px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+  }
+  
+  .wzn-grafico-principal {
+    width: 100%;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+
+  .wzn-cuadro-flotante {
+    position: absolute;
+    top: 0;
+    left: -100%; 
+    width: 65%;
+    height: 100%;
+    background-color: rgba(226, 228, 231, 0.95);
+    padding: 40px;
+    transition: left 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .wzn-envoltura-dinamica.wzn-descubierto .wzn-cuadro-flotante {
+    left: 0;
+  }
+
+  .wzn-cuadro-flotante h3 {
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+    color: #000;
+    letter-spacing: 1px;
+  }
+
+  .wzn-cuadro-flotante p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #222;
+    margin-bottom: 15px;
+  }
+
+  /* ====== SECCIÓN 3: BANDA NEGRA DE ANCHO COMPLETO ====== */
+  .wzn-franja-oscura {
+    background-color: #000000;
+    color: #ffffff;
+    width: 100%; 
+    padding: 60px 20px;
+    text-align: center;
+    margin: 50px 0;
+  }
+
+  .wzn-franja-oscura h3 {
+    font-size: 1.4rem;
+    margin-bottom: 25px;
+    letter-spacing: 2px;
+  }
+
+  .wzn-franja-oscura p {
+    max-width: 900px;
+    margin: 0 auto 15px auto;
+    line-height: 1.7;
+    font-size: 1.05rem;
+  }
+
+  /* ====== SECCIÓN NUEVA: CARRUSEL DE TARJETAS ====== */
+  .wzn-carrusel-contenedor {
+    display: flex;
+    /* overflow-x: auto evita que la barra se muestre si no es necesario */
+    overflow-x: auto; 
+    /* overflow-y: hidden EVITA la doble barra vertical molesta */
+    overflow-y: hidden; 
+    width: 100%;
+    max-width: 900px; /* Se alinea al ancho de tus otros elementos */
+    margin: 0 auto 40px auto; /* Centrado y con espacio abajo */
+    padding-bottom: 15px; /* Espacio para que la barra de scroll no toque las tarjetas */
+    scroll-snap-type: x mandatory;
+    gap: 20px;
+  }
+
+  /* Estilos personalizados para la barra de desplazamiento horizontal */
+  .wzn-carrusel-contenedor::-webkit-scrollbar {
+    height: 8px;
+  }
+  .wzn-carrusel-contenedor::-webkit-scrollbar-thumb {
+    border-radius: 20px;
+    background: #888;
+  }
+
+  .wzn-tarjeta {
+    /* Ajuste natural del ancho, min-width asegura que no se apachurren */
+    flex: 0 0 calc(33.333% - 14px);
+    min-width: 260px; 
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border-radius: 8px;
+    background-color: #141414;
+    scroll-snap-align: start;
+  }
+
+  .wzn-tarjeta-img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover; /* Hace que la imagen llene el espacio sin deformarse */
+    display: block;
+  }
+
+  .wzn-tarjeta-contenido {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+  }
+
+  .wzn-tarjeta-titulo {
+    font-size: 26px;
+    color: #fff;
+    text-transform: capitalize;
+    font-weight: bold;
+  }
+
+  .wzn-tarjeta-desc {
+    color: #cccccc;
+    font-size: 15px;
+    line-height: 1.4;
+  }
+
+  /* ====== SECCIÓN 4: ACORDEÓN PERSONALIZADO ====== */
+  .wzn-bloque-desplegable {
+    max-width: 900px;
+    margin: 20px auto;
+  }
+
+  .wzn-disparador-verde {
+    background-color: #213524; 
+    color: #d1ccb8; 
+    cursor: pointer;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 22px;
+    font-family: "Times New Roman", Times, serif;
+    letter-spacing: 4px;
+    transition: 0.4s;
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    padding: 0;
+  }
+
+  .wzn-caja-simbolo {
+    background-color: #e5e5e5;
+    color: #000;
+    width: 65px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    margin-right: 25px;
+  }
+
+  .wzn-caja-simbolo::after {
+    content: '\002B'; 
+  }
+  .wzn-disparador-verde.wzn-encendido .wzn-caja-simbolo::after {
+    content: "\2212"; 
+  }
+
+  .wzn-area-oculta {
+    background-color: #f2f2f2;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out;
+  }
+
+  .wzn-rejilla-interna {
+    display: flex;
+    align-items: stretch;
+  }
+
+  .wzn-imagen-lateral {
+    width: 40%;
+    object-fit: cover;
+  }
+
+  .wzn-texto-lateral {
+    width: 60%;
+    padding: 30px 40px;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #111;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .wzn-texto-lateral p {
+    margin-bottom: 20px;
+  }
+  .wzn-texto-lateral p:last-child {
+    margin-bottom: 0;
+  }
+
+
+
+
+
+
+
+
+
+
+
+  /* =========================================
+           MODAL PARA IMÁGENES GENERALES (LIGHTBOX)
+           ========================================= */
+        .modal-vanglare {
+    display: none; 
+    position: fixed; 
+    z-index: 99999; /* <--- IMPORTANTE: Cámbialo a este número */
+    padding-top: 60px; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgba(0,0,0,0.9); 
+}
+        
+        .modal-content-vanglare {
+          margin: auto;
+          display: block;
+          width: 80%;
+          max-width: 700px;
+          border-radius: 10px;
+        }
+        
+        #caption-vanglare {
+          margin: auto;
+          display: block;
+          width: 80%;
+          max-width: 700px;
+          text-align: center;
+          color: #ccc;
+          padding: 15px 0;
+          height: 150px;
+          font-size: 1.2rem;
+          letter-spacing: 2px;
+          text-transform: uppercase;
+        }
+        
+        .modal-content-vanglare, #caption-vanglare {  
+          animation-name: zoom-vanglare;
+          animation-duration: 0.5s;
+        }
+        
+        @keyframes zoom-vanglare {
+          from {transform:scale(0)} 
+          to {transform:scale(1)}
+        }
+        
+        .close-vanglare {
+          position: absolute;
+          top: 20px;
+          right: 35px;
+          color: #f1f1f1;
+          font-size: 45px;
+          font-weight: bold;
+          transition: 0.3s;
+        }
+        
+        .close-vanglare:hover,
+        .close-vanglare:focus {
+          color: #bbb;
+          text-decoration: none;
+          cursor: pointer;
+        }
+        
+        @media only screen and (max-width: 700px){
+          .modal-content-vanglare { width: 95%; }
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="vanglare-wrapper">
+
+    <div id="SeccionLanding">
+        <div class="vanglare-logo-box">
+            <img src="https://i.pinimg.com/736x/c6/09/4c/c6094c07ba70113e1adcc279d1c7cd2a.jpg" alt="VANGLARE LOGO">
+        </div>
+        <button class="vanglare-btn-entrar" onclick="entrarAlApp()">
+            COMENZAR
+        </button>
+    </div>
+
+    <div id="InterfazPrincipal" style="display: none;">
+        
+        <header class="navbar-custom">
+            <div class="logo-container">
+                <h1 class="logo-text">VANGLARE</h1>
+            </div>
+            <button class="btn-menu" type="button" data-bs-toggle="offcanvas" data-bs-target="#menuLateral">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </header>
+
+        <div class="offcanvas offcanvas-end offcanvas-custom text-bg-dark" id="menuLateral">
+            <div class="offcanvas-header border-bottom border-secondary">
+                <h5 class="offcanvas-title" style="letter-spacing: 3px;">MENÚ</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+            </div>
+            <div class="offcanvas-body d-flex flex-column align-items-end">
+                <button class="nav-anim-btn" type="button" onclick="navegarConAnimacion('SeccionInicio', this)">
+                    <span class="actual-text"> INICIO </span>
+                    <span aria-hidden="true" class="hover-text"> INICIO </span>
+                </button>
+                <button class="nav-anim-btn" type="button" onclick="navegarConAnimacion('SeccionNoticias', this)">
+                    <span class="actual-text"> NOVEDADES </span>
+                    <span aria-hidden="true" class="hover-text"> NOVEDADES </span>
+                </button>
+                <button class="nav-anim-btn" type="button" onclick="navegarConAnimacion('SeccionFotos', this)">
+                    <span class="actual-text"> FOTOS </span>
+                    <span aria-hidden="true" class="hover-text"> FOTOS </span>
+                </button>
+
+                <button class="nav-anim-btn" type="button" onclick="navegarConAnimacion('SeccionFli', this)">
+                    <span class="actual-text"> Flitgh </span>
+                    <span aria-hidden="true" class="hover-text"> Flitgh </span>
+                </button>
+                <button class="nav-anim-btn" type="button" onclick="navegarConAnimacion('SeccionJuego', this)">
+                    <span class="actual-text"> JUEGO </span>
+                    <span aria-hidden="true" class="hover-text"> JUEGO </span>
+                </button>
+                        <button class="nav-anim-btn" type="button" onclick="navegarConAnimacion('SeccionCreditos', this)">
+                    <span class="actual-text"> CRÉDITOS </span>
+                    <span aria-hidden="true" class="hover-text"> CRÉDITOS </span>
+                </button>
+            </div>
+        </div>
+
+        <div id="SeccionInicio" class="vanglare-content-panel" style="display: block;">
+
+            <div class="main-content-wrapper">
+                <div class="contenido-centrado">
+                    
+                    <div id="demoCarousel" class="carousel slide carousel-redondeado" data-bs-ride="carousel">
+                        <div class="carousel-indicators">
+                            <button type="button" data-bs-target="#demoCarousel" data-bs-slide-to="0" class="active"></button>
+                            <button type="button" data-bs-target="#demoCarousel" data-bs-slide-to="1"></button>
+                            <button type="button" data-bs-target="#demoCarousel" data-bs-slide-to="2"></button>
+                                                        <button type="button" data-bs-target="#demoCarousel" data-bs-slide-to="3"></button>
+                                                                                <button type="button" data-bs-target="#demoCarousel" data-bs-slide-to="4"></button>
+                        </div>
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img src="https://i.pinimg.com/736x/54/33/65/5433656c13684fe59bd87a1082b353bf.jpg" alt="Primera" class="d-block w-100">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="https://i.pinimg.com/736x/5b/c0/9c/5bc09c28ffb77b87f597ad15eee7924a.jpg" alt="Segunda" class="d-block w-100">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="https://i.pinimg.com/736x/ac/ea/3a/acea3af1ca791aaa6679c56c5be6e231.jpg" alt="Tercera" class="d-block w-100">
+                            </div>
+                                                        <div class="carousel-item">
+                                <img src="https://i.pinimg.com/736x/e8/0f/f0/e80ff05929d9a359c6e6721b19156639.jpg" alt="Cuarto" class="d-block w-100">
+                            </div>
+                                                        <div class="carousel-item">
+                                <img src="https://i.pinimg.com/736x/95/74/28/957428ac2586eb8015429fa415397075.jpg" alt="Quinto" class="d-block w-100">
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#demoCarousel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon"></span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#demoCarousel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon"></span>
+                        </button>
+                    </div>
+
+                    <div class="tarjetas-container">
+                        <div class="row g-4">
+                            <div class="col-md-4">
+                                <div class="flip-card-custom" onclick="alternarTarjeta('tarjeta1')">
+                                    <div id="tarjeta1-icono" class="vista-icono">
+                                        <img src="https://i.pinimg.com/736x/84/2c/dc/842cdc14689bf8667bfedf81b6618190.jpg" alt="Tortuga">
+                                    </div>
+                                    <div id="tarjeta1-info" class="vista-info">
+                                        <img src="https://i.pinimg.com/736x/c6/09/4c/c6094c07ba70113e1adcc279d1c7cd2a.jpg" alt="Imagen Trámite" class="vista-info-img">
+                                        <div class="vista-info-texto">
+                                            <h3>Quienes Somos</h3>
+                                            <p>Le damos la más cordial bienvenida a VANGLARE. Hemos diseñado esta plataforma interactiva con un firme compromiso: redefinir los estándares de la innovación. Explore nuestro entorno digital, cuidadosamente optimizado para ofrecerle un acceso intuitivo, seguro y eficiente a todas nuestras herramientas, recursos y actualizaciones más recientes.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="flip-card-custom" onclick="alternarTarjeta('tarjeta2')">
+                                    <div id="tarjeta2-icono" class="vista-icono">
+                                        <img src="https://i.pinimg.com/1200x/16/fc/a6/16fca6240d02ac9c2fe850ad8a1a143d.jpg" alt="Colibrí">
+                                    </div>
+                                    <div id="tarjeta2-info" class="vista-info">
+                                        <img src="https://i.pinimg.com/736x/28/80/4b/28804b3162f7c67367d4a2639ee08b8d.jpg" alt="Imagen Trámite" class="vista-info-img">
+                                        <div class="vista-info-texto">
+                                            <h3>Proposito</h3>
+                                            <p>El objetivo central es ofrecer un entorno hiperrealista y sin riesgos para que los estudiantes validen empíricamente principios de ingeniería aerodinámica, dominen el uso de sistemas de aviónica moderna y practiquen misiones de vuelo auténticas.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="flip-card-custom" onclick="alternarTarjeta('tarjeta3')">
+                                    <div id="tarjeta3-icono" class="vista-icono">
+                                        <img src="https://i.pinimg.com/1200x/13/4d/db/134ddb774258d26a7baeea8210c98bfd.jpg" alt="Tucán">
+                                    </div>
+                                    <div id="tarjeta3-info" class="vista-info">
+                                        <img src="https://i.pinimg.com/736x/d7/f8/04/d7f804a50df11b267181c8b82fad93e8.jpg" alt="Imagen Trámite" class="vista-info-img">
+                                        <div class="vista-info-texto">
+                                            <h3>Propuesta</h3>
+                                            <p>Para cumplir con esto, se implementará el software Microsoft Flight Simulator 2024 complementado con hardware de control especializado en la Universidad Tecnológica de Tijuana, integrando esta tecnología en carreras como Manufactura Aeronáutica, Mecatrónica, Electrónica y Logística con el fin de desarrollar memoria muscular y garantizar una preparación operacional completa.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="secciones-lista-container">
+
+
+                        <div class="seccion-list-card">
+                            <div class="slc-header">
+                                <h3>CARRERAS EN LA UTT</h3>
+                                <a href="https://uttijuana.edu.mx/" target="_blank"><button type="button" class="uiverse-btn">
+                                    <div class="uiverse-btn-bg">
+                                        <svg width="25px" height="25px" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path fill="#000000" d="M224 480h640a32 32 0 1 1 0 64H224a32 32 0 0 1 0-64z"></path><path fill="#000000" d="m237.248 512 265.408 265.344a32 32 0 0 1-45.312 45.312l-288-288a32 32 0 0 1 0-45.312l288-288a32 32 0 1 1 45.312 45.312L237.248 512z"></path></svg>
+                                    </div>
+                                    <p>IR</p>
+                                </button></a>
+                            </div>
+                            <div class="slc-divider-container"><div class="slc-dashed-line"></div></div>
+                            <div class="slc-body">
+                                <img src="https://uttijuana.edu.mx/wp-content/uploads/2021/10/login-min.46c498c9.jpg" alt="Carreras UTT">
+                                <div class="slc-content">
+                                    <p>La página oficial de la Universidad Tecnológica de Tijuana (UTT) es el portal institucional de esta reconocida universidad pública ubicada en el estado de Baja California. El sitio ofrece información detallada sobre su filosofía educativa, la cual destaca por un modelo basado en competencias profesionales (70% práctico y 30% teórico), diseñado específicamente para preparar a los estudiantes ante las demandas reales del mercado laboral regional, nacional e internacional.</p>
+                                   
+                                    <div class="barcode-ticket"></div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="seccion-list-card">
+                            <div class="slc-header">
+                                <h3>Microsoft Flight Simulator 2024</h3>
+                                <a href="https://www.xbox.com/es-MX/games/microsoft-flight-simulator-2024" target="_blank"><button type="button" class="uiverse-btn">
+                                    <div class="uiverse-btn-bg">
+                                        <svg width="25px" height="25px" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path fill="#000000" d="M224 480h640a32 32 0 1 1 0 64H224a32 32 0 0 1 0-64z"></path><path fill="#000000" d="m237.248 512 265.408 265.344a32 32 0 0 1-45.312 45.312l-288-288a32 32 0 0 1 0-45.312l288-288a32 32 0 1 1 45.312 45.312L237.248 512z"></path></svg>
+                                    </div>
+                                    <p>IR</p>
+                                </button></a>
+                            </div>
+                            <div class="slc-divider-container"><div class="slc-dashed-line"></div></div>
+                            <div class="slc-body">
+                                <img src="https://cms-assets.xboxservices.com/assets/70/e5/70e53a14-c726-4f2d-a1f7-d8593d9af4f0.jpg?n=Microsoft-Flight-Simulator-2024_Feature-Image-Priority-Full-Width-0_2_1248x702_02.jpg" alt="Carreras UTT">
+                                <div class="slc-content">
+                                    <p>Sitio web oficial dedicado exclusivamente a esta nueva entrega del simulador. Aquí se detallan las innovaciones técnicas, físicas hiperrealistas, misiones y actualizaciones específicas de la versión 2024.</p>
+                                    <p>La página oficial de Xbox dedicada a Microsoft Flight Simulator 2024 presenta la entrega más avanzada de esta legendaria franquicia, desarrollada para Xbox Series X|S y PC. El sitio destaca cómo este título lleva la inmersión a un nivel sin precedentes al permitir a los jugadores no solo volar, sino forjar una auténtica carrera profesional en la aviación.</p>
+                                    <div class="barcode-ticket"></div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                                                <div class="seccion-list-card">
+                            <div class="slc-header">
+                                <h3>Flightradar24</h3>
+                                <a href="https://www.flightradar24.com/32.69,-116.56/6" target="_blank"><button type="button" class="uiverse-btn">
+                                    <div class="uiverse-btn-bg">
+                                        <svg width="25px" height="25px" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path fill="#000000" d="M224 480h640a32 32 0 1 1 0 64H224a32 32 0 0 1 0-64z"></path><path fill="#000000" d="m237.248 512 265.408 265.344a32 32 0 0 1-45.312 45.312l-288-288a32 32 0 0 1 0-45.312l288-288a32 32 0 1 1 45.312 45.312L237.248 512z"></path></svg>
+                                    </div>
+                                    <p>IR</p>
+                                </button></a>
+                            </div>
+                            <div class="slc-divider-container"><div class="slc-dashed-line"></div></div>
+                            <div class="slc-body">
+                                <img src="https://i.pinimg.com/736x/7e/88/00/7e8800a546da81f3989ef1231e2bcdd3.jpg" alt="Carreras UTT">
+                                <div class="slc-content">
+                                    <p>La página oficial de Flightradar24 es una plataforma global de seguimiento de vuelos en tiempo real que permite visualizar el tráfico aéreo de todo el mundo. A través de su mapa interactivo (que en el enlace proporcionado se centra específicamente en el espacio aéreo de la región de Baja California y el sur de California), los usuarios pueden observar la posición exacta, trayectoria y altitud de miles de aeronaves comerciales, privadas y gubernamentales en el mismo instante en que están volando.</p>
+                                    <div class="barcode-ticket"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="seccion-mapa-container">
+                        <div class="mapa-iframe-wrapper">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3616.291848820051!2d-116.82541499999999!3d32.460949!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80d93e743f2e3bd7%3A0xbf19e069ae61d678!2sUniversidad%20Tecnol%C3%B3gica%20de%20Tijuana!5e1!3m2!1ses-419!2smx!4v1776891893641!5m2!1ses-419!2smx" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+                        <div class="mapa-header-bar">
+                            <div class="mhb-green"></div>
+                            <div class="mhb-black"><h2>GOOGLE MAPS</h2></div>
+                        </div>
+                    </div>
+
+                </div> 
+
+                <footer class="vanglare-footer">
+                    <div class="footer-texto-bar"><p>Todos Los Derechos Reservados</p></div>
+                    <div class="footer-imagen-bar"><img src="https://i.pinimg.com/736x/60/f7/a0/60f7a041b5102f1d29f7835b50fb389c.jpg" alt="Imagen Cierre"></div>
+                </footer>
+
+            </div> 
+        </div>
+
+        <div id="SeccionNoticias" class="vanglare-content-panel">
+            <div class="contenido-centrado">
+                <h2 style="font-weight:700; letter-spacing: 2px; margin-bottom: 20px;">PORTAFOLIO DE ACTIVIDADES UTT</h2>
+                
+                <div id="myGalBtnContainer" class="text-center mb-4">
+                    <button class="gal-btn gal-active" onclick="filterGallery('all')"> Ver Todos</button>
+                    <button class="gal-btn" onclick="filterGallery('nature')"> Fresadora Y Torno</button>
+                    <button class="gal-btn" onclick="filterGallery('cars')"> Diseño De Planos</button>
+                    <button class="gal-btn" onclick="filterGallery('people')"> Carro Solar</button>
+                    <button class="gal-btn" onclick="filterGallery('TNRYA')"> TNRYA </button>
+                    <button class="gal-btn" onclick="filterGallery('CarreraDron')"> Carrera De Drones </button>
+                                        <button class="gal-btn" onclick="filterGallery('Gastro')"> Gastronomia</button>
+                </div>
+
+                <div class="gal-row w-100">
+
+                    <div class="gal-col nature">
+                        <div class="nov-card">
+                            <div class="nov-image" style="background-image: url('https://i.pinimg.com/736x/b8/5a/f8/b85af8efac236763d762fbd71fad1dfe.jpg');"></div>
+                            <div class="nov-text-2"><center><span>CNC</span></center></div>
+                            <div class="nov-content"><p class="nov-text-1">El arte del CNC: exactitud milimétrica que impulsa la industria.</p></div>
+                        </div>
+                    </div>
+
+                    <div class="gal-col nature">
+                        <div class="nov-card">
+                            <div class="nov-image" style="background-image: url('https://i.pinimg.com/736x/63/56/bc/6356bce6da000e150648ab460aa1afbd.jpg');"></div>
+                            <div class="nov-text-2"><center><span>Fresadora</span></center></div>
+                            <div class="nov-content"><p class="nov-text-1">Maquinando el futuro: donde el código, la fresadora y el acero se encuentran.</p></div>
+                        </div>
+                    </div>
+                    <div class="gal-col nature">
+                        <div class="nov-card">
+                            <div class="nov-image" style="background-image: url('https://i.pinimg.com/736x/72/ad/61/72ad615d68e852302b4dd9af826f75ad.jpg');"></div>
+                            <div class="nov-text-2"><center><span>Fresadora</span></center></div>
+                            <div class="nov-content"><p class="nov-text-1">Dando forma a la innovación con cada pasada de la fresadora.</p></div>
+                        </div>
+                    </div>
+
+
+                    <div class="gal-col cars">
+                        <div class="nov-card">
+                            <div class="nov-image" style="background-image: url('https://i.pinimg.com/736x/5b/e8/f0/5be8f04d4bddaef567594b9bb21da49f.jpg');"></div>
+                            <div class="nov-text-2"><center><span>Solidworks</span></center></div>
+                            <div class="nov-content"><p class="nov-text-1">Del plano a la realidad: diseñando el futuro con precisión milimétrica.</p></div>
+                        </div>
+                    </div>
+                    <div class="gal-col cars">
+                        <div class="nov-card">
+                            <div class="nov-image" style="background-image: url('https://i.pinimg.com/736x/69/b2/9f/69b29feb4f3752d6625f627d3ff1815b.jpg');"></div>
+                            <div class="nov-text-2"><center><span>Plano</span></center></div>
+                            <div class="nov-content"><p class="nov-text-1">Cada cota y cada trazo construyen la ingeniería del mañana.</p></div>
+                        </div>
+                    </div>
+
+
+                    <div class="gal-col cars">
+                        <div class="nov-card">
+                            <div class="nov-image" style="background-image: url('https://i.pinimg.com/736x/42/f3/ab/42f3ab8915d820f07a1fba1a95fde1ac.jpg');"></div>
+                            <div class="nov-text-2"><center><span>Solidworks</span></center></div>
+                            <div class="nov-content"><p class="nov-text-1">Proyectando soluciones 3D: donde las ideas se vuelven geometría exacta.</p></div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="gal-col people">
+                        <div class="nov-card">
+                            <div class="nov-image" style="background-image: url('https://i.pinimg.com/736x/79/46/39/7946393622fc8fc5754a346ef5352058.jpg');"></div>
+                            <div class="nov-text-2"><center><span>Carro Solar</span></center></div>
+                            <div class="nov-content"><p class="nov-text-1">Impulsando el futuro: movilidad sustentable a través de energía solar fotovoltaica.</p></div>
+                        </div>
+                    </div>
+                    <div class="gal-col people">
+                        <div class="nov-card">
+                            <div class="nov-image" style="background-image: url('https://i.pinimg.com/736x/bb/e8/6b/bbe86baf443d1a48b442bbf422927ff5.jpg');"></div>
+                            <div class="nov-text-2"><center><span>Carro Solar</span></center></div>
+                            <div class="nov-content"><p class="nov-text-1">Ingeniería limpia: optimizando cada vatio para una autonomía eficiente y renovable.</p></div>
+                        </div>
+                    </div>
+                        <div class="gal-col people">
+                        <div class="nov-card">
+                            <div class="nov-image" style="background-image: url('https://i.pinimg.com/736x/c1/bb/4c/c1bb4c11bbeed49e74dd45041c58f3e7.jpg');"></div>
+                            <div class="nov-text-2"><center><span>Carro Solar</span></center></div>
+                            <div class="nov-content"><p class="nov-text-1">Innovación sobre ruedas: el poder del sol aplicado a la ingeniería mecánica.</p></div>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="gal-col TNRYA">
+                        <div class="nov-card">
+                            <div class="nov-image" style="background-image: url('https://i.pinimg.com/736x/a1/18/ee/a118eeea6a53a3f32ec06b9d8262488e.jpg');"></div>
+                            <div class="nov-text-2"><center><span>Pelea De Robotica</span></center></div>
+                            <div class="nov-content"><p class="nov-text-1">Resistencia y potencia: diseñando máquinas capaces de dominar la arena de batalla.</p></div>
+                        </div>
+                    </div>
+                    <div class="gal-col TNRYA">
+                        <div class="nov-card">
+                            <div class="nov-image" style="background-image: url('https://i.pinimg.com/736x/eb/37/26/eb372616d6c0a9cccb8e795312bebe55.jpg');"></div>
+                            <div class="nov-text-2"><center><span>Pelea De Robotica</span></center></div>
+                            <div class="nov-content"><p class="nov-text-1">De la simulación al impacto: probando la integridad estructural en condiciones extremas.</p></div>
+                        </div>
+                    </div>
+                    <div class="gal-col TNRYA">
+                        <div class="nov-card">
+                            <div class="nov-image" style="background-image: url('https://i.pinimg.com/736x/11/c8/99/11c899b5454e6971caa372c61ec8b77d.jpg');"></div>
+                            <div class="nov-text-2"><center><span>Pelea De Robotica</span></center></div>
+                            <div class="nov-content"><p class="nov-text-1">Mecatrónica de alto impacto: forjando el metal para la victoria en la arena.</p></div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="gal-col CarreraDron">
+                        <div class="nov-card">
+                            <div class="nov-image" style="background-image: url('https://i.pinimg.com/736x/80/05/cd/8005cd78e97fbfc933cbc247c177509f.jpg"></div>
+                            <div class="nov-text-2"><center><span>Competencia Vuelo</span></center></div>
+                            <div class="nov-content"><p class="nov-text-1">Dominando el espacio aéreo: precisión y reflejos en carreras de drones de alta velocidad.</p></div>
+                        </div>
+                    </div>
+                    <div class="gal-col CarreraDron">
+                        <div class="nov-card">
+                            <div class="nov-image" style="background-image: url('https://i.pinimg.com/736x/c1/75/a8/c175a89267c8fabce803797d0587d4dd.jpg');"></div>
+                            <div class="nov-text-2"><center><span>Competencia De Vuelo</span></center></div>
+                            <div class="nov-content"><p class="nov-text-1">Agilidad sin límites: desafiando la gravedad a través de sistemas de propulsión avanzada.</p></div>
+                        </div>
+                    </div>
+
+
+
+                                        <div class="gal-col CarreraDron">
+                        <div class="nov-card">
+                            <div class="nov-image" style="background-image: url('https://i.pinimg.com/736x/be/70/6b/be706bb604808ba339fea5a0c9651487.jpg');"></div>
+                            <div class="nov-text-2"><center><span>Competencia Vuelo</span></center></div>
+                            <div class="nov-content"><p class="nov-text-1">Vuelo de precisión: la máxima expresión de control y aerodinámica en miniatura.</p></div>
+                        </div>
+                    </div>
+
+
+
+
+
+
+                    <div class="gal-col Gastro">
+                        <div class="nov-card">
+                            <div class="nov-image" style="background-image: url('https://i.pinimg.com/736x/2d/c4/fe/2dc4fe1e56f5ba64725cdbbb71d07c51.jpg"></div>
+                            <div class="nov-text-2"><Center><span>Gastronomia</span></Center></div>
+                            <div class="nov-content"><p class="nov-text-1">El arte del sabor: creando experiencias sensoriales a través de la alta cocina.</p></div>
+                        </div>
+                    </div>
+                    <div class="gal-col Gastro">
+                        <div class="nov-card">
+                            <div class="nov-image" style="background-image: url('https://i.pinimg.com/736x/7f/10/12/7f1012dd367b697c02097e43108d8733.jpg');"></div>
+                            <div class="nov-text-2"><center><span>Gastronomia</span></center></div>
+                            <div class="nov-content"><p class="nov-text-1">Precisión en cada ingrediente para transformar recetas en obras maestras.</p></div>
+                        </div>
+                    </div>
+                                        <div class="gal-col Gastro">
+                        <div class="nov-card">
+                            <div class="nov-image" style="background-image: url('https://i.pinimg.com/736x/70/fc/1f/70fc1ff531a0ea80d8d9600cdbd47675.jpg');"></div>
+                            <div class="nov-text-2"><center><span>Gastronomia</span></center></div>
+                            <div class="nov-content"><p class="nov-text-1">Gestión y creatividad: el equilibrio perfecto detrás de cada gran cocina.</p></div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+        <div id="SeccionFotos" class="vanglare-content-panel">
+
+<br>
+<br>
+
+<div class="banner-container">
+        <div class="text-section">
+            <h1>AGREGA TU FOTO AQUI</h1>
+            <p>Forme parte de nuestra comunidad aeronáutica. Comparta con nosotros una fotografía de su gusto durante su experiencia en el simulador, agregue una frase inspiradora y proporcione su usuario de Instagram para destacar su participación en este espacio.</p>
+            
+            <div class="contact-box">
+                <div class="contact-top">Manda Un Correo Con Tu Foto Preferida</div>
+                <div class="contact-bottom">jose405378@gmail.com</div>
+            </div>
+        </div>
+
+        <div class="image-section">
+            <img src="https://i.pinimg.com/736x/b5/c7/81/b5c7817d13b7e8df4b954af8664de09e.jpg" alt="Perfume sobre madera">
+        </div>
+    </div>
+
+            <br>
+            <br>
+            <br>
+            <div class="contenido-centrado">
+                <h2 style="font-weight:700; letter-spacing: 2px; margin-bottom: 20px;">GALERÍA DE FOTOS</h2>
+                
+                <div class="buscador-container">
+                    <input type="text" id="inputBuscadorFotos" class="buscador-input" placeholder="Escribe para buscar" onkeyup="filtrarFotosCards()">
+                </div>
+
+                <div class="fotos-grid" id="contenedorFotosGrid">
+                    
+                    <div class="foto-recuadro">
+                        <img src="https://i.pinimg.com/736x/e4/fc/4c/e4fc4c3bcd5e100b598724021fe5dde6.jpg" alt="Vista Ciudad" class="foto-img">
+                        <div class="foto-info">
+                           <center> <h3>"Y por que no?"</h3>
+                            <p>IG: albertcota_667</p>
+               </center>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+
+                    <div id="mensajeNoResultados" class="no-resultados">
+                        No se encontraron resultados para tu búsqueda.
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div id="SeccionCreditos" class="vanglare-content-panel">
+            <div class="contenido-centrado">
+                <h2 style="font-weight:700; letter-spacing: 2px; margin-bottom: 30px; text-transform: uppercase; color: #ffffff;">Nuestro Equipo</h2>
+                
+                <div class="cred-row w-100">
+                    <div class="cred-column">
+                        <div class="cred-card">
+                            <img src="https://i.pinimg.com/736x/ab/fb/9e/abfb9ec8dfcf2d6816601ec6519ff215.jpg" alt="Jane">
+                            <div class="cred-container">
+                                <h2>Jose Casango</h2>
+                                <p class="cred-title">Tsu Manufactura Aeronautica</p>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cred-column">
+                        <div class="cred-card">
+                            <img src="https://i.pinimg.com/736x/2c/27/e7/2c27e7ed9fb7b79704b087736b13268f.jpg" alt="Mike">
+                            <div class="cred-container">
+                                <h2>Jose Ponce</h2>
+                                <p class="cred-title">Tsu Manufactura Aeronautica</p>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cred-column">
+                        <div class="cred-card">
+                            <img src="https://i.pinimg.com/736x/de/e4/3d/dee43d3ae69b3ad60ad33e47ab72cc54.jpg" alt="John">
+                            <div class="cred-container">
+                                <h2>Diego Cobian</h2>
+                                <p class="cred-title">Tsu Manufactura Aeronautica</p>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cred-column">
+                        <div class="cred-card">
+                            <img src="https://i.pinimg.com/736x/33/9b/41/339b415b5e9bc5b99536f40107c4552e.jpg" alt="Elena">
+                            <div class="cred-container">
+                                <h2>Christian Becerra</h2>
+                                <p class="cred-title">Tsu Manufactura Aeronautica</p>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cred-column">
+                        <div class="cred-card">
+                            <img src="https://i.pinimg.com/736x/6d/af/d5/6dafd5df77d5dad177ebbc10d2bcf5bc.jpg" alt="Alex">
+                            <div class="cred-container">
+                                <h2>Joshi Zamora</h2>
+                                <p class="cred-title">Tsu Manufactura Aeronautica</p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+        <div id="SeccionFli" class="vanglare-content-panel">
+<div class="wzn-envoltura-dinamica" onclick="this.classList.toggle('wzn-descubierto')">
+    <img src="https://i.pinimg.com/1200x/7f/d7/14/7fd71459e6789843a38f67b19d1724c3.jpg" alt="Simulador de Vuelo" class="wzn-grafico-principal">
+    
+    <div class="wzn-cuadro-flotante">
+      <h3>PROPÓSITO PRINCIPIOS PROGRESO</h3>
+      <p>Microsoft Flight Simulator 2024 funciona como un laboratorio virtual de alta fidelidad. Gracias a su motor físico mejorado y la recreación de un 'gemelo digital' de la Tierra, permite a los estudiantes aplicar principios teóricos y analizar variables complejas en escenarios prácticos, sin los altos costos operativos ni los riesgos del mundo real.</p>
+
+    </div>
+  </div>
+
+  <div class="wzn-franja-oscura">
+    <h3>Microsoft Flight Simulator 2024</h3>
+    <p>La precisión técnica de MSFS 2024 ofrece una inmersión total en la operación de aeronaves. Los estudiantes pueden interactuar con réplicas 1:1 de los sistemas de aviónica y la lógica interna de los aviones, desarrollando memoria muscular y comprensión profunda antes de pisar una cabina real.</p>
+  </div>
+
+  <div class="wzn-carrusel-contenedor">
+    
+    <div class="wzn-tarjeta">
+      <img src="https://uttijuana.edu.mx/wp-content/uploads/2025/02/03-AERONAUTICA-EN-MANUFACTURA-TSU-Manufactura-Aeronautica.jpg" alt="Imagen tarjeta 1" class="wzn-tarjeta-img">
+      <div class="wzn-tarjeta-contenido">
+          <span class="wzn-tarjeta-titulo">Manufactura Aeronáutica</span>
+          <p class="wzn-tarjeta-desc">
+En esta área, el simulador se utiliza para la simulación de la aerodinámica y la validación de modelos de vuelo. Además, permite a los estudiantes el estudio profundo de sistemas de aeronaves, tales como los sistemas hidráulicos y eléctricos, y facilita la práctica de procedimientos de emergencia.
+          </p>
+      </div>
+    </div>
+
+    <div class="wzn-tarjeta">
+      <img src="https://uttijuana.edu.mx/wp-content/uploads/2025/02/04.2-MECATRONICA-TSU-Sistemas-de-Manufactura-Flexible.jpg" alt="Imagen tarjeta 2" class="wzn-tarjeta-img">
+      <div class="wzn-tarjeta-contenido">
+          <span class="wzn-tarjeta-titulo">Mecatrónica y Electrónica</span>
+          <p class="wzn-tarjeta-desc">
+ El simulador sirve como una herramienta para el análisis de la instrumentación de cabina, incluyendo sistemas modernos como el Glass Cockpit, GPS y VOR. También permite realizar diagnósticos simulados de fallas en los sistemas eléctricos y comprender el funcionamiento de la Computadora de Gestión de Vuelo (FMS o Flight Management System).
+          </p>
+      </div>
+    </div>
+
+    <div class="wzn-tarjeta">
+      <img src="https://uttijuana.edu.mx/wp-content/uploads/2025/02/07-LOGISTICA-INTERNACIONAL.jpg" alt="Imagen tarjeta 3" class="wzn-tarjeta-img">
+      <div class="wzn-tarjeta-contenido">
+          <span class="wzn-tarjeta-titulo">Operaciones Logísticas y Comercio Exterior</span>
+          <p class="wzn-tarjeta-desc">
+Para estas disciplinas, la plataforma se enfoca en la evaluación de la infraestructura de los hubs (centros) logísticos a nivel global. Los alumnos pueden calcular la viabilidad económica de las rutas aéreas tomando en cuenta variables como el costo de combustible y el tiempo de tránsito, además de realizar una gestión de riesgos geográficos.
+          </p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="wzn-bloque-desplegable">
+    
+    <button class="wzn-disparador-verde">
+      <div class="wzn-caja-simbolo"></div>
+      <div class="wzn-titulo-boton">Meteorología Dinámica para Análisis de Estrés</div>
+    </button>
+    <div class="wzn-area-oculta">
+      <div class="wzn-rejilla-interna">
+        <img src="https://i.pinimg.com/736x/7d/5a/77/7d5a774084461625393f7502b62c0757.jpg" alt="Retrato" class="wzn-imagen-lateral">
+        <div class="wzn-texto-lateral">
+          <p>Evaluación del rendimiento de la aeronave y sus materiales bajo condiciones climáticas extremas generadas en tiempo real (formación de hielo, vientos cruzados severos, turbulencia térmica).</p>
+        </div>
+      </div>
+    </div>
+
+    <button class="wzn-disparador-verde">
+      <div class="wzn-caja-simbolo"></div>
+      <div class="wzn-titulo-boton">Mapeo y Topografía con Inteligencia Artificial</div>
+    </button>
+    <div class="wzn-area-oculta">
+      <div class="wzn-rejilla-interna">
+        <img src="https://i.pinimg.com/1200x/0a/4e/48/0a4e489e178765ff440d7d3c91de08bd.jpg" alt="Casango" class="wzn-imagen-lateral">
+        <div class="wzn-texto-lateral">
+          <p>Uso de cartografía satelital y fotogrametría para investigación geoespacial, evaluando rutas, obstáculos terrestres y procedimientos de aproximación en terrenos complejos.</p>
+        </div>
+      </div>
+    </div>
+
+
+        <button class="wzn-disparador-verde">
+      <div class="wzn-caja-simbolo"></div>
+      <div class="wzn-titulo-boton">Física de Cuerpos y Aerodinámica Avanzada</div>
+    </button>
+    <div class="wzn-area-oculta">
+      <div class="wzn-rejilla-interna">
+        <img src="https://i.pinimg.com/1200x/85/ec/33/85ec33cf2c30048a37803a18b2baabaf.jpg" alt="Retrato" class="wzn-imagen-lateral">
+        <div class="wzn-texto-lateral">
+          <p>Análisis del comportamiento de las aeronaves utilizando más de 10,000 superficies de cuerpo rígido. Permite la investigación de la física de cuerpos blandos (tensión de tejidos, cuerdas y globos) y su impacto aerodinámico.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+        </div>
+
+        <div id="SeccionJuego" class="vanglare-content-panel">
+            <div class="contenido-centrado">
+                <h2>EN DESAROLLO</h2>
+                <p>El cielo ya no es el límite: Algo se está gestando en el hangar. ✈️</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+<div id="myModalVanglare" class="modal-vanglare">
+      <span class="close-vanglare">&times;</span>
+      <img class="modal-content-vanglare" id="imgModalVanglare">
+      <div id="caption-vanglare"></div>
+    </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    // Transición de la Landing Page a la App
+    function entrarAlApp() {
+        document.getElementById('SeccionLanding').style.opacity = '0';
+        setTimeout(() => {
+            document.getElementById('SeccionLanding').style.display = 'none';
+            document.getElementById('InterfazPrincipal').style.display = 'flex';
+            cambiarVista('SeccionInicio');
+        }, 500);
+    }
+
+    // Ocultar/Mostrar Paneles
+    function cambiarVista(nombreID) {
+        let contenidos = document.getElementsByClassName("vanglare-content-panel");
+        for (let i = 0; i < contenidos.length; i++) {
+            contenidos[i].style.display = "none";
+        }
+        document.getElementById(nombreID).style.display = "block";
+    }
+
+    // Cerrar Menú Lateral
+    function cerrarMenu() {
+        let menuLateral = document.getElementById('menuLateral');
+        let offcanvasInstance = bootstrap.Offcanvas.getInstance(menuLateral);
+        if(offcanvasInstance) {
+            offcanvasInstance.hide();
+        }
+    }
+
+    // Voltear Tarjetas de Trámites
+    function alternarTarjeta(tarjetaId) {
+        const icono = document.getElementById(tarjetaId + '-icono');
+        const info = document.getElementById(tarjetaId + '-info');
+
+        if (icono.style.display !== 'none') {
+            icono.style.display = 'none';
+            info.style.display = 'flex';
+        } else {
+            icono.style.display = 'flex';
+            info.style.display = 'none';
+        }
+    }
+
+    // Función del menú con la animación verde
+    function navegarConAnimacion(nombreID, botonElemento) {
+        botonElemento.classList.add('animar-click');
+        setTimeout(() => {
+            cambiarVista(nombreID);
+            cerrarMenu();
+            setTimeout(() => {
+                botonElemento.classList.remove('animar-click');
+            }, 300);
+        }, 600); 
+    }
+
+    // ==========================================
+    // LÓGICA DEL BUSCADOR DE FOTOS
+    // ==========================================
+    function filtrarFotosCards() {
+        let inputBusqueda = document.getElementById("inputBuscadorFotos").value.toLowerCase();
+        let tarjetas = document.getElementsByClassName("foto-recuadro");
+        let mensajeError = document.getElementById("mensajeNoResultados");
+        let encontradas = 0;
+
+        for (let i = 0; i < tarjetas.length; i++) {
+            // Se extrae todo el texto contenido dentro de la tarjeta (título, descripción, categoría)
+            let textoTarjeta = tarjetas[i].innerText.toLowerCase();
+            
+            if (textoTarjeta.includes(inputBusqueda)) {
+                tarjetas[i].style.display = "flex";
+                encontradas++;
+            } else {
+                tarjetas[i].style.display = "none";
+            }
+        }
+
+        // Mostrar u ocultar mensaje si no hay resultados
+        if(encontradas === 0) {
+            mensajeError.style.display = "block";
+        } else {
+            mensajeError.style.display = "none";
+        }
+    }
+
+    // ==========================================
+    // LÓGICA DEL PORTAFOLIO EN NOVEDADES
+    // ==========================================
+    filterGallery("all");
+
+    function filterGallery(c) {
+        var x, i;
+        x = document.getElementsByClassName("gal-col");
+        if (c == "all") c = "";
+        for (i = 0; i < x.length; i++) {
+            w3RemoveClass(x[i], "gal-show");
+            if (x[i].className.indexOf(c) > -1) w3AddClass(x[i], "gal-show");
+        }
+    }
+
+    function w3AddClass(element, name) {
+        var i, arr1, arr2;
+        arr1 = element.className.split(" ");
+        arr2 = name.split(" ");
+        for (i = 0; i < arr2.length; i++) {
+            if (arr1.indexOf(arr2[i]) == -1) {element.className += " " + arr2[i];}
+        }
+    }
+
+    function w3RemoveClass(element, name) {
+        var i, arr1, arr2;
+        arr1 = element.className.split(" ");
+        arr2 = name.split(" ");
+        for (i = 0; i < arr2.length; i++) {
+            while (arr1.indexOf(arr2[i]) > -1) {
+                arr1.splice(arr1.indexOf(arr2[i]), 1);     
+            }
+        }
+        element.className = arr1.join(" ");
+    }
+
+    var galBtnContainer = document.getElementById("myGalBtnContainer");
+    if(galBtnContainer) {
+        var btns = galBtnContainer.getElementsByClassName("gal-btn");
+        for (var i = 0; i < btns.length; i++) {
+            btns[i].addEventListener("click", function(){
+                var current = galBtnContainer.getElementsByClassName("gal-active");
+                if (current.length > 0) {
+                    current[0].className = current[0].className.replace(" gal-active", "");
+                }
+                this.className += " gal-active";
+            });
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+    var botonesAcordeon = document.getElementsByClassName("wzn-disparador-verde");
+    var indice;
+
+    for (indice = 0; indice < botonesAcordeon.length; indice++) {
+      botonesAcordeon[indice].addEventListener("click", function() {
+        this.classList.toggle("wzn-encendido");
+        var panelContenido = this.nextElementSibling;
+        
+        if (panelContenido.style.maxHeight) {
+          panelContenido.style.maxHeight = null;
+        } else {
+          panelContenido.style.maxHeight = panelContenido.scrollHeight + "px";
+        } 
+      });
+    }
+
+
+
+
+
+
+
+
+// ==========================================
+    // LÓGICA DEL MODAL - SELECTORES ESPECÍFICOS
+    // ==========================================
+    var modalVanglare = document.getElementById("myModalVanglare");
+    var imgModalVanglare = document.getElementById("imgModalVanglare");
+    var captionVanglare = document.getElementById("caption-vanglare");
+    var closeVanglare = document.getElementsByClassName("close-vanglare")[0];
+    
+    function aplicarZoomExclusivo(elemento, esFondo, tituloPersonalizado) {
+        if(!elemento) return;
+        
+        elemento.style.cursor = "zoom-in";
+        elemento.style.transition = "opacity 0.3s ease";
+        
+        elemento.onmouseover = function() { this.style.opacity = "0.7"; };
+        elemento.onmouseout = function() { this.style.opacity = "1"; };
+        
+        elemento.onclick = function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            modalVanglare.style.display = "block";
+            
+            if (esFondo) {
+                var bg = window.getComputedStyle(this).backgroundImage;
+                imgModalVanglare.src = bg.replace(/^url\(['"]?/, '').replace(/['"]?\)$/, '');
+            } else {
+                imgModalVanglare.src = this.src;
+            }
+            
+            // Ponemos el título según la sección o el "alt" de la imagen
+            captionVanglare.innerHTML = tituloPersonalizado || this.alt || "VANGLARE";
+        };
+    }
+
+    function inicializarZoomVanglare() {
+        // 1. CARRUSELES (Principal y Dinámico)
+        document.querySelectorAll('.carousel-inner img, .wzn-carrusel-contenedor img').forEach(function(img) {
+            aplicarZoomExclusivo(img, false, "DESTACADOS");
+        });
+
+        // 2. SECCIÓN NOVEDADES (Fondos e imágenes)
+        document.querySelectorAll('#SeccionNoticias .nov-image').forEach(function(div) {
+            aplicarZoomExclusivo(div, true, "NOVEDADES");
+        });
+        document.querySelectorAll('#SeccionNoticias img').forEach(function(img) {
+            aplicarZoomExclusivo(img, false, "NOVEDADES");
+        });
+
+        // 3. SECCIÓN FOTOS (Toda la galería)
+        document.querySelectorAll('#SeccionFotos img, .gal-column img').forEach(function(img) {
+            aplicarZoomExclusivo(img, false, "GALERÍA DE FOTOS");
+        });
+
+        // 4. SECCIÓN CRÉDITOS (Logos y colaboradores)
+        document.querySelectorAll('#SeccionCreditos img').forEach(function(img) {
+            aplicarZoomExclusivo(img, false, "CRÉDITOS / COLABORADORES");
+        });
+
+        // 5. IMAGEN DE RECONOCIMIENTO (La que me pasaste en la captura)
+        // Buscamos imágenes que contengan "reconocimiento" en su nombre o su contenedor
+        document.querySelectorAll('img[src*="reconocimiento"], .reconocimiento-box img').forEach(function(img) {
+            aplicarZoomExclusivo(img, false, "RECONOCIMIENTO");
+        });
+    }
+
+    // Ejecutar al cargar la página
+    inicializarZoomVanglare();
+
+    // Re-escaneo automático para cuando cambias de sección en el dashboard
+    document.addEventListener('click', function() {
+        setTimeout(inicializarZoomVanglare, 400); 
+    });
+
+    // Controles de cierre
+    closeVanglare.onclick = function() { modalVanglare.style.display = "none"; }
+    window.onclick = function(event) {
+        if (event.target == modalVanglare) { modalVanglare.style.display = "none"; }
+    }
+</script>
+
+
+
 </body>
 </html>
